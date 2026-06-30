@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -11,7 +12,7 @@ export type AlertViewMode = 'grid' | 'list';
 @Component({
   selector: 'app-alert-list',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, AlertCardComponent],
+  imports: [CommonModule, TranslatePipe, MatButtonModule, MatIconModule, MatProgressSpinnerModule, AlertCardComponent],
   templateUrl: './alert-list.component.html',
   styleUrl: './alert-list.component.css',
 })

@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 export interface OrganizationAqiItem {
   organizationName?: string | null;
@@ -7,6 +8,9 @@ export interface OrganizationAqiItem {
   aqiValue: number | null;
   aqiCategory?: string | null;
 }
+
+const toCamelCase = (value: string): string =>
+  value.toLowerCase().replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
 
 @Component({
   selector: 'app-organizations-card',
@@ -16,12 +20,23 @@ export interface OrganizationAqiItem {
   styleUrls: ['./organization-card.component.css'],
 })
 export class OrganizationCardComponent {
-  @Input() title = 'Organizations';
+  @Input() title = '';
   @Input() organizations: OrganizationAqiItem[] = [];
-  @Input() emptyLabel = 'No organizations available';
+  @Input() emptyLabel = '';
+
+  private readonly translate = inject(TranslateService);
 
   get hasOrganizations(): boolean {
     return Array.isArray(this.organizations) && this.organizations.length > 0;
+  }
+
+  ngOnInit(): void {
+    if (!this.title) {
+      this.title = this.translate.instant('organizationCard.title');
+    }
+    if (!this.emptyLabel) {
+      this.emptyLabel = this.translate.instant('organizationCard.empty');
+    }
   }
 
   private normalizeCategory(raw: string): string {
@@ -58,11 +73,14 @@ export class OrganizationCardComponent {
   }
 
   getSpaceName(name: string | null): string {
-    return name && name.trim().length > 0 ? name : '--';
+    return name && name.trim().length > 0 ? name : this.translate.instant('organizationCard.noName');
   }
 
   getAqiCategory(category: string | null | undefined): string {
-    if (!category || category.trim().length === 0) return '--';
-    return this.normalizeCategory(category).replace(/_/g, ' ');
+    if (!category || category.trim().length === 0) {
+      return this.translate.instant('organizationCard.noName');
+    }
+    const key = this.normalizeCategory(category);
+    return this.translate.instant(`aqiCategories.${toCamelCase(key)}`);
   }
 }

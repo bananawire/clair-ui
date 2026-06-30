@@ -1,0 +1,214 @@
+{
+  "spaceDevices": {
+    "currentSpaceEyebrow": "Espacio actual",
+    "selectSpace": "Selecciona un espacio",
+    "drawerEyebrow": "Área de trabajo",
+    "drawerTitle": "Organizaciones",
+    "changeOrgSpaceAria": "Cambiar organización o espacio",
+    "organizationsAndSpacesAria": "Organizaciones y espacios",
+    "closeOrganizationsAria": "Cerrar organizaciones",
+    "errorLoadDevices": "Error al cargar dispositivos"
+  },
+  "organizationsPanel": {
+    "title": "Organizaciones",
+    "noOrganizations": "No se encontraron organizaciones.",
+    "loadingSpaces": "Cargando espacios...",
+    "devicesSuffix": "DISPOSITIVOS",
+    "addOrganization": "Agregar organización",
+    "addSpaceAria": "Agregar espacio",
+    "addSpaceTitle": "Agregar espacio",
+    "editOrganizationAria": "Editar organización",
+    "editOrganizationTitle": "Editar organización",
+    "deleteOrganizationAria": "Eliminar organización",
+    "deleteOrganizationTitle": "Eliminar organización",
+    "snackbar": {
+      "organizationCreated": "Organización creada",
+      "organizationUpdated": "Organización actualizada",
+      "organizationDeleted": "Organización eliminada",
+      "spaceCreated": "Espacio creado",
+      "spaceUpdated": "Espacio actualizado",
+      "errorCreateOrganization": "Error al crear organización",
+      "errorUpdateOrganization": "Error al actualizar organización",
+      "errorDeleteOrganization": "Error al eliminar organización",
+      "errorCreateSpace": "Error al crear espacio",
+      "errorUpdateSpace": "Error al actualizar espacio",
+      "errorLoadOrganizations": "Error al cargar organizaciones",
+      "errorLoadSpaces": "Error al cargar espacios",
+      "close": "Cerrar"
+    }
+  },
+  "addOrganizationDialog": {
+    "title": "Agregar organización",
+    "nameLabel": "Nombre de la organización",
+    "namePlaceholder": "Ingresa el nombre de la organización",
+    "nameRequired": "El nombre es obligatorio",
+    "cancel": "Cancelar",
+    "create": "Crear"
+  },
+  "addSpaceDialog": {
+    "title": "Agregar espacio",
+    "nameLabel": "Nombre del espacio",
+    "namePlaceholder": "Ingresa el nombre del espacio",
+    "nameRequired": "El nombre es obligatorio",
+    "cancel": "Cancelar",
+    "create": "Crear"
+  },
+  "editNameDialog": {
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "valueRequired": "El valor es obligatorio",
+    "title": {
+      "organization": "Editar organización",
+      "space": "Editar espacio",
+      "device": "Editar dispositivo"
+    },
+    "fieldLabel": {
+      "organizationName": "Nombre de la organización",
+      "spaceName": "Nombre del espacio",
+      "deviceName": "Nombre del dispositivo"
+    },
+    "placeholder": {
+      "organizationName": "Ingresa el nombre de la organización",
+      "spaceName": "Ingresa el nombre del espacio",
+      "deviceName": "Ingresa el nombre del dispositivo"
+    }
+  },
+  "deleteSpaceDialog": {
+    "title": "Eliminar espacio",
+    "message": "¿Estás seguro de que deseas eliminar este espacio? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "delete": "Eliminar"
+  },
+  "deleteOrganizationDialog": {
+    "title": "Eliminar organización",
+    "message": "¿Estás seguro de que deseas eliminar esta organización? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "delete": "Eliminar"
+  },
+  "deleteDeviceDialog": {
+    "title": "Eliminar dispositivo",
+    "messageStart": "¿Estás seguro de que deseas eliminar",
+    "messageEnd": "? Esta acción no se puede deshacer.",
+    "cancel": "Cancelar",
+    "delete": "Eliminar"
+  },
+  "spaceDetailHeader": {
+    "subtitle": "Se actualiza cada minuto",
+    "claimSensorAria": "Vincular sensor",
+    "pairSensorHardwareAria": "Vincular hardware del sensor",
+    "moreOptionsAria": "Más opciones",
+    "editSpace": "Editar espacio",
+    "deleteSpace": "Eliminar espacio"
+  },
+  "claimDeviceDialog": {
+    "title": "Vincular sensor",
+    "description": "Ingresa el token de vinculación de la etiqueta del sensor o del código QR.",
+    "tokenLabel": "Token de vinculación",
+    "tokenPlaceholder": "AB45-F3B1",
+    "tokenRequired": "El token de vinculación es obligatorio",
+    "tokenPattern": "Formato de token de vinculación inválido",
+    "cancel": "Cancelar",
+    "claim": "Vincular"
+  },
+  "pairDeviceDialog": {
+    "title": "Vincular hardware del sensor",
+    "description": "Vincula un sensor físico de CO2/PM2.5 mediante su ID de hardware para crear u obtener su token de vinculación.",
+    "hardwareIdLabel": "ID de hardware",
+    "hardwareIdPlaceholder": "CLAIR-00001",
+    "hardwareIdRequired": "El ID de hardware es obligatorio",
+    "hardwareIdPattern": "El ID de hardware debe coincidir con CLAIR-00001",
+    "cancel": "Cancelar",
+    "pair": "Emparejar"
+  },
+  "deviceList": {
+    "gridViewAria": "Vista de cuadrícula",
+    "listViewAria": "Vista de lista",
+    "grid": "Cuadrícula",
+    "list": "Lista",
+    "selectOrgWithSpaces": "Selecciona una organización con espacios para ver dispositivos.",
+    "loading": "Cargando dispositivos...",
+    "noDevices": "No hay dispositivos registrados en este espacio."
+  },
+  "deviceCard": {
+    "updatedPrefix": "Actualizado",
+    "goToDeviceAria": "Ir al dispositivo"
+  },
+  "deviceInfoCard": {
+    "goBackAria": "Volver",
+    "togglePowerAria": "Encender o apagar",
+    "moreOptionsAria": "Más opciones",
+    "editDevice": "Editar dispositivo",
+    "deleteDevice": "Eliminar dispositivo",
+    "connectivityLabel": "CONECTIVIDAD",
+    "uptimeLabel": "TIEMPO ACTIVO",
+    "deviceHealthLabel": "SALUD DEL DISPOSITIVO",
+    "lastUpdateLabel": "ÚLTIMA ACTUALIZACIÓN",
+    "networkLabel": "RED:",
+    "locationLabel": "UBICACIÓN:",
+    "connectivityUnit": "dBm",
+    "lastUpdateUnit": "min",
+    "healthUnit": "%",
+    "uptime": {
+      "seconds": "{{seconds}}s",
+      "minutes": "{{minutes}}m",
+      "hours": "{{hours}}h {{minutes}}m",
+      "days": "{{days}}d {{hours}}h"
+    }
+  },
+  "deviceThresholdsCard": {
+    "title": "Umbrales",
+    "subtitle": "Pueden afectar el estado del dispositivo",
+    "editAria": "Editar umbrales",
+    "metrics": {
+      "pm25": { "label": "PM2.5", "unit": "µg/m³" },
+      "co2": { "label": "CO₂", "unit": "ppm" },
+      "temperature": { "label": "TEMP", "unit": "°C" },
+      "humidity": { "label": "HUMEDAD", "unit": "%" }
+    }
+  },
+  "editThresholdsDialog": {
+    "closeAria": "Cerrar umbrales",
+    "sliderAriaSuffix": "control deslizante de umbral",
+    "maxLabel": "máx",
+    "reset": "REINICIAR",
+    "save": "GUARDAR",
+    "saving": "GUARDANDO...",
+    "loading": "Cargando umbrales...",
+    "metrics": {
+      "pm25": { "label": "PM2.5", "unit": "µg/m³" },
+      "co2": { "label": "CO₂", "unit": "ppm" },
+      "temperature": { "label": "TEMP", "unit": "°C" },
+      "humidity": { "label": "HUMEDAD", "unit": "%" }
+    },
+    "snackbar": {
+      "invalidDeviceId": "ID de dispositivo inválido",
+      "failedLoadThresholds": "Error al cargar umbrales",
+      "thresholdsSaved": "Umbrales guardados",
+      "failedSaveThresholds": "Error al guardar umbrales",
+      "close": "Cerrar"
+    }
+  },
+  "deviceActions": {
+    "sensorClaimed": "Sensor vinculado",
+    "sensorPaired": "Sensor emparejado",
+    "claimTokenPrefix": "Token de vinculación: {{claimToken}}",
+    "spaceUpdated": "Espacio actualizado",
+    "spaceDeleted": "Espacio eliminado",
+    "deviceUpdated": "Dispositivo actualizado",
+    "deviceDeleted": "Dispositivo eliminado",
+    "decommissionedCommand": "El dispositivo está fuera de servicio y no puede recibir comandos",
+    "commandQueued": "Comando en cola: {{commandType}}",
+    "error": {
+      "claimSensor": "Error al vincular sensor",
+      "pairSensor": "Error al emparejar sensor",
+      "updateSpace": "Error al actualizar espacio",
+      "deleteSpace": "Error al eliminar espacio",
+      "updateDevice": "Error al actualizar dispositivo",
+      "deleteDevice": "Error al eliminar dispositivo",
+      "queueCommand": "Error al encolar comando"
+    },
+    "snackbar": {
+      "close": "Cerrar"
+    }
+  }
+}

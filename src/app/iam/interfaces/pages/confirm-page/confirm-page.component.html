@@ -1,28 +1,28 @@
 <div class="page-container">
   <mat-card class="auth-card" appearance="outlined">
-    <h2 class="title">Verify Account</h2>
-    <p class="subtitle">Enter the verification code sent to your email</p>
+    <h2 class="title">{{ 'confirm.title' | translate }}</h2>
+    <p class="subtitle">{{ 'confirm.subtitle' | translate }}</p>
 
     <form [formGroup]="confirmForm" (ngSubmit)="onSubmit()">
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
       <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
 
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Verification Code</mat-label>
-        <input matInput type="text" formControlName="code" placeholder="ABCD-1234" maxlength="9" />
+        <mat-label>{{ 'confirm.codeLabel' | translate }}</mat-label>
+        <input matInput type="text" formControlName="code" [placeholder]="'confirm.codePlaceholder' | translate" maxlength="9" />
         <mat-icon matPrefix>verified_user</mat-icon>
-        <mat-error *ngIf="confirmForm.get('code')?.hasError('required')">Code is required</mat-error>
-        <mat-error *ngIf="confirmForm.get('code')?.hasError('pattern')">Code must be in format XXXX-XXXX</mat-error>
+        <mat-error *ngIf="confirmForm.get('code')?.hasError('required')">{{ 'confirm.codeRequired' | translate }}</mat-error>
+        <mat-error *ngIf="confirmForm.get('code')?.hasError('pattern')">{{ 'confirm.codePattern' | translate }}</mat-error>
       </mat-form-field>
 
       <button mat-flat-button class="submit-button" type="submit" [disabled]="confirmForm.invalid || loading">
         <span *ngIf="loading" class="spinner"><mat-spinner diameter="16"></mat-spinner></span>
-        <span *ngIf="!loading">Verify</span>
+        <span *ngIf="!loading">{{ 'confirm.verifyButton' | translate }}</span>
       </button>
     </form>
 
     <p class="footer-text">
-      Back to <a routerLink="/login">Login</a>
+      <a routerLink="/login">{{ 'confirm.backToLogin' | translate }}</a>
     </p>
   </mat-card>
 </div>

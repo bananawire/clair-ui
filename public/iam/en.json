@@ -1,0 +1,111 @@
+{
+  "login": {
+    "title": "Login to Clair",
+    "subtitle": "Enter your credentials",
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@gmail.com",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email format",
+    "passwordLabel": "Password",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "loginButton": "Login",
+    "loading": "Login",
+    "divider": "OR LOGIN WITH",
+    "googleButton": "Google",
+    "footer": "Do not have an account?",
+    "registerLink": "Register",
+    "error": {
+      "invalidCredentials": "Invalid email or password.",
+      "cannotConnect": "Cannot connect to server. Is the backend running?",
+      "unexpected": "An unexpected error occurred. Please try again."
+    },
+    "validationError": "Validation error",
+    "snackbar": {
+      "success": "Login successful",
+      "close": "Close"
+    }
+  },
+  "register": {
+    "title": "Create an account",
+    "subtitle": "Start monitoring your air",
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@gmail.com",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email format",
+    "passwordLabel": "Password",
+    "passwordRequired": "Password is required",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "termsPrefix": "I accept Clair's",
+    "termsLink": "Terms and Conditions",
+    "termsAnd": "and",
+    "privacyLink": "Privacy Policy",
+    "registerButton": "Register",
+    "divider": "OR REGISTER WITH",
+    "googleButton": "Google",
+    "footer": "Already have an account?",
+    "loginLink": "Login",
+    "snackbar": {
+      "success": "Registration successful. Check your email to confirm.",
+      "close": "Close"
+    },
+    "error": {
+      "unexpected": "Registration failed. Please try again."
+    },
+    "validationError": "Validation error"
+  },
+  "confirm": {
+    "title": "Verify Account",
+    "subtitle": "Enter the verification code sent to your email",
+    "codeLabel": "Verification Code",
+    "codePlaceholder": "ABCD-1234",
+    "codeRequired": "Code is required",
+    "codePattern": "Code must be in format XXXX-XXXX",
+    "verifyButton": "Verify",
+    "backToLogin": "Back to Login",
+    "error": {
+      "invalidSession": "Invalid registration session. Please register again.",
+      "invalidCode": "Invalid verification code. Please try again."
+    },
+    "success": "Account verified successfully. Redirecting to login...",
+    "validationError": "Validation error",
+    "snackbar": {
+      "close": "Close"
+    }
+  },
+  "authCallback": {
+    "title": "Authenticating...",
+    "subtitle": "Please wait while we complete your sign-in.",
+    "backToLogin": "Back to Login",
+    "error": {
+      "googleFailed": "Google authentication failed. Please try again.",
+      "missingTokens": "Authentication incomplete. Missing tokens."
+    },
+    "snackbar": {
+      "success": "Sign-in successful",
+      "close": "Close"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account session.",
+    "languageCard": {
+      "title": "Language",
+      "subtitle": "Choose the language you want to use throughout the application."
+    },
+    "sessionCard": {
+      "title": "Account Session",
+      "subtitle": "Sign out of your account on this device."
+    },
+    "languageLabel": "Language",
+    "languageEnglish": "English",
+    "languageSpanish": "Spanish",
+    "logoutButton": "Logout",
+    "loggingOut": "Logging out...",
+    "snackbar": {
+      "sessionClosed": "Session closed successfully.",
+      "sessionClosedLocal": "Session closed locally after API logout issue.",
+      "close": "Close"
+    }
+  }
+}

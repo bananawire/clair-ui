@@ -1,12 +1,13 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 import { formatDelta, formatValue } from '../../rest/transform/analytics-page.transform';
 
 @Component({
   selector: 'app-metric-card',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, TranslatePipe],
   template: `
     <div class="kpi-card parameter-card" [class.selected]="isSelected" (click)="cardClick.emit()">
       <div class="kpi-header">
@@ -19,11 +20,11 @@ import { formatDelta, formatValue } from '../../rest/transform/analytics-page.tr
       </div>
       <div class="kpi-footer">
         <div class="trend-delta" [class.negative]="!isDeltaPositive">
-          <ng-container *ngIf="delta !== null && delta !== undefined">
+          <ng-container *ngIf="formattedDelta !== null">
             <mat-icon>{{ isDeltaPositive ? 'trending_up' : 'trending_down' }}</mat-icon>
             <span>{{ formattedDelta }}</span>
           </ng-container>
-          <span *ngIf="delta === null || delta === undefined" class="delta-null">N/A</span>
+          <span *ngIf="formattedDelta === null" class="delta-null">{{ 'analytics.metricCard.deltaNull' | translate }}</span>
         </div>
       </div>
     </div>
@@ -47,7 +48,7 @@ export class MetricCardComponent {
     return this.delta !== null && this.delta !== undefined && this.delta >= 0;
   }
 
-  get formattedDelta(): string {
+  get formattedDelta(): string | null {
     return formatDelta(this.delta);
   }
 }

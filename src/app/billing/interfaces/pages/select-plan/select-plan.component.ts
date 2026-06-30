@@ -3,11 +3,12 @@ import { FreePlanCardComponent } from '../../components/free-plan-card/free-plan
 import { PremiumPlanCardComponent } from '../../components/premium-plan-card/premium-plan-card.component';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-select-plan',
   standalone: true,
-  imports: [FreePlanCardComponent, PremiumPlanCardComponent],
+  imports: [FreePlanCardComponent, PremiumPlanCardComponent, TranslatePipe],
   templateUrl: './select-plan.component.html',
   styleUrl: './select-plan.component.css'
 })

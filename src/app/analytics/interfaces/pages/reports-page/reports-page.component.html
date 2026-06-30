@@ -1,24 +1,17 @@
-<div class="page-layout">
-  <app-header [isSidebarOpen]="isSidebarOpen" (sidebarToggleRequested)="toggleSidebar()"></app-header>
-
-  <div class="page-body">
-    <app-sidebar [isOpen]="isSidebarOpen" (closeRequested)="closeSidebar()"></app-sidebar>
-
-    <main class="content">
-      <div class="reports-container">
+<div class="reports-container">
         <div class="dashboard-header">
           <div class="header-left">
-            <h1 class="page-title">Reports</h1>
+            <h1 class="page-title">{{ 'reports.title' | translate }}</h1>
             <span class="period-caption">{{ selectedPeriodLabel }}</span>
           </div>
 
           <div class="header-right">
             <div class="period-selector-pill">
               <button type="button" [class.active]="periodType === 'DAILY'" (click)="selectPeriodType('DAILY')">
-                Daily
+                {{ 'reports.period.daily' | translate }}
               </button>
               <button type="button" [class.active]="periodType === 'MONTHLY'" (click)="selectPeriodType('MONTHLY')">
-                Monthly
+                {{ 'reports.period.monthly' | translate }}
                 <mat-icon *ngIf="!isPremium" class="lock-icon">lock</mat-icon>
               </button>
             </div>
@@ -27,7 +20,7 @@
               <button class="icon-action-btn" type="button"
                 (click)="periodType === 'DAILY' ? dayPicker.open() : monthPicker.open()"
                 [disabled]="periodType === 'MONTHLY' && !isPremium"
-                aria-label="Select period" title="Select period">
+                [attr.aria-label]="'reports.selectPeriodAria' | translate" [attr.title]="'reports.selectPeriodTitle' | translate">
                 <mat-icon>calendar_today</mat-icon>
               </button>
               <input class="hidden-datepicker-input" [matDatepicker]="dayPicker" [ngModel]="selectedDate"
@@ -39,16 +32,16 @@
             </div>
 
             <button class="export-btn" type="button" (click)="exportCsv()" [disabled]="!report"
-              title="Export report as CSV">
+              [attr.title]="'reports.exportCsvTitle' | translate">
               <mat-icon>download</mat-icon>
-              <span>Export CSV</span>
+              <span>{{ 'reports.exportCsv' | translate }}</span>
             </button>
           </div>
         </div>
 
         <div class="dropdowns-row">
           <div class="dropdown-item">
-            <label class="dropdown-label">ORGANIZATION</label>
+            <label class="dropdown-label">{{ 'reports.label.organization' | translate }}</label>
             <mat-form-field appearance="outline" class="custom-select-field">
               <mat-select [(ngModel)]="selectedOrgId" (selectionChange)="onOrgChange()">
                 <mat-option *ngFor="let org of organizations" [value]="org.id">{{ org.name }}</mat-option>
@@ -57,7 +50,7 @@
           </div>
 
           <div class="dropdown-item">
-            <label class="dropdown-label">SPACES</label>
+            <label class="dropdown-label">{{ 'reports.label.spaces' | translate }}</label>
             <mat-form-field appearance="outline" class="custom-select-field">
               <mat-select [(ngModel)]="selectedSpaceId" (selectionChange)="onSpaceChange()">
                 <mat-option *ngFor="let space of spaces" [value]="space.id">{{ space.name }}</mat-option>
@@ -66,7 +59,7 @@
           </div>
 
           <div class="dropdown-item">
-            <label class="dropdown-label">DEVICE</label>
+            <label class="dropdown-label">{{ 'reports.label.device' | translate }}</label>
             <mat-form-field appearance="outline" class="custom-select-field">
               <mat-select [(ngModel)]="selectedDeviceId" (selectionChange)="onDeviceChange()">
                 <mat-option *ngFor="let device of devices" [value]="device.id">{{ device.name }}</mat-option>
@@ -78,14 +71,14 @@
         <div class="metric-chips" *ngIf="report">
           <button *ngFor="let m of metrics" type="button" class="metric-chip"
             [class.active]="selectedMetric === m.key" (click)="selectMetric(m.key)">
-            {{ m.label }}
+            {{ m.labelKey | translate }}
           </button>
         </div>
 
         <!-- States -->
         <div *ngIf="loading" class="loading-state">
           <mat-icon class="spin">cached</mat-icon>
-          <p>Loading report...</p>
+          <p>{{ 'reports.loading' | translate }}</p>
         </div>
 
         <div *ngIf="!loading && error" class="error-state">
@@ -95,41 +88,41 @@
 
         <div *ngIf="!loading && showUpsell" class="upsell-state">
           <mat-icon>workspace_premium</mat-icon>
-          <h3>Monthly reports are a premium feature</h3>
-          <p>Upgrade your plan to unlock monthly air-quality reports and longer trends.</p>
-          <a class="upgrade-link" routerLink="/select-plan">Upgrade Plan</a>
+          <h3>{{ 'reports.upsell.title' | translate }}</h3>
+          <p>{{ 'reports.upsell.body' | translate }}</p>
+          <a class="upgrade-link" routerLink="/select-plan">{{ 'reports.upsell.upgradeLink' | translate }}</a>
         </div>
 
         <div *ngIf="!loading && notFound && !error" class="empty-dashboard-placeholder">
           <mat-icon>description</mat-icon>
-          <h3>No report available</h3>
-          <p>There is no aggregated report for this device in the selected period yet.</p>
+          <h3>{{ 'reports.notFound.title' | translate }}</h3>
+          <p>{{ 'reports.notFound.body' | translate }}</p>
         </div>
 
         <!-- Content -->
         <ng-container *ngIf="!loading && report">
           <div class="summary-row">
             <div class="summary-tile">
-              <span class="summary-label">AVERAGE AQI</span>
+              <span class="summary-label">{{ 'reports.summary.averageAqi' | translate }}</span>
               <span class="summary-value">{{ formatAqi(report.averageAqi) }}</span>
               <span class="summary-sub">{{ categoryLabel(report.dominantAqiCategory) }}</span>
             </div>
             <div class="summary-tile">
-              <span class="summary-label">PEAK PM2.5</span>
-              <span class="summary-value">{{ formatStat(report.peakPm2_5) }}<span class="summary-unit">µg/m³</span></span>
+              <span class="summary-label">{{ 'reports.summary.peakPm25' | translate }}</span>
+              <span class="summary-value">{{ formatStat(report.peakPm2_5) }}<span class="summary-unit">{{ 'reports.metricUnits.pm25' | translate }}</span></span>
               <span class="summary-sub">{{ formatPeakAt(report.peakPm2_5At) || '—' }}</span>
             </div>
             <div class="summary-tile">
-              <span class="summary-label">AQI CHANGE</span>
+              <span class="summary-label">{{ 'reports.summary.aqiChange' | translate }}</span>
               <span class="summary-value delta" [class.negative]="!aqiDeltaPositive">
                 {{ formatDeltaPct(report.aqiDeltaPct) }}
               </span>
-              <span class="summary-sub">vs previous {{ periodType === 'DAILY' ? 'day' : 'month' }}</span>
+              <span class="summary-sub">{{ periodType === 'DAILY' ? ('reports.summary.vsPreviousDay' | translate) : ('reports.summary.vsPreviousMonth' | translate) }}</span>
             </div>
             <div class="summary-tile">
-              <span class="summary-label">READINGS</span>
+              <span class="summary-label">{{ 'reports.summary.readings' | translate }}</span>
               <span class="summary-value">{{ formatCount(report.readingCount) }}</span>
-              <span class="summary-sub" *ngIf="report.daysCovered !== null">{{ report.daysCovered }} days covered</span>
+              <span class="summary-sub" *ngIf="report.daysCovered !== null">{{ 'reports.summary.daysCovered' | translate: { days: report.daysCovered } }}</span>
             </div>
           </div>
 
@@ -151,14 +144,14 @@
 
           <div class="tables-row">
             <div class="table-card">
-              <div class="table-title">METRIC STATISTICS</div>
+              <div class="table-title">{{ 'reports.metricStatistics.title' | translate }}</div>
               <table class="report-table">
                 <thead>
                   <tr>
-                    <th>Metric</th>
-                    <th>Avg</th>
-                    <th>Min</th>
-                    <th>Max</th>
+                    <th>{{ 'reports.metricStatistics.header.metric' | translate }}</th>
+                    <th>{{ 'reports.metricStatistics.header.avg' | translate }}</th>
+                    <th>{{ 'reports.metricStatistics.header.min' | translate }}</th>
+                    <th>{{ 'reports.metricStatistics.header.max' | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -173,13 +166,13 @@
             </div>
 
             <div class="table-card">
-              <div class="table-title">AQI CATEGORY DISTRIBUTION</div>
+              <div class="table-title">{{ 'reports.categoryDistribution.title' | translate }}</div>
               <table class="report-table">
                 <thead>
                   <tr>
-                    <th>Category</th>
-                    <th>Readings</th>
-                    <th>Share</th>
+                    <th>{{ 'reports.categoryDistribution.header.category' | translate }}</th>
+                    <th>{{ 'reports.categoryDistribution.header.readings' | translate }}</th>
+                    <th>{{ 'reports.categoryDistribution.header.share' | translate }}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -189,7 +182,7 @@
                     <td>{{ formatStat(share.percentage) }}%</td>
                   </tr>
                   <tr *ngIf="report.categoryShares.length === 0">
-                    <td colspan="3" class="empty-cell">No category data</td>
+                    <td colspan="3" class="empty-cell">{{ 'reports.categoryDistribution.emptyCell' | translate }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -197,6 +190,3 @@
           </div>
         </ng-container>
       </div>
-    </main>
-  </div>
-</div>

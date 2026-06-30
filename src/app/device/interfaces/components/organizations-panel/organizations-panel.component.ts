@@ -33,6 +33,7 @@ import { from, of } from 'rxjs';
 import { catchError, finalize, map, mergeMap, tap } from 'rxjs/operators';
 import { createGetCurrentUserOrganizationsQuery } from '../../../domain/model/queries/get-current-user-organizations.query';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslateService } from '@ngx-translate/core';
 import { extractApiErrorMessage } from '../../rest/transform/extract-api-error-message.transform';
 
 @Component({
@@ -48,6 +49,7 @@ export class OrganizationsPanelComponent implements OnInit {
   private readonly deviceQueryService = inject(DEVICE_QUERY_SERVICE) as DeviceQueryService;
   private readonly dialog = inject(MatDialog);
   private readonly snackBar = inject(MatSnackBar);
+  private readonly translate = inject(TranslateService);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -112,11 +114,11 @@ export class OrganizationsPanelComponent implements OnInit {
       const command = createCreateOrganizationCommand(name);
       this.deviceCommandService.handleCreateOrganization(command).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: () => {
-          this.snackBar.open('Organization created', 'Close', { duration: 3000 });
+          this.snackBar.open(this.translate.instant('organizationsPanel.snackbar.organizationCreated'), this.translate.instant('organizationsPanel.snackbar.close'), { duration: 3000 });
           this.loadOrganizations();
         },
         error: (error) =>
-          this.snackBar.open(extractApiErrorMessage(error, 'Failed to create organization'), 'Close', { duration: 3000 }),
+          this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('organizationsPanel.snackbar.errorCreateOrganization')), this.translate.instant('organizationsPanel.snackbar.close'), { duration: 3000 }),
       });
     });
   }
@@ -128,9 +130,9 @@ export class OrganizationsPanelComponent implements OnInit {
       width: '400px',
       data: {
         currentValue: organization.name,
-        title: 'Edit Organization',
-        fieldLabel: 'Organization Name',
-        placeholder: 'Enter organization name',
+        title: 'editNameDialog.title.organization',
+        fieldLabel: 'editNameDialog.fieldLabel.organizationName',
+        placeholder: 'editNameDialog.placeholder.organizationName',
       },
     });
     dialogRef.afterClosed().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((name: string | undefined) => {
@@ -138,11 +140,11 @@ export class OrganizationsPanelComponent implements OnInit {
       const command = createUpdateOrganizationNameCommand(orgId, name);
       this.deviceCommandService.handleUpdateOrganizationName(command).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: () => {
-          this.snackBar.open('Organization updated', 'Close', { duration: 3000 });
+          this.snackBar.open(this.translate.instant('organizationsPanel.snackbar.organizationUpdated'), this.translate.instant('organizationsPanel.snackbar.close'), { duration: 3000 });
           this.loadOrganizations();
         },
         error: (error) =>
-          this.snackBar.open(extractApiErrorMessage(error, 'Failed to update organization'), 'Close', { duration: 3000 }),
+          this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('organizationsPanel.snackbar.errorUpdateOrganization')), this.translate.instant('organizationsPanel.snackbar.close'), { duration: 3000 }),
       });
     });
   }
@@ -154,14 +156,14 @@ export class OrganizationsPanelComponent implements OnInit {
       const command = createDeleteOrganizationCommand(orgId);
       this.deviceCommandService.handleDeleteOrganization(command).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: () => {
-          this.snackBar.open('Organization deleted', 'Close', { duration: 3000 });
+          this.snackBar.open(this.translate.instant('organizationsPanel.snackbar.organizationDeleted'), this.translate.instant('organizationsPanel.snackbar.close'), { duration: 3000 });
           if (this.spacesByOrganizationId[orgId.value]?.some((space) => space.id.value === this.selectedSpaceId)) {
             this.selectedSpaceCleared.emit();
           }
           this.loadOrganizations();
         },
         error: (error) =>
-          this.snackBar.open(extractApiErrorMessage(error, 'Failed to delete organization'), 'Close', { duration: 3000 }),
+          this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('organizationsPanel.snackbar.errorDeleteOrganization')), this.translate.instant('organizationsPanel.snackbar.close'), { duration: 3000 }),
       });
     });
   }
@@ -173,10 +175,10 @@ export class OrganizationsPanelComponent implements OnInit {
       const command = createCreateSpaceCommand(name, orgId);
       this.deviceCommandService.handleCreateSpace(command).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: () => {
-          this.snackBar.open('Space created', 'Close', { duration: 3000 });
+          this.snackBar.open(this.translate.instant('organizationsPanel.snackbar.spaceCreated'), this.translate.instant('organizationsPanel.snackbar.close'), { duration: 3000 });
           this.loadSpaces(orgId);
         },
-        error: (error) => this.snackBar.open(extractApiErrorMessage(error, 'Failed to create space'), 'Close', { duration: 3000 }),
+        error: (error) => this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('organizationsPanel.snackbar.errorCreateSpace')), this.translate.instant('organizationsPanel.snackbar.close'), { duration: 3000 }),
       });
     });
   }
@@ -188,9 +190,9 @@ export class OrganizationsPanelComponent implements OnInit {
       width: '400px',
       data: {
         currentValue: space.name,
-        title: 'Edit Space',
-        fieldLabel: 'Space Name',
-        placeholder: 'Enter space name',
+        title: 'editNameDialog.title.space',
+        fieldLabel: 'editNameDialog.fieldLabel.spaceName',
+        placeholder: 'editNameDialog.placeholder.spaceName',
       },
     });
     dialogRef.afterClosed().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((name: string | undefined) => {
@@ -198,10 +200,10 @@ export class OrganizationsPanelComponent implements OnInit {
       const command = createUpdateSpaceNameCommand(spaceId, name);
       this.deviceCommandService.handleUpdateSpaceName(command).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: () => {
-          this.snackBar.open('Space updated', 'Close', { duration: 3000 });
+          this.snackBar.open(this.translate.instant('organizationsPanel.snackbar.spaceUpdated'), this.translate.instant('organizationsPanel.snackbar.close'), { duration: 3000 });
           this.loadSpaces(space.organizationId);
         },
-        error: (error) => this.snackBar.open(extractApiErrorMessage(error, 'Failed to update space'), 'Close', { duration: 3000 }),
+        error: (error) => this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('organizationsPanel.snackbar.errorUpdateSpace')), this.translate.instant('organizationsPanel.snackbar.close'), { duration: 3000 }),
       });
     });
   }
@@ -215,7 +217,7 @@ export class OrganizationsPanelComponent implements OnInit {
         this.cdr.markForCheck();
       },
       error: (error) =>
-        this.snackBar.open(extractApiErrorMessage(error, 'Failed to load organizations'), 'Close', { duration: 3000 }),
+        this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('organizationsPanel.snackbar.errorLoadOrganizations')), this.translate.instant('organizationsPanel.snackbar.close'), { duration: 3000 }),
     });
   }
 
@@ -235,7 +237,7 @@ export class OrganizationsPanelComponent implements OnInit {
       error: (error) => {
         this.errorSpacesByOrganizationId = {
           ...this.errorSpacesByOrganizationId,
-          [key]: extractApiErrorMessage(error, 'Failed to load spaces'),
+          [key]: extractApiErrorMessage(error, this.translate.instant('organizationsPanel.snackbar.errorLoadSpaces')),
         };
         this.loadingSpacesByOrganizationId = { ...this.loadingSpacesByOrganizationId, [key]: false };
         this.cdr.markForCheck();

@@ -1,18 +1,12 @@
-<div class="page-layout">
-  <app-header [isSidebarOpen]="isSidebarOpen" (sidebarToggleRequested)="toggleSidebar()"></app-header>
-
-  <div class="page-body">
-    <app-sidebar [isOpen]="isSidebarOpen" (closeRequested)="closeSidebar()"></app-sidebar>
-    <main class="content">
-      <section class="overview-container">
+<section class="overview-container">
         <ng-container *ngIf="viewState$ | async as viewState">
           <ng-container [ngSwitch]="viewState.status">
             <section *ngSwitchCase="'loading'" class="overview-info-state">
-              <p>Loading overview...</p>
+              <p>{{ 'overview.loading' | translate }}</p>
             </section>
 
             <section *ngSwitchCase="'error'" class="overview-info-state">
-              <p>Unable to load overview right now.</p>
+              <p>{{ 'overview.error' | translate }}</p>
             </section>
 
             <ng-container *ngSwitchCase="'empty'">
@@ -32,37 +26,37 @@
             <section class="pollutants-panel">
               <div class="panel-header">
                 <div>
-                  <h3>Pollutants</h3>
-                  <p>Updates every minute</p>
+                  <h3>{{ 'overview.pollutantsTitle' | translate }}</h3>
+                  <p>{{ 'overview.updatesEveryMinute' | translate }}</p>
                 </div>
               </div>
 
               <div class="pollutants-grid">
                 <app-pollutant-card
-                  label="PM2.5"
+                  [label]="'overview.metrics.pm25.label' | translate"
                   [value]="measurements.pm2_5"
-                  unit="ug/m3"
+                  [unit]="'overview.metrics.pm25.unit' | translate"
                   [deltaLabel]="measurements.pm2_5DeltaLabel"
                   tone="warning"
                 ></app-pollutant-card>
                 <app-pollutant-card
-                  label="CO2"
+                  [label]="'overview.metrics.co2.label' | translate"
                   [value]="measurements.co2"
-                  unit="ppm"
+                  [unit]="'overview.metrics.co2.unit' | translate"
                   [deltaLabel]="measurements.co2DeltaLabel"
                   tone="success"
                 ></app-pollutant-card>
                 <app-pollutant-card
-                  label="TEMP"
+                  [label]="'overview.metrics.temperature.label' | translate"
                   [value]="measurements.temperature"
-                  unit="°C"
+                  [unit]="'overview.metrics.temperature.unit' | translate"
                   [deltaLabel]="measurements.temperatureDeltaLabel"
                   tone="info"
                 ></app-pollutant-card>
                 <app-pollutant-card
-                  label="HUMIDITY"
+                  [label]="'overview.metrics.humidity.label' | translate"
                   [value]="measurements.humidity"
-                  unit="%"
+                  [unit]="'overview.metrics.humidity.unit' | translate"
                   [deltaLabel]="measurements.humidityDeltaLabel"
                   tone="success"
                 ></app-pollutant-card>
@@ -92,16 +86,16 @@
             <section class="pollutants-panel">
               <div class="panel-header">
                 <div>
-                  <h3>Pollutants</h3>
-                  <p>Updates every minute</p>
+                  <h3>{{ 'overview.pollutantsTitle' | translate }}</h3>
+                  <p>{{ 'overview.updatesEveryMinute' | translate }}</p>
                 </div>
               </div>
 
               <div class="pollutants-grid">
-                <app-pollutant-card label="PM2.5" [value]="null" unit="ug/m3" tone="warning"></app-pollutant-card>
-                <app-pollutant-card label="CO2" [value]="null" unit="ppm" tone="success"></app-pollutant-card>
-                <app-pollutant-card label="TEMP" [value]="null" unit="°C" tone="info"></app-pollutant-card>
-                <app-pollutant-card label="HUMIDITY" [value]="null" unit="%" tone="success"></app-pollutant-card>
+                <app-pollutant-card [label]="'overview.metrics.pm25.label' | translate" [value]="null" [unit]="'overview.metrics.pm25.unit' | translate" tone="warning"></app-pollutant-card>
+                <app-pollutant-card [label]="'overview.metrics.co2.label' | translate" [value]="null" [unit]="'overview.metrics.co2.unit' | translate" tone="success"></app-pollutant-card>
+                <app-pollutant-card [label]="'overview.metrics.temperature.label' | translate" [value]="null" [unit]="'overview.metrics.temperature.unit' | translate" tone="info"></app-pollutant-card>
+                <app-pollutant-card [label]="'overview.metrics.humidity.label' | translate" [value]="null" [unit]="'overview.metrics.humidity.unit' | translate" tone="success"></app-pollutant-card>
               </div>
             </section>
 
@@ -116,6 +110,3 @@
           </section>
         </ng-template>
       </section>
-    </main>
-  </div>
-</div>

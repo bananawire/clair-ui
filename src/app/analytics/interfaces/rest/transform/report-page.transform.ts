@@ -1,3 +1,4 @@
+import { TranslateService } from '@ngx-translate/core';
 import {
   AqiCategory,
   CategoryShare,
@@ -9,37 +10,40 @@ export type ReportMetricKey = 'aqiValue' | 'pm2_5' | 'co2' | 'temperature' | 'hu
 
 export interface ReportMetricMeta {
   key: ReportMetricKey;
-  label: string;
-  unit: string;
+  labelKey: string;
+  unitKey: string;
 }
 
 export const REPORT_METRICS: ReportMetricMeta[] = [
-  { key: 'aqiValue', label: 'AQI', unit: '' },
-  { key: 'pm2_5', label: 'PM2.5', unit: 'µg/m³' },
-  { key: 'co2', label: 'CO₂', unit: 'ppm' },
-  { key: 'temperature', label: 'Temp', unit: '°C' },
-  { key: 'humidity', label: 'Humidity', unit: '%' },
+  { key: 'aqiValue', labelKey: 'reports.metricLabels.aqi', unitKey: '' },
+  { key: 'pm2_5', labelKey: 'reports.metricLabels.pm25', unitKey: 'reports.metricUnits.pm25' },
+  { key: 'co2', labelKey: 'reports.metricLabels.co2', unitKey: 'reports.metricUnits.co2' },
+  { key: 'temperature', labelKey: 'reports.metricLabels.temperature', unitKey: 'reports.metricUnits.temperature' },
+  { key: 'humidity', labelKey: 'reports.metricLabels.humidity', unitKey: 'reports.metricUnits.humidity' },
 ];
 
 /** Metrics that expose min/avg/max ranges (AQI only has an average). */
 export const RANGE_METRICS: ReportMetricMeta[] = REPORT_METRICS.filter((m) => m.key !== 'aqiValue');
 
 interface AqiCategoryMeta {
-  label: string;
+  labelKey: string;
   color: string;
 }
 
 export const AQI_CATEGORY_META: Record<AqiCategory, AqiCategoryMeta> = {
-  GOOD: { label: 'Good', color: '#10b981' },
-  MODERATE: { label: 'Moderate', color: '#f59e0b' },
-  UNHEALTHY_FOR_SENSITIVE: { label: 'Unhealthy for sensitive', color: '#f97316' },
-  UNHEALTHY: { label: 'Unhealthy', color: '#ef4444' },
-  VERY_UNHEALTHY: { label: 'Very unhealthy', color: '#8b5cf6' },
-  HAZARDOUS: { label: 'Hazardous', color: '#7f1d1d' },
+  GOOD: { labelKey: 'aqiCategories.good', color: '#10b981' },
+  MODERATE: { labelKey: 'aqiCategories.moderate', color: '#f59e0b' },
+  UNHEALTHY_FOR_SENSITIVE: { labelKey: 'aqiCategories.unhealthyForSensitive', color: '#f97316' },
+  UNHEALTHY: { labelKey: 'aqiCategories.unhealthy', color: '#ef4444' },
+  VERY_UNHEALTHY: { labelKey: 'aqiCategories.veryUnhealthy', color: '#8b5cf6' },
+  HAZARDOUS: { labelKey: 'aqiCategories.hazardous', color: '#7f1d1d' },
 };
 
-export const categoryLabel = (category: AqiCategory | null): string =>
-  category ? AQI_CATEGORY_META[category].label : '—';
+export const aqiCategoryToLabelKey = (category: AqiCategory | null): string | null =>
+  category ? AQI_CATEGORY_META[category].labelKey : null;
+
+export const categoryLabel = (category: AqiCategory | null, translate: TranslateService): string =>
+  category ? translate.instant(AQI_CATEGORY_META[category].labelKey) : '—';
 
 export const categoryColor = (category: AqiCategory | null): string =>
   category ? AQI_CATEGORY_META[category].color : '#3a3a3c';
@@ -69,8 +73,11 @@ export const formatStat = (value: number | null | undefined): string =>
 export const formatAqi = (value: number | null | undefined): string =>
   value === null || value === undefined || !Number.isFinite(value) ? '—' : String(Math.round(value));
 
-export const formatCount = (value: number | null | undefined): string =>
-  value === null || value === undefined ? '—' : Number(value).toLocaleString('en-US');
+export const formatCount = (
+  value: number | null | undefined,
+  lang: string | undefined = 'en'
+): string =>
+  value === null || value === undefined ? '—' : Number(value).toLocaleString(lang || 'en');
 
 export const formatDeltaPct = (value: number | null | undefined): string => {
   if (value === null || value === undefined || !Number.isFinite(value)) return '—';
@@ -79,11 +86,14 @@ export const formatDeltaPct = (value: number | null | undefined): string => {
   return `${sign}${rounded}%`;
 };
 
-export const formatPeakAt = (iso: string | null | undefined): string => {
+export const formatPeakAt = (
+  iso: string | null | undefined,
+  lang: string | undefined = 'en'
+): string => {
   if (!iso) return '';
   const date = new Date(iso);
   if (Number.isNaN(date.getTime())) return '';
-  return date.toLocaleString('en-US', {
+  return date.toLocaleString(lang || 'en', {
     month: 'short',
     day: 'numeric',
     hour: '2-digit',
@@ -109,7 +119,8 @@ export interface DonutSegment {
  */
 export const buildDonutSegments = (
   shares: CategoryShare[],
-  circumference: number
+  circumference: number,
+  translate: TranslateService
 ): DonutSegment[] => {
   const total = shares.reduce((sum, s) => sum + (s.percentage || 0), 0);
   const denom = total > 0 ? total : 100;
@@ -121,7 +132,7 @@ export const buildDonutSegments = (
       const length = (s.percentage / denom) * circumference;
       const segment: DonutSegment = {
         category: s.category,
-        label: AQI_CATEGORY_META[s.category].label,
+        label: translate.instant(AQI_CATEGORY_META[s.category].labelKey),
         color: AQI_CATEGORY_META[s.category].color,
         percentage: s.percentage,
         count: s.count,
@@ -223,33 +234,41 @@ const statsRow = (label: string, stats: MetricStats): string =>
   [label, stats.avg, stats.min, stats.max].map(csvCell).join(',');
 
 /** Serialises a report's stats + category shares to CSV text. */
-export const buildReportCsv = (report: DeviceReport): string => {
+export const buildReportCsv = (report: DeviceReport, translate: TranslateService): string => {
   const lines: string[] = [];
-  lines.push(`Report,${csvCell(report.periodType)}`);
-  lines.push(`Device,${csvCell(report.deviceId)}`);
-  lines.push(`Period,${csvCell(report.periodLabel)}`);
-  lines.push(`Average AQI,${csvCell(report.averageAqi)}`);
-  lines.push(`Dominant category,${csvCell(report.dominantAqiCategory)}`);
-  lines.push(`Peak PM2.5,${csvCell(report.peakPm2_5)}`);
-  lines.push(`Peak PM2.5 at,${csvCell(report.peakPm2_5At)}`);
-  lines.push(`AQI delta %,${csvCell(report.aqiDeltaPct)}`);
-  lines.push(`Readings,${csvCell(report.readingCount)}`);
-  if (report.daysCovered !== null) lines.push(`Days covered,${csvCell(report.daysCovered)}`);
+  lines.push(`${translate.instant('reports.csv.header.report')},${csvCell(report.periodType)}`);
+  lines.push(`${translate.instant('reports.csv.header.device')},${csvCell(report.deviceId)}`);
+  lines.push(`${translate.instant('reports.csv.header.period')},${csvCell(report.periodLabel)}`);
+  lines.push(`${translate.instant('reports.csv.header.averageAqi')},${csvCell(report.averageAqi)}`);
+  lines.push(`${translate.instant('reports.csv.header.dominantCategory')},${csvCell(report.dominantAqiCategory)}`);
+  lines.push(`${translate.instant('reports.csv.header.peakPm25')},${csvCell(report.peakPm2_5)}`);
+  lines.push(`${translate.instant('reports.csv.header.peakPm25At')},${csvCell(report.peakPm2_5At)}`);
+  lines.push(`${translate.instant('reports.csv.header.aqiDeltaPct')},${csvCell(report.aqiDeltaPct)}`);
+  lines.push(`${translate.instant('reports.csv.header.readings')},${csvCell(report.readingCount)}`);
+  if (report.daysCovered !== null) {
+    lines.push(`${translate.instant('reports.csv.header.daysCovered')},${csvCell(report.daysCovered)}`);
+  }
   lines.push('');
-  lines.push('metric,avg,min,max');
+  lines.push(translate.instant('reports.csv.header.metricAvgMinMax'));
   lines.push(statsRow('pm2_5', report.pm2_5));
   lines.push(statsRow('co2', report.co2));
   lines.push(statsRow('temperature', report.temperature));
   lines.push(statsRow('humidity', report.humidity));
   lines.push('');
-  lines.push('category,count,percentage');
+  lines.push(translate.instant('reports.csv.header.categoryCountPercentage'));
   for (const share of report.categoryShares) {
     lines.push([share.category, share.count, share.percentage].map(csvCell).join(','));
   }
   return lines.join('\n');
 };
 
-export const reportCsvFilename = (report: DeviceReport, deviceName: string): string => {
-  const safeName = (deviceName || 'device').replace(/[^a-z0-9-_]+/gi, '-').toLowerCase();
-  return `report-${safeName}-${report.periodType.toLowerCase()}-${report.periodLabel}.csv`;
+export const reportCsvFilename = (
+  report: DeviceReport,
+  deviceName: string,
+  translate: TranslateService
+): string => {
+  const fallback = translate.instant('reports.csv.fallbackDeviceName');
+  const prefix = translate.instant('reports.csv.filenamePrefix');
+  const safeName = (deviceName || fallback).replace(/[^a-z0-9-_]+/gi, '-').toLowerCase();
+  return `${prefix}-${safeName}-${report.periodType.toLowerCase()}-${report.periodLabel}.csv`;
 };

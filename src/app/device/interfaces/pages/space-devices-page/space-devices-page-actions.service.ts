@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, from, of, switchMap, tap, interval, startWith, catchError, map, mergeMap } from 'rxjs';
 import { reduce } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 import { ExternalTelemetryEvaluationService, DeviceTelemetrySnapshot } from '../../../application/internal/outboundservices/acl/external-telemetry-evaluation.service';
 import { Device, DevicePage, Space } from '../../../domain/services/device-query-service';
 import { DeviceStatusSnapshot } from '../../../domain/services/device-status-query-service';
@@ -43,7 +44,8 @@ export class SpaceDevicesPageActionsService {
     @Inject(DEVICE_THRESHOLD_QUERY_SERVICE) private readonly deviceThresholdQueryService: DeviceThresholdQueryService,
     private readonly externalTelemetryService: ExternalTelemetryEvaluationService,
     private readonly dialog: MatDialog,
-    private readonly snackBar: MatSnackBar
+    private readonly snackBar: MatSnackBar,
+    private readonly translate: TranslateService
   ) {}
 
   loadDevices(spaceId: SpaceId, page: number = 0, size: number = 50): Observable<DevicePage> {
@@ -133,9 +135,9 @@ export class SpaceDevicesPageActionsService {
         const command = createClaimDeviceCommand(result.claimToken, selectedSpace.id);
         return this.deviceCommandService.handleClaimDevice(command).pipe(
           tap({
-            next: () => this.snackBar.open('Sensor claimed', 'Close', { duration: 3000 }),
+            next: () => this.snackBar.open(this.translate.instant('deviceActions.sensorClaimed'), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
             error: (error) =>
-              this.snackBar.open(extractApiErrorMessage(error, 'Failed to claim sensor'), 'Close', { duration: 3000 }),
+              this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('deviceActions.error.claimSensor')), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
           }),
           switchMap(() => of(void 0))
         );
@@ -152,11 +154,11 @@ export class SpaceDevicesPageActionsService {
         return this.deviceCommandService.handlePairDevice(command).pipe(
           tap({
             next: (pairing) => {
-              const claimTokenText = pairing.claimToken ? ` Claim token: ${pairing.claimToken}` : '';
-              this.snackBar.open(`Sensor paired.${claimTokenText}`, 'Close', { duration: 6000 });
+              const claimTokenText = pairing.claimToken ? ` ${this.translate.instant('deviceActions.claimTokenPrefix', { claimToken: pairing.claimToken })}` : '';
+              this.snackBar.open(`${this.translate.instant('deviceActions.sensorPaired')}.${claimTokenText}`, this.translate.instant('deviceActions.snackbar.close'), { duration: 6000 });
             },
             error: (error) =>
-              this.snackBar.open(extractApiErrorMessage(error, 'Failed to pair sensor'), 'Close', { duration: 3000 }),
+              this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('deviceActions.error.pairSensor')), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
           }),
           switchMap((pairing) => of({ claimToken: pairing.claimToken ?? null }))
         );
@@ -169,9 +171,9 @@ export class SpaceDevicesPageActionsService {
       width: '400px',
       data: {
         currentValue: selectedSpace.name,
-        title: 'Edit Space',
-        fieldLabel: 'Space Name',
-        placeholder: 'Enter space name',
+        title: 'editNameDialog.title.space',
+        fieldLabel: 'editNameDialog.fieldLabel.spaceName',
+        placeholder: 'editNameDialog.placeholder.spaceName',
       },
     });
 
@@ -181,9 +183,9 @@ export class SpaceDevicesPageActionsService {
         const command = createUpdateSpaceNameCommand(selectedSpace.id, name);
         return this.deviceCommandService.handleUpdateSpaceName(command).pipe(
           tap({
-            next: () => this.snackBar.open('Space updated', 'Close', { duration: 3000 }),
+            next: () => this.snackBar.open(this.translate.instant('deviceActions.spaceUpdated'), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
             error: (error) =>
-              this.snackBar.open(extractApiErrorMessage(error, 'Failed to update space'), 'Close', { duration: 3000 }),
+              this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('deviceActions.error.updateSpace')), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
           }),
           switchMap(() => of(name))
         );
@@ -199,9 +201,9 @@ export class SpaceDevicesPageActionsService {
         const command = createDeleteSpaceCommand(spaceId);
         return this.deviceCommandService.handleDeleteSpace(command).pipe(
           tap({
-            next: () => this.snackBar.open('Space deleted', 'Close', { duration: 3000 }),
+            next: () => this.snackBar.open(this.translate.instant('deviceActions.spaceDeleted'), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
             error: (error) =>
-              this.snackBar.open(extractApiErrorMessage(error, 'Failed to delete space'), 'Close', { duration: 3000 }),
+              this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('deviceActions.error.deleteSpace')), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
           }),
           switchMap(() => of(true))
         );
@@ -214,9 +216,9 @@ export class SpaceDevicesPageActionsService {
       width: '400px',
       data: {
         currentValue: selectedDevice.name,
-        title: 'Edit Device',
-        fieldLabel: 'Device Name',
-        placeholder: 'Enter device name',
+        title: 'editNameDialog.title.device',
+        fieldLabel: 'editNameDialog.fieldLabel.deviceName',
+        placeholder: 'editNameDialog.placeholder.deviceName',
       },
     });
 
@@ -226,9 +228,9 @@ export class SpaceDevicesPageActionsService {
         const command = createUpdateDeviceNameCommand(selectedDevice.id, name);
         return this.deviceCommandService.handleUpdateDeviceName(command).pipe(
           tap({
-            next: () => this.snackBar.open('Device updated', 'Close', { duration: 3000 }),
+            next: () => this.snackBar.open(this.translate.instant('deviceActions.deviceUpdated'), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
             error: (error) =>
-              this.snackBar.open(extractApiErrorMessage(error, 'Failed to update device'), 'Close', { duration: 3000 }),
+              this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('deviceActions.error.updateDevice')), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
           }),
           switchMap(() => of(name))
         );
@@ -248,9 +250,9 @@ export class SpaceDevicesPageActionsService {
         const command = createDeleteDeviceCommand(selectedDevice.id);
         return this.deviceCommandService.handleDeleteDevice(command).pipe(
           tap({
-            next: () => this.snackBar.open('Device deleted', 'Close', { duration: 3000 }),
+            next: () => this.snackBar.open(this.translate.instant('deviceActions.deviceDeleted'), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
             error: (error) =>
-              this.snackBar.open(extractApiErrorMessage(error, 'Failed to delete device'), 'Close', { duration: 3000 }),
+              this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('deviceActions.error.deleteDevice')), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
           }),
           switchMap(() => of(true))
         );
@@ -260,7 +262,7 @@ export class SpaceDevicesPageActionsService {
 
   runToggleDevicePowerFlow(selectedDevice: Device, intent: 'WAKE' | 'STANDBY'): Observable<void> {
     if (selectedDevice.status === 'DECOMMISSIONED') {
-      this.snackBar.open('Device is decommissioned and cannot receive commands', 'Close', { duration: 3000 });
+      this.snackBar.open(this.translate.instant('deviceActions.decommissionedCommand'), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 });
       return of(void 0);
     }
 
@@ -269,9 +271,9 @@ export class SpaceDevicesPageActionsService {
     const command = createQueueDeviceCommand(selectedDevice.id, nextType);
     return this.deviceCommandService.handleQueueDeviceCommand(command).pipe(
       tap({
-        next: (created) => this.snackBar.open(`Command queued: ${created.type}`, 'Close', { duration: 3000 }),
+        next: (created) => this.snackBar.open(this.translate.instant('deviceActions.commandQueued', { commandType: created.type }), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
         error: (error) =>
-          this.snackBar.open(extractApiErrorMessage(error, 'Failed to queue command'), 'Close', { duration: 3000 }),
+          this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('deviceActions.error.queueCommand')), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
       }),
       switchMap(() => of(void 0))
     );

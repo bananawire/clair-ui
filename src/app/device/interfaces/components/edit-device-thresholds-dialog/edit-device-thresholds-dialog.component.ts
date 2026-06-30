@@ -8,6 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { finalize, forkJoin, map, of, switchMap, tap } from 'rxjs';
 
 
@@ -41,6 +42,7 @@ type SliderMetricConfig = Readonly<{
     MatDialogModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    TranslatePipe,
   ],
   templateUrl: './edit-device-thresholds-dialog.component.html',
   styleUrl: './edit-device-thresholds-dialog.component.css',
@@ -52,10 +54,26 @@ export class EditDeviceThresholdsDialogComponent implements OnInit {
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly queryService = inject(DEVICE_THRESHOLD_QUERY_SERVICE);
   private readonly commandService = inject(DEVICE_THRESHOLD_COMMAND_SERVICE);
+  private readonly translate = inject(TranslateService);
   readonly data: EditDeviceThresholdsDialogData = inject(MAT_DIALOG_DATA);
 
   readonly metrics = METRIC_THRESHOLDS;
   readonly metricDetails = getMetricThresholdDetails;
+
+  getMetricTranslationKey(metric: MetricThreshold): string {
+    switch (metric) {
+      case 'PM25': return 'pm25';
+      case 'CO2': return 'co2';
+      case 'TEMPERATURE': return 'temperature';
+      case 'HUMIDITY': return 'humidity';
+    }
+  }
+
+  getSliderAriaLabel(metric: MetricThreshold): string {
+    const label = this.translate.instant(`editThresholdsDialog.metrics.${this.getMetricTranslationKey(metric)}.label`);
+    const suffix = this.translate.instant('editThresholdsDialog.sliderAriaSuffix');
+    return `${label} ${suffix}`;
+  }
 
   loading = false;
   saving = false;
@@ -176,7 +194,7 @@ export class EditDeviceThresholdsDialogComponent implements OnInit {
       deviceId = createDeviceId(this.data.deviceId);
     } catch (error) {
       this.loading = false;
-      this.snackBar.open(extractApiErrorMessage(error, 'Invalid device id'), 'Close', { duration: 3500 });
+      this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('editThresholdsDialog.snackbar.invalidDeviceId')), this.translate.instant('editThresholdsDialog.snackbar.close'), { duration: 3500 });
       return;
     }
     this.queryService
@@ -202,7 +220,7 @@ export class EditDeviceThresholdsDialogComponent implements OnInit {
         error: (error) => {
           this.loading = false;
           this.cdr.detectChanges();
-          this.snackBar.open(extractApiErrorMessage(error, 'Failed to load thresholds'), 'Close', { duration: 3500 });
+          this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('editThresholdsDialog.snackbar.failedLoadThresholds')), this.translate.instant('editThresholdsDialog.snackbar.close'), { duration: 3500 });
         },
       });
   }
@@ -223,7 +241,7 @@ export class EditDeviceThresholdsDialogComponent implements OnInit {
     try {
       deviceId = createDeviceId(this.data.deviceId);
     } catch (error) {
-      this.snackBar.open(extractApiErrorMessage(error, 'Invalid device id'), 'Close', { duration: 3500 });
+      this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('editThresholdsDialog.snackbar.invalidDeviceId')), this.translate.instant('editThresholdsDialog.snackbar.close'), { duration: 3500 });
       return;
     }
 
@@ -259,13 +277,13 @@ export class EditDeviceThresholdsDialogComponent implements OnInit {
           this.initialThresholdsByMetric = { ...this.thresholdsByMetric };
           this.form.markAsPristine();
           this.cdr.detectChanges();
-          this.snackBar.open('Thresholds saved', 'Close', { duration: 2500 });
+          this.snackBar.open(this.translate.instant('editThresholdsDialog.snackbar.thresholdsSaved'), this.translate.instant('editThresholdsDialog.snackbar.close'), { duration: 2500 });
           setTimeout(() => this.done(), 0);
         },
         error: (error) => {
           this.saving = false;
           this.cdr.detectChanges();
-          this.snackBar.open(extractApiErrorMessage(error, 'Failed to save thresholds'), 'Close', { duration: 3500 });
+          this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('editThresholdsDialog.snackbar.failedSaveThresholds')), this.translate.instant('editThresholdsDialog.snackbar.close'), { duration: 3500 });
         },
       });
   }

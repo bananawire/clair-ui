@@ -1,0 +1,65 @@
+{
+  "selectPlan": {
+    "title": "Selecciona tu plan",
+    "subtitle": "Empieza a monitorear la calidad de tu aire"
+  },
+  "freePlan": {
+    "title": "Gratis",
+    "price": "S/ 0",
+    "period": "Gratis para todos",
+    "cta": "Probar Clair",
+    "feature1": "Compatibilidad con un Clair Alpha",
+    "feature2": "Monitoreo en tiempo real de CO2 y material particulado",
+    "feature3": "Acceso al panel ambiental en tiempo real"
+  },
+  "premiumPlan": {
+    "title": "Mesh Network",
+    "price": "S/ 29.90",
+    "period": "Por mes",
+    "cta": "Probar Clair",
+    "featuresHeader": "Todo lo del plan Gratis, más:",
+    "feature1": "Soporte para más de un dispositivo",
+    "feature2": "Panel para varios dispositivos",
+    "feature3": "Datos históricos y análisis avanzados",
+    "feature4": "Gestión centralizada de sensores"
+  },
+  "checkout": {
+    "title": "Continuar con el pago",
+    "subtitle": "Empieza a monitorear la calidad de tu aire",
+    "planName": "Mesh Network",
+    "planPrice": "S/ 29.90",
+    "planPeriod": "Por mes",
+    "orderDetails": "Detalles del pedido",
+    "orderItemName": "Mesh Network",
+    "orderItemPrice": "S/29.90",
+    "subtotal": "Subtotal",
+    "totalDueToday": "Total a pagar hoy",
+    "totalPrice": "S/29.90",
+    "addPaymentMethod": "Añadir método de pago",
+    "autorenewText": "Tu suscripción se renovará automáticamente el {{date}}",
+    "termsText": "Acepto que Clair me cobre el monto acordado en una suscripción mensual.",
+    "subscribe": "Suscribirse"
+  },
+  "paymentModal": {
+    "title": "Método de pago",
+    "fullNameLabel": "Nombre completo",
+    "fullNamePlaceholder": "Nombre completo",
+    "addressLabel": "Dirección",
+    "addressPlaceholder": "Ingresa tu dirección",
+    "cardNumberLabel": "Número de tarjeta",
+    "expirationDateLabel": "Fecha de vencimiento",
+    "securityCodeLabel": "Código de seguridad",
+    "cancel": "Cancelar",
+    "add": "Agregar",
+    "processing": "Procesando...",
+    "error": {
+      "userIdNotFound": "No se encontró el ID de usuario. Por favor, inicia sesión de nuevo.",
+      "paymentFailed": "No se pudo completar el pago",
+      "unexpected": "Ocurrió un error inesperado"
+    },
+    "snackbar": {
+      "success": "¡Pago realizado con éxito! Tu plan ha sido actualizado.",
+      "close": "Cerrar"
+    }
+  }
+}

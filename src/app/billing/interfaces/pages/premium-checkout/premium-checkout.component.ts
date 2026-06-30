@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { PaymentModalComponent } from '../../components/payment-modal/payment-modal.component';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-premium-checkout',
   standalone: true,
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './premium-checkout.component.html',
   styleUrl: './premium-checkout.component.css'
 })

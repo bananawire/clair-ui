@@ -1,21 +1,22 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { TrendPointInput, buildTrendPaths } from '../../rest/transform/report-page.transform';
 
 @Component({
   selector: 'app-report-trend-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   template: `
     <div class="kpi-card trend-card">
       <div class="kpi-header">
-        <span class="kpi-title">TREND · {{ title | uppercase }}</span>
+        <span class="kpi-title">{{ 'reports.trendCard.titlePrefix' | translate: { metric: (title | uppercase) } }}</span>
         <span class="kpi-subtitle">{{ subtitle }}</span>
       </div>
 
       <div class="trend-chart-wrapper">
         <div *ngIf="!hasData" class="chart-empty-state">
-          <p>No historical reports in this window yet. Earlier periods may not be rolled up.</p>
+          <p>{{ 'reports.trendCard.empty' | translate }}</p>
         </div>
 
         <svg *ngIf="hasData" viewBox="0 0 500 150" class="trend-svg" preserveAspectRatio="none">

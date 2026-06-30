@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,6 +8,7 @@ import { AlertsActionsComponent } from '../icons/alerts-actions/alerts-actions.c
 import { OverviewComponent } from '../icons/overview/overview.component';
 import { ReportsComponent } from '../icons/reports/reports.component';
 import { SpaceDevicesComponent } from '../icons/space-devices/space-devices.component';
+import { TranslatePipe } from '@ngx-translate/core';
 import { jwtDecode } from 'jwt-decode';
 import { TOKEN_STORAGE_GATEWAY, TokenStorageGateway } from '../../../../iam/infrastructure/storage/token-storage.gateway';
 import { BillingQueryServiceImpl } from '../../../../billing/application/internal/queryservices/billing-query-service.impl';
@@ -31,14 +32,13 @@ type AccessTokenPayload = {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, MatIconModule, MatButtonModule, AirQualityComponent, AlertsActionsComponent, OverviewComponent, ReportsComponent, SpaceDevicesComponent],
+  imports: [CommonModule, RouterLink, RouterLinkActive, MatIconModule, MatButtonModule, AirQualityComponent, AlertsActionsComponent, OverviewComponent, ReportsComponent, SpaceDevicesComponent, TranslatePipe],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent implements OnInit {
   @Input() isOpen = true;
-  @Output() closeRequested = new EventEmitter<void>();
 
   isUpgradeVisible = false;
 
@@ -77,16 +77,14 @@ export class SidebarComponent implements OnInit {
   }
 
   onNavItemClick(): void {
-    if (window.innerWidth <= 768) {
-      this.closeRequested.emit();
-    }
+    // Keep the sidebar open while navigating so the layout feels stable on mobile.
   }
 
   readonly navItems: NavItem[] = [
-    { label: 'Overview', component: 'overview', route: '/overview' },
-    { label: 'Air Quality', component: 'air-quality', route: '/analytics' },
-    { label: 'Alerts & Actions', component: 'alerts-actions', route: '/alerts' },
-    { label: 'Reports', component: 'reports', route: '/reports' },
-    { label: 'Space & Devices', component: 'space-devices', route: '/space-devices' },
+    { label: 'sidebar.nav.overview', component: 'overview', route: '/overview' },
+    { label: 'sidebar.nav.airQuality', component: 'air-quality', route: '/analytics' },
+    { label: 'sidebar.nav.alertsActions', component: 'alerts-actions', route: '/alerts' },
+    { label: 'sidebar.nav.reports', component: 'reports', route: '/reports' },
+    { label: 'sidebar.nav.spaceDevices', component: 'space-devices', route: '/space-devices' },
   ];
 }

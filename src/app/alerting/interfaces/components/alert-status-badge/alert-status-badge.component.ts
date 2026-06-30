@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { AlertStatus } from '../../../domain/model/valueobjects/alert-status.value-object';
 
 @Component({
   selector: 'app-alert-status-badge',
   standalone: true,
-  imports: [CommonModule],
-  template: `<span class="badge" [style.backgroundColor]="resolveColor(status)">{{ status }}</span>`,
+  imports: [CommonModule, TranslatePipe],
+  template: `<span class="badge" [style.backgroundColor]="resolveColor(status)">{{ 'alertStatus.' + status.toLowerCase() | translate }}</span>`,
   styleUrl: './alert-status-badge.component.css',
 })
 export class AlertStatusBadgeComponent {

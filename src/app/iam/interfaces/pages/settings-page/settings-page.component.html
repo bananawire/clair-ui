@@ -1,22 +1,33 @@
-<div class="layout">
-  <app-header [isSidebarOpen]="isSidebarOpen" (sidebarToggleRequested)="toggleSidebar()"></app-header>
+<section class="settings-container">
+  <h1 class="page-title">{{ 'settings.title' | translate }}</h1>
 
-  <div class="body-layout">
-    <app-sidebar [isOpen]="isSidebarOpen" (closeRequested)="closeSidebar()"></app-sidebar>
+  <mat-card class="settings-card" appearance="outlined">
+    <div class="card-header-text">
+      <h2 class="card-title">{{ 'settings.languageCard.title' | translate }}</h2>
+      <p class="card-subtitle">{{ 'settings.languageCard.subtitle' | translate }}</p>
+    </div>
 
-    <main class="content">
-      <mat-card class="settings-card" appearance="outlined">
-        <h1>Settings</h1>
-        <p>Manage your account session.</p>
+    <mat-form-field appearance="outline" class="language-field">
+      <mat-label>{{ 'settings.languageLabel' | translate }}</mat-label>
+      <mat-select [value]="currentLanguage" (selectionChange)="onLanguageChange($event.value)">
+        <mat-option value="en">{{ 'settings.languageEnglish' | translate }}</mat-option>
+        <mat-option value="es">{{ 'settings.languageSpanish' | translate }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card>
 
-        <button mat-flat-button color="warn" [disabled]="isLoggingOut" (click)="logout()">
-          <mat-icon>logout</mat-icon>
-          <mat-spinner *ngIf="isLoggingOut" diameter="16" class="logout-spinner"></mat-spinner>
-          {{ isLoggingOut ? 'Logging out...' : 'Logout' }}
-        </button>
+  <mat-card class="settings-card" appearance="outlined">
+    <div class="card-header-text">
+      <h2 class="card-title">{{ 'settings.sessionCard.title' | translate }}</h2>
+      <p class="card-subtitle">{{ 'settings.sessionCard.subtitle' | translate }}</p>
+    </div>
 
-        <p class="status" *ngIf="statusMessage">{{ statusMessage }}</p>
-      </mat-card>
-    </main>
-  </div>
-</div>
+    <button mat-flat-button color="warn" [disabled]="isLoggingOut" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <mat-spinner *ngIf="isLoggingOut" diameter="16" class="logout-spinner"></mat-spinner>
+      {{ isLoggingOut ? ('settings.loggingOut' | translate) : ('settings.logoutButton' | translate) }}
+    </button>
+
+    <p class="status" *ngIf="statusMessage">{{ statusMessage }}</p>
+  </mat-card>
+</section>

@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 export type AlertsCardItem = Readonly<{
   id: string;
@@ -19,10 +20,24 @@ export type AlertsCardItem = Readonly<{
   styleUrls: ['./alerts-card.component.css'],
 })
 export class AlertsCardComponent {
-  @Input() title = 'Alerts';
-  @Input() subtitle = 'Per organization';
+  @Input() title = '';
+  @Input() subtitle = '';
   @Input() alerts: AlertsCardItem[] = [];
-  @Input() emptyLabel = 'No alerts available';
+  @Input() emptyLabel = '';
+
+  private readonly translate = inject(TranslateService);
+
+  ngOnInit(): void {
+    if (!this.title) {
+      this.title = this.translate.instant('alertsCard.title');
+    }
+    if (!this.subtitle) {
+      this.subtitle = this.translate.instant('alertsCard.subtitle');
+    }
+    if (!this.emptyLabel) {
+      this.emptyLabel = this.translate.instant('alertsCard.empty');
+    }
+  }
 
   get hasAlerts(): boolean {
     return Array.isArray(this.alerts) && this.alerts.length > 0;
@@ -51,4 +66,3 @@ export class AlertsCardComponent {
     return 'dot info';
   }
 }
-

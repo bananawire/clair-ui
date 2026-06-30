@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AUTH_COMMAND_SERVICE, AuthCommandService } from '../../../domain/services/auth-command-service';
 import { createVerificationCode } from '../../../domain/model/valueobjects/verification-code.value-object';
 import { createConfirmRegistrationCommand } from '../../../domain/model/commands/confirm-registration.command';
@@ -28,6 +29,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     RouterLink,
+    TranslatePipe,
   ],
   templateUrl: './confirm-page.component.html',
   styleUrl: './confirm-page.component.css',
@@ -39,6 +41,7 @@ export class ConfirmPageComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly translate = inject(TranslateService);
 
   confirmForm: FormGroup = this.fb.group({
     code: ['', [Validators.required, Validators.pattern('^[A-Z0-9]{4}-[A-Z0-9]{4}$')]],
@@ -52,8 +55,8 @@ export class ConfirmPageComponent implements OnInit {
   ngOnInit(): void {
     this.sessionId = this.route.snapshot.queryParamMap.get('sessionId');
     if (!this.sessionId) {
-      this.errorMessage = 'Invalid registration session. Please register again.';
-      this.snackBar.open(this.errorMessage, 'Close', { duration: 4000 });
+      this.errorMessage = this.translate.instant('confirm.error.invalidSession');
+      this.snackBar.open(this.errorMessage!, this.translate.instant('confirm.snackbar.close'), { duration: 4000 });
     }
   }
 
@@ -76,22 +79,22 @@ export class ConfirmPageComponent implements OnInit {
       this.authCommandService.handleConfirmRegistration(command).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: () => {
           this.loading = false;
-          this.successMessage = 'Account verified successfully. Redirecting to login...';
-          this.snackBar.open(this.successMessage, 'Close', { duration: 2500 });
+          this.successMessage = this.translate.instant('confirm.success');
+          this.snackBar.open(this.successMessage!, this.translate.instant('confirm.snackbar.close'), { duration: 2500 });
           setTimeout(() => {
             this.router.navigate(['/login']);
           }, 1500);
         },
         error: (err) => {
           this.loading = false;
-          this.errorMessage = err?.error?.message || 'Invalid verification code. Please try again.';
-          this.snackBar.open(this.errorMessage ?? 'Invalid verification code. Please try again.', 'Close', { duration: 4000 });
+          this.errorMessage = err?.error?.message || this.translate.instant('confirm.error.invalidCode');
+          this.snackBar.open(this.errorMessage ?? this.translate.instant('confirm.error.invalidCode'), this.translate.instant('confirm.snackbar.close'), { duration: 4000 });
         },
       });
     } catch (err: any) {
       this.loading = false;
-      this.errorMessage = err.message || 'Validation error';
-      this.snackBar.open(this.errorMessage ?? 'Validation error', 'Close', { duration: 4000 });
+      this.errorMessage = err.message || this.translate.instant('confirm.validationError');
+      this.snackBar.open(this.errorMessage ?? this.translate.instant('confirm.validationError'), this.translate.instant('confirm.snackbar.close'), { duration: 4000 });
     }
   }
 }

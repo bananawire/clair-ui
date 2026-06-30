@@ -4,8 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { SidebarComponent } from '../../../../shared/interfaces/components/sidebar/sidebar.component';
-import { HeaderComponent } from '../../../../shared/interfaces/components/header/header.component';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { OrganizationsPanelComponent } from '../../components/organizations-panel/organizations-panel.component';
 import { DeviceDetailPanelComponent } from '../../components/device-detail-panel/device-detail-panel.component';
 import { DeviceListComponent, DeviceViewMode } from '../../components/device-list/device-list.component';
@@ -25,8 +24,7 @@ import { SpaceDevicesPageActionsService } from './space-devices-page-actions.ser
     CommonModule,
     MatButtonModule,
     MatIconModule,
-    SidebarComponent,
-    HeaderComponent,
+    TranslatePipe,
     OrganizationsPanelComponent,
     DeviceDetailPanelComponent,
     SpaceDetailHeaderComponent,
@@ -39,6 +37,7 @@ export class SpaceDevicesPageComponent implements OnInit, OnDestroy {
   private readonly navigationState = inject(SpaceDevicesNavigationStateService);
   private readonly selectionHydration = inject(SpaceDevicesSelectionHydrationService);
   private readonly pageActions = inject(SpaceDevicesPageActionsService);
+  private readonly translate = inject(TranslateService);
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
@@ -52,7 +51,6 @@ export class SpaceDevicesPageComponent implements OnInit, OnDestroy {
   private statusPollingResetTimeoutId: ReturnType<typeof setTimeout> | null = null;
   private trackedStatusDeviceId: string | null = null;
 
-  isSidebarOpen = true;
   isOrganizationsDrawerOpen = false;
   selectedSpace: Space | null = null;
   selectedDevice: Device | null = null;
@@ -95,14 +93,6 @@ export class SpaceDevicesPageComponent implements OnInit, OnDestroy {
     this.stopListTelemetryPolling();
     this.stopStatusPolling();
     this.subscriptions.unsubscribe();
-  }
-
-  toggleSidebar(): void {
-    this.isSidebarOpen = !this.isSidebarOpen;
-  }
-
-  closeSidebar(): void {
-    this.isSidebarOpen = false;
   }
 
   openOrganizationsDrawer(): void {
@@ -333,7 +323,7 @@ export class SpaceDevicesPageComponent implements OnInit, OnDestroy {
           this.cdr.markForCheck();
         },
         error: () => {
-          this.errorDevices = 'Failed to load devices';
+          this.errorDevices = this.translate.instant('spaceDevices.errorLoadDevices');
           this.loadingDevices = false;
           this.stopListTelemetryPolling();
           this.cdr.markForCheck();

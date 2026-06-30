@@ -1,39 +1,32 @@
-<div class="page-layout">
-  <app-header [isSidebarOpen]="isSidebarOpen" (sidebarToggleRequested)="toggleSidebar()"></app-header>
-
-  <div class="page-body">
-    <app-sidebar [isOpen]="isSidebarOpen" (closeRequested)="closeSidebar()"></app-sidebar>
-
-    <main class="content">
-      <div class="analytics-container">
+<div class="analytics-container">
         <div class="dashboard-header">
           <div class="header-left">
-            <h1 class="page-title">Air Quality</h1>
+            <h1 class="page-title">{{ 'analytics.title' | translate }}</h1>
           </div>
 
           <div class="header-right">
             <div class="period-selector-pill">
               <button type="button" [class.active]="selectedPeriod === 'LIVE'" (click)="selectPeriod('LIVE')">
-                LIVE
+                {{ 'analytics.period.live' | translate }}
               </button>
               <button type="button" [class.active]="selectedPeriod === 'Day' || selectedPeriod === 'DAY'"
                 (click)="selectPeriod('Day')">
-                Day
+                {{ 'analytics.period.day' | translate }}
               </button>
               <button type="button" [class.active]="selectedPeriod === 'Week' || selectedPeriod === 'WEEK'"
                 (click)="selectPeriod('Week')">
-                Week
+                {{ 'analytics.period.week' | translate }}
               </button>
               <button type="button" [class.active]="selectedPeriod === 'Month' || selectedPeriod === 'MONTH'"
                 (click)="selectPeriod('Month')">
-                Month
+                {{ 'analytics.period.month' | translate }}
               </button>
             </div>
 
             <div class="calendar-wrapper">
               <div class="calendar-trigger-container" style="position: relative; display: inline-block">
-                <button class="icon-action-btn" type="button" (click)="picker.open()" aria-label="Calendar"
-                  title="Select custom range">
+                <button class="icon-action-btn" type="button" (click)="picker.open()" [attr.aria-label]="'analytics.calendarAria' | translate"
+                  [attr.title]="'analytics.calendarTitle' | translate">
                   <mat-icon>calendar_today</mat-icon>
                 </button>
                 <mat-date-range-input [rangePicker]="picker" class="hidden-datepicker-input">
@@ -48,7 +41,7 @@
 
         <div class="dropdowns-row">
           <div class="dropdown-item">
-            <label class="dropdown-label">ORGANIZATION</label>
+            <label class="dropdown-label">{{ 'analytics.label.organization' | translate }}</label>
             <mat-form-field appearance="outline" class="custom-select-field">
               <mat-select [(ngModel)]="selectedOrgId" (selectionChange)="onOrgChange()">
                 <mat-option *ngFor="let org of organizations" [value]="org.id">
@@ -59,7 +52,7 @@
           </div>
 
           <div class="dropdown-item">
-            <label class="dropdown-label">SPACES</label>
+            <label class="dropdown-label">{{ 'analytics.label.spaces' | translate }}</label>
             <mat-form-field appearance="outline" class="custom-select-field">
               <mat-select [(ngModel)]="selectedSpaceId" (selectionChange)="onSpaceChange()">
                 <mat-option *ngFor="let space of spaces" [value]="space.id">
@@ -70,7 +63,7 @@
           </div>
 
           <div class="dropdown-item">
-            <label class="dropdown-label">DEVICE</label>
+            <label class="dropdown-label">{{ 'analytics.label.device' | translate }}</label>
             <mat-form-field appearance="outline" class="custom-select-field">
               <mat-select [(ngModel)]="selectedDeviceId" (selectionChange)="onDeviceChange()">
                 <mat-option *ngFor="let device of devices" [value]="device.id">
@@ -83,12 +76,12 @@
 
         <div *ngIf="loading && !liveData" class="loading-state">
           <mat-icon class="spin">cached</mat-icon>
-          <p>Loading analytics data...</p>
+          <p>{{ 'analytics.loading' | translate }}</p>
         </div>
 
         <div *ngIf="!loading && liveUnavailable" class="live-unavailable-state">
           <mat-icon>cloud_off</mat-icon>
-          <p>{{ liveUnavailableMessage || 'Live data is not available right now.' }}</p>
+          <p>{{ liveUnavailableMessage || ('analytics.liveUnavailable' | translate) }}</p>
         </div>
 
         <div *ngIf="error" class="error-state">
@@ -107,9 +100,9 @@
 
           <div class="kpis-subgrid">
             <app-metric-card
-              title="PM2.5"
+              [title]="'analytics.metrics.pm25.title' | translate"
               [value]="liveData?.pm2_5?.value"
-              unit="µg/m³"
+              [unit]="'analytics.metrics.pm25.unit' | translate"
               [delta]="liveData?.pm2_5?.deltaPercentage"
               [statusColor]="pm25StatusColor"
               [isSelected]="selectedMetric === 'pm2_5'"
@@ -117,9 +110,9 @@
             </app-metric-card>
 
             <app-metric-card
-              title="CO₂"
+              [title]="'analytics.metrics.co2.title' | translate"
               [value]="liveData?.co2?.value"
-              unit="ppm"
+              [unit]="'analytics.metrics.co2.unit' | translate"
               [delta]="liveData?.co2?.deltaPercentage"
               [statusColor]="co2StatusColor"
               [isSelected]="selectedMetric === 'co2'"
@@ -127,9 +120,9 @@
             </app-metric-card>
 
             <app-metric-card
-              title="TEMP"
+              [title]="'analytics.metrics.temperature.title' | translate"
               [value]="liveData?.temperature?.value"
-              unit="°C"
+              [unit]="'analytics.metrics.temperature.unit' | translate"
               [delta]="liveData?.temperature?.deltaPercentage"
               [statusColor]="tempStatusColor"
               [isSelected]="selectedMetric === 'temperature'"
@@ -137,9 +130,9 @@
             </app-metric-card>
 
             <app-metric-card
-              title="HUMIDITY"
+              [title]="'analytics.metrics.humidity.title' | translate"
               [value]="liveData?.humidity?.value"
-              unit="%"
+              [unit]="'analytics.metrics.humidity.unit' | translate"
               [delta]="liveData?.humidity?.deltaPercentage"
               [statusColor]="humidityStatusColor"
               [isSelected]="selectedMetric === 'humidity'"
@@ -148,7 +141,7 @@
           </div>
 
           <app-trend-chart-card
-            [title]="selectedMetric === 'aqiValue' ? 'AQI' : selectedMetric.toUpperCase()"
+            [title]="selectedMetric === 'aqiValue' ? ('analytics.metrics.aqi.title' | translate) : selectedMetric.toUpperCase()"
             [points]="trendDataPoints"
             [metric]="selectedMetric"
             [delta]="activeMetricDelta">
@@ -157,17 +150,14 @@
 
         <div class="empty-dashboard-placeholder" *ngIf="!loading && !liveData && trendDataPoints.length === 0">
           <mat-icon>analytics</mat-icon>
-          <h3>No measurements available</h3>
-          <p>This device has no telemetry or historical data for the selected period.</p>
+          <h3>{{ 'analytics.noMeasurements.title' | translate }}</h3>
+          <p>{{ 'analytics.noMeasurements.body' | translate }}</p>
         </div>
 
         <div class="updated-row" *ngIf="liveData">
           <mat-icon class="update-icon">sync</mat-icon>
-          <span>Updated {{ formattedUpdateTime }}</span>
+          <span>{{ 'analytics.updatedPrefix' | translate }} {{ formattedUpdateTime }}</span>
         </div>
 
 
       </div>
-    </main>
-  </div>
-</div>

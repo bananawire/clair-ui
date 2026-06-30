@@ -1,9 +1,9 @@
 <div class="toolbar">
   <div class="view-toggle">
-    <button mat-icon-button [class.active]="viewMode === 'grid'" (click)="setViewMode('grid')" aria-label="Grid view">
+    <button mat-icon-button [class.active]="viewMode === 'grid'" (click)="setViewMode('grid')" [attr.aria-label]="'alertList.gridViewAria' | translate">
       <mat-icon>grid_view</mat-icon>
     </button>
-    <button mat-icon-button [class.active]="viewMode === 'list'" (click)="setViewMode('list')" aria-label="List view">
+    <button mat-icon-button [class.active]="viewMode === 'list'" (click)="setViewMode('list')" [attr.aria-label]="'alertList.listViewAria' | translate">
       <mat-icon>view_list</mat-icon>
     </button>
   </div>
@@ -11,7 +11,7 @@
 
 <div *ngIf="loading" class="loading-state">
   <mat-spinner diameter="40"></mat-spinner>
-  <span>Loading alerts...</span>
+  <span>{{ 'alertList.loading' | translate }}</span>
 </div>
 
 <div *ngIf="!loading && error" class="error-state">
@@ -21,7 +21,7 @@
 
 <div *ngIf="!loading && !error && (!alerts || alerts.length === 0)" class="empty-state">
   <mat-icon>notifications_off</mat-icon>
-  <span>No alerts found</span>
+  <span>{{ 'alertList.empty' | translate }}</span>
 </div>
 
 <div *ngIf="!loading && !error && alerts && alerts.length > 0" class="alerts-container" [class.grid]="viewMode === 'grid'" [class.list]="viewMode === 'list'">

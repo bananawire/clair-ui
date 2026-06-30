@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { DeviceCardComponent } from '../device-card/device-card.component';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Device, DevicePage } from '../../../domain/services/device-query-service';
 import { Space } from '../../../domain/services/device-query-service';
 import { DeviceTelemetrySnapshot } from '../../../application/internal/outboundservices/acl/external-telemetry-evaluation.service';
@@ -13,7 +14,7 @@ export type DeviceViewMode = 'grid' | 'list';
 @Component({
   selector: 'app-device-list',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, DeviceCardComponent],
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule, DeviceCardComponent, TranslatePipe],
   templateUrl: './device-list.component.html',
   styleUrl: './device-list.component.css',
 })

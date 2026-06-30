@@ -1,25 +1,23 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslatePipe } from '@ngx-translate/core';
 import { TrendPoint } from '../../../domain/model/valueobjects/trend-point.value-object';
 import { calculateChartPoints, calculateChartFillPoints, formatDelta } from '../../rest/transform/analytics-page.transform';
 
 @Component({
   selector: 'app-trend-chart-card',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, TranslatePipe],
   template: `
     <div class="kpi-card trend-card">
       <div class="kpi-header">
-        <span class="kpi-title">TREND ({{ title | uppercase }})</span>
+        <span class="kpi-title">{{ 'analytics.trendChart.titlePrefix' | translate }} ({{ title | uppercase }})</span>
       </div>
 
       <div class="trend-chart-wrapper">
         <div *ngIf="points.length === 0" class="chart-empty-state">
-          <p>
-            No historical data in this time range. Try selecting a different range or checking
-            the device connectivity.
-          </p>
+          <p>{{ 'analytics.trendChart.empty' | translate }}</p>
         </div>
 
         <svg *ngIf="points.length > 0" viewBox="0 0 500 150" class="trend-svg"
@@ -43,11 +41,11 @@ import { calculateChartPoints, calculateChartFillPoints, formatDelta } from '../
 
       <div class="kpi-footer">
         <div class="trend-delta" [class.negative]="!isDeltaPositive">
-          <ng-container *ngIf="delta !== null">
+          <ng-container *ngIf="formattedDelta !== null">
             <mat-icon>{{ isDeltaPositive ? 'trending_up' : 'trending_down' }}</mat-icon>
             <span>{{ formattedDelta }}</span>
           </ng-container>
-          <span *ngIf="delta === null" class="delta-null">N/A</span>
+          <span *ngIf="formattedDelta === null" class="delta-null">{{ 'analytics.trendChart.deltaNull' | translate }}</span>
         </div>
       </div>
     </div>
@@ -72,7 +70,7 @@ export class TrendChartCardComponent {
     return this.delta !== null && this.delta >= 0;
   }
 
-  get formattedDelta(): string {
+  get formattedDelta(): string | null {
     return formatDelta(this.delta);
   }
 }

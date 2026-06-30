@@ -1,17 +1,17 @@
 <div class="filters-row">
   <mat-form-field appearance="outline" class="filter-field">
-    <mat-label>Status</mat-label>
+    <mat-label>{{ 'alertFilters.statusLabel' | translate }}</mat-label>
     <mat-select [value]="selectedStatus" (selectionChange)="onStatusChange($event.value)">
-      <mat-option value="ALL">All</mat-option>
-      <mat-option *ngFor="let s of statuses" [value]="s">{{ s }}</mat-option>
+      <mat-option value="ALL">{{ 'alertFilters.all' | translate }}</mat-option>
+      <mat-option *ngFor="let s of statuses" [value]="s">{{ 'alertStatus.' + s.toLowerCase() | translate }}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field appearance="outline" class="filter-field">
-    <mat-label>Metric</mat-label>
+    <mat-label>{{ 'alertFilters.metricLabel' | translate }}</mat-label>
     <mat-select [value]="selectedMetric" (selectionChange)="onMetricChange($event.value)">
-      <mat-option value="ALL">All</mat-option>
-      <mat-option *ngFor="let m of metrics" [value]="m">{{ m }}</mat-option>
+      <mat-option value="ALL">{{ 'alertFilters.all' | translate }}</mat-option>
+      <mat-option *ngFor="let m of metrics" [value]="m">{{ 'metricType.' + m.toLowerCase() + '.label' | translate }}</mat-option>
     </mat-select>
   </mat-form-field>
 </div>

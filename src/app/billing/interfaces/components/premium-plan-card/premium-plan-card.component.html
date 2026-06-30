@@ -1,39 +1,39 @@
 <mat-card class="plan-card" appearance="outlined">
 	<div class="plan-header">
 		<span class="material-symbols-outlined plan-icon">calendar_view_month</span>
-		<h2 class="plan-title">Mesh Network</h2>
+		<h2 class="plan-title">{{ 'premiumPlan.title' | translate }}</h2>
 	</div>
 
 	<div class="plan-price-section">
-		<h3 class="plan-price">S/ 29.90</h3>
-		<p class="plan-price-subtitle">Per month</p>
+		<h3 class="plan-price">{{ 'premiumPlan.price' | translate }}</h3>
+		<p class="plan-price-subtitle">{{ 'premiumPlan.period' | translate }}</p>
 	</div>
 
 	<button class="submit-button" (click)="onPress()">
-		Try Clair
+		{{ 'premiumPlan.cta' | translate }}
 	</button>
 
 	<div class="features-list">
-		<p class="features-list-header">Everything in Free, plus:</p>
+		<p class="features-list-header">{{ 'premiumPlan.featuresHeader' | translate }}</p>
 
 		<div class="feature-item">
 			<span class="material-symbols-outlined feature-icon">check</span>
-			<p class="feature-text">Support for more than one device</p>
+			<p class="feature-text">{{ 'premiumPlan.feature1' | translate }}</p>
 		</div>
 
 		<div class="feature-item">
 			<span class="material-symbols-outlined feature-icon">check</span>
-			<p class="feature-text">Multi-room dashboard</p>
+			<p class="feature-text">{{ 'premiumPlan.feature2' | translate }}</p>
 		</div>
 
 		<div class="feature-item">
 			<span class="material-symbols-outlined feature-icon">check</span>
-			<p class="feature-text">Advanced historical data and analytics</p>
+			<p class="feature-text">{{ 'premiumPlan.feature3' | translate }}</p>
 		</div>
 
 		<div class="feature-item">
 			<span class="material-symbols-outlined feature-icon">check</span>
-			<p class="feature-text">Centralized sensor managament</p>
+			<p class="feature-text">{{ 'premiumPlan.feature4' | translate }}</p>
 		</div>
 	</div>
 </mat-card>

@@ -2,54 +2,54 @@
   <app-clair-logo class="logo-login" fill="white" stroke="white"></app-clair-logo>
 
   <mat-card class="auth-card" appearance="outlined">
-    <h2 class="title">Create an account</h2>
-    <p class="subtitle">Start monitoring your air</p>
+    <h2 class="title">{{ 'register.title' | translate }}</h2>
+    <p class="subtitle">{{ 'register.subtitle' | translate }}</p>
 
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" placeholder="name@gmail.com" />
+        <mat-label>{{ 'register.emailLabel' | translate }}</mat-label>
+        <input matInput type="email" formControlName="email" [placeholder]="'register.emailPlaceholder' | translate" />
         <mat-icon matPrefix>mail_outline</mat-icon>
-        <mat-error *ngIf="registerForm.get('email')?.hasError('required')">Email is required</mat-error>
-        <mat-error *ngIf="registerForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+        <mat-error *ngIf="registerForm.get('email')?.hasError('required')">{{ 'register.emailRequired' | translate }}</mat-error>
+        <mat-error *ngIf="registerForm.get('email')?.hasError('email')">{{ 'register.emailInvalid' | translate }}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Password</mat-label>
+        <mat-label>{{ 'register.passwordLabel' | translate }}</mat-label>
         <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
         <mat-icon matPrefix>lock_outline</mat-icon>
         <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
           <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
-        <mat-error *ngIf="registerForm.get('password')?.hasError('required')">Password is required</mat-error>
-        <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">Password must be at least 8 characters</mat-error>
+        <mat-error *ngIf="registerForm.get('password')?.hasError('required')">{{ 'register.passwordRequired' | translate }}</mat-error>
+        <mat-error *ngIf="registerForm.get('password')?.hasError('minlength')">{{ 'register.passwordMinLength' | translate }}</mat-error>
       </mat-form-field>
 
       <mat-checkbox formControlName="acceptTerms" class="terms-checkbox">
-        I accept Clair's <a href="/terms" target="_blank">Terms and Conditions</a> and <a href="/privacy" target="_blank">Privacy Policy</a>.
+        {{ 'register.termsPrefix' | translate }} <a href="/terms" target="_blank">{{ 'register.termsLink' | translate }}</a> {{ 'register.termsAnd' | translate }} <a href="/privacy" target="_blank">{{ 'register.privacyLink' | translate }}</a>.
       </mat-checkbox>
 
       <button mat-flat-button class="submit-button" type="submit" [disabled]="registerForm.invalid || loading">
         <span *ngIf="loading" class="spinner"><mat-spinner diameter="16"></mat-spinner></span>
-        <span *ngIf="!loading">Register</span>
+        <span *ngIf="!loading">{{ 'register.registerButton' | translate }}</span>
       </button>
     </form>
 
     <div class="divider-container">
       <mat-divider class="divider-line"></mat-divider>
-      <span class="divider-text">OR REGISTER WITH</span>
+      <span class="divider-text">{{ 'register.divider' | translate }}</span>
       <mat-divider class="divider-line"></mat-divider>
     </div>
 
     <button type="button" class="google-button" (click)="onGoogleSignIn()">
       <app-google-icon class="google-icon-svg"></app-google-icon>
-      <span>Google</span>
+      <span>{{ 'register.googleButton' | translate }}</span>
     </button>
 
     <p class="footer-text">
-      Already have an account? <a routerLink="/login">Login</a>
+      {{ 'register.footer' | translate }} <a routerLink="/login">{{ 'register.loginLink' | translate }}</a>
     </p>
   </mat-card>
 </div>

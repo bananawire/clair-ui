@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-aqi-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './aqi-card.component.html',
   styleUrl: './aqi-card.component.css',
 })
@@ -15,12 +16,18 @@ export class AqiCardComponent {
   @Input() deviceCount: number | null = null;
   @Input() maxAqiValue = 100;
 
+  private readonly translate = inject(TranslateService);
+
   private normalizeCategory(raw: string): string {
     return raw
       .trim()
       .toUpperCase()
       .replace(/[\s-]+/g, '_')
       .replace(/_+/g, '_');
+  }
+
+  private toCamelCase(value: string): string {
+    return value.toLowerCase().replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
   }
 
   private getCategoryKey(): string | null {
@@ -45,7 +52,7 @@ export class AqiCardComponent {
   get displayCategory(): string {
     const key = this.getCategoryKey();
     if (!key) return '--';
-    return key.replace(/_/g, ' ');
+    return this.translate.instant(`aqiCategories.${this.toCamelCase(key)}`);
   }
 
   get toneClass(): string {
@@ -71,24 +78,29 @@ export class AqiCardComponent {
 
   get deviceLabel(): string {
     if (this.deviceCount === null || this.deviceCount === undefined) {
-      return '-- devices';
+      return this.translate.instant('aqiCard.deviceLabel.zero');
     }
-    const label = this.deviceCount === 1 ? 'device' : 'devices';
-    return `${this.deviceCount} ${label}`;
+    if (this.deviceCount === 0) {
+      return this.translate.instant('aqiCard.deviceLabel.zero');
+    }
+    if (this.deviceCount === 1) {
+      return this.translate.instant('aqiCard.deviceLabel.one');
+    }
+    return this.translate.instant('aqiCard.deviceLabel.many', { count: this.deviceCount });
   }
 
   get updatedLabel(): string {
     if (!this.updatedAt) {
-      return 'Updated --';
+      return this.translate.instant('aqiCard.updated.now');
     }
     const parsed = new Date(this.updatedAt);
     if (Number.isNaN(parsed.getTime())) {
-      return 'Updated --';
+      return this.translate.instant('aqiCard.updated.now');
     }
     const diffSeconds = Math.max(
       0,
       Math.floor((Date.now() - parsed.getTime()) / 1000),
     );
-    return `Updated ${diffSeconds} seconds ago`;
+    return this.translate.instant('aqiCard.updated.secondsAgo', { seconds: diffSeconds });
   }
 }

@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>Delete Organization</h2>
+<h2 mat-dialog-title>{{ 'deleteOrganizationDialog.title' | translate }}</h2>
 <mat-dialog-content>
-  <p>Are you sure you want to delete this organization? This action cannot be undone.</p>
+  <p>{{ 'deleteOrganizationDialog.message' | translate }}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button (click)="cancel()">Cancel</button>
-  <button mat-flat-button color="warn" (click)="confirm()">Delete</button>
+  <button mat-button (click)="cancel()">{{ 'deleteOrganizationDialog.cancel' | translate }}</button>
+  <button mat-flat-button color="warn" (click)="confirm()">{{ 'deleteOrganizationDialog.delete' | translate }}</button>
 </mat-dialog-actions>

@@ -4,11 +4,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Space } from '../../../domain/services/device-query-service';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-space-detail-header',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatMenuModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule, MatMenuModule, TranslatePipe],
   templateUrl: './space-detail-header.component.html',
   styleUrl: './space-detail-header.component.css',
 })

@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export interface DeleteDeviceDialogData {
   deviceName: string;
@@ -10,7 +11,7 @@ export interface DeleteDeviceDialogData {
 @Component({
   selector: 'app-delete-device-dialog',
   standalone: true,
-  imports: [CommonModule, MatDialogModule, MatButtonModule],
+  imports: [CommonModule, MatDialogModule, MatButtonModule, TranslatePipe],
   templateUrl: './delete-device-dialog.component.html',
   styleUrl: './delete-device-dialog.component.css',
 })

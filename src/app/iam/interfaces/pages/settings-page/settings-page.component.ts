@@ -6,8 +6,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { SidebarComponent } from '../../../../shared/interfaces/components/sidebar/sidebar.component';
-import { HeaderComponent } from '../../../../shared/interfaces/components/header/header.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { AUTH_COMMAND_SERVICE, AuthCommandService } from '../../../domain/services/auth-command-service';
 import { TOKEN_STORAGE_GATEWAY } from '../../../infrastructure/storage/token-storage.gateway';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -15,6 +16,7 @@ import {
   NOTIFICATIONS_CONTEXT_FACADE,
   NotificationsContextFacade,
 } from '../../../../notifications/interfaces/acl/notifications-context-facade';
+import { LanguageService, SupportedLanguage } from '../../../../shared/interfaces/services/language.service';
 
 @Component({
   selector: 'app-settings-page',
@@ -26,8 +28,9 @@ import {
     MatIconModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    SidebarComponent,
-    HeaderComponent,
+    MatFormFieldModule,
+    MatSelectModule,
+    TranslatePipe,
   ],
   templateUrl: './settings-page.component.html',
   styleUrl: './settings-page.component.css',
@@ -39,17 +42,16 @@ export class SettingsPageComponent {
   private readonly snackBar = inject(MatSnackBar);
   private readonly notificationsContextFacade = inject(NOTIFICATIONS_CONTEXT_FACADE) as NotificationsContextFacade;
   private readonly destroyRef = inject(DestroyRef);
+  private readonly languageService = inject(LanguageService);
+  private readonly translate = inject(TranslateService);
 
   isLoggingOut = false;
-  isSidebarOpen = true;
   statusMessage = '';
+  currentLanguage: SupportedLanguage = this.languageService.getCurrentLanguage();
 
-  toggleSidebar(): void {
-    this.isSidebarOpen = !this.isSidebarOpen;
-  }
-
-  closeSidebar(): void {
-    this.isSidebarOpen = false;
+  onLanguageChange(language: SupportedLanguage): void {
+    this.languageService.setLanguage(language);
+    this.currentLanguage = language;
   }
 
   logout(): void {
@@ -58,8 +60,8 @@ export class SettingsPageComponent {
     this.statusMessage = '';
 
     this.authCommandService.handleSignOut().pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
-      next: () => this.clearSessionAndNavigate('Session closed successfully.'),
-      error: () => this.clearSessionAndNavigate('Session closed locally after API logout issue.'),
+      next: () => this.clearSessionAndNavigate(this.translate.instant('settings.snackbar.sessionClosed')),
+      error: () => this.clearSessionAndNavigate(this.translate.instant('settings.snackbar.sessionClosedLocal')),
     });
   }
 
@@ -68,7 +70,7 @@ export class SettingsPageComponent {
     this.tokenStorage.clearTokens();
     this.statusMessage = message;
     this.isLoggingOut = false;
-    this.snackBar.open(message, 'Close', { duration: 3000 });
+    this.snackBar.open(message, this.translate.instant('settings.snackbar.close'), { duration: 3000 });
     this.router.navigate(['/login']);
   }
 }

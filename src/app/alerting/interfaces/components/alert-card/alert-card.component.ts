@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,7 +10,7 @@ import { AlertStatusBadgeComponent } from '../alert-status-badge/alert-status-ba
 @Component({
   selector: 'app-alert-card',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, AlertStatusBadgeComponent],
+  imports: [CommonModule, TranslatePipe, MatCardModule, MatIconModule, MatButtonModule, AlertStatusBadgeComponent],
   templateUrl: './alert-card.component.html',
   styleUrl: './alert-card.component.css',
 })

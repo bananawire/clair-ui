@@ -1,6 +1,6 @@
 <header class="header-container">
   <div class="header-left">
-    <button mat-icon-button class="menu-button" (click)="onToggleSidebar()" aria-label="Toggle sidebar">
+    <button mat-icon-button class="menu-button" (click)="onToggleSidebar()" [attr.aria-label]="'header.toggleSidebarAria' | translate">
       <mat-icon>{{ isSidebarOpen ? 'menu_open' : 'menu' }}</mat-icon>
     </button>
     <app-clair-lyrics class="logo"></app-clair-lyrics>
@@ -8,16 +8,16 @@
 
   <div class="header-right">
     <div class="notifications-wrapper">
-      <button mat-icon-button class="action-button" aria-label="Notifications" (click)="toggleNotifications($event)">
+      <button mat-icon-button class="action-button" [attr.aria-label]="'header.notificationsAria' | translate" (click)="toggleNotifications($event)">
         <mat-icon>notifications</mat-icon>
       </button>
-      <span class="badge" *ngIf="unreadCount > 0">{{ unreadCount > 99 ? '99+' : unreadCount }}</span>
+      <span class="badge" *ngIf="unreadCount > 0">{{ unreadCount > 99 ? ('header.unreadCount99plus' | translate) : unreadCount }}</span>
 
       <!-- Panel de Notificaciones -->
       <div class="notification-panel" *ngIf="isNotificationPanelOpen" (click)="$event.stopPropagation()">
         <div class="panel-header">
-          <h3>Notifications</h3>
-          <button mat-icon-button class="close-panel-btn" (click)="isNotificationPanelOpen = false" aria-label="Close notifications">
+          <h3>{{ 'header.notificationsTitle' | translate }}</h3>
+          <button mat-icon-button class="close-panel-btn" (click)="isNotificationPanelOpen = false" [attr.aria-label]="'header.closeNotificationsAria' | translate">
             <mat-icon>close</mat-icon>
           </button>
         </div>
@@ -29,7 +29,7 @@
 
           <div class="empty-state" *ngIf="!loading && notifications.length === 0">
             <mat-icon class="empty-icon">notifications_none</mat-icon>
-            <p class="empty-text">No new notifications</p>
+            <p class="empty-text">{{ 'header.emptyNotifications' | translate }}</p>
           </div>
 
           <div class="notification-list" *ngIf="!loading && notifications.length > 0">
@@ -42,7 +42,7 @@
                 <p class="item-message">{{ notification.message }}</p>
                 <div class="item-footer">
                   <span class="item-time">{{ getRelativeTime(notification.createdAt) }}</span>
-                  <span class="item-status" *ngIf="!notification.sent">Failed to send</span>
+                  <span class="item-status" *ngIf="!notification.sent">{{ 'header.notificationFailedToSend' | translate }}</span>
                 </div>
               </div>
             </div>
@@ -51,7 +51,7 @@
       </div>
     </div>
 
-    <button mat-icon-button class="action-button" aria-label="User profile">
+    <button mat-icon-button class="action-button" [attr.aria-label]="'header.userProfileAria' | translate">
       <mat-icon>person</mat-icon>
     </button>
   </div>

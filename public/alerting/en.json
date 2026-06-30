@@ -1,0 +1,69 @@
+{
+  "alerts": {
+    "title": "Alerts",
+    "updatedPrefix": "Updated",
+    "updatedTime": {
+      "justNow": "just now",
+      "secondsAgo": "{{seconds}} seconds ago"
+    },
+    "tab": {
+      "active": "Active Alerts",
+      "history": "History"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "pageInfo": "Page {{currentPage}} of {{totalPages}}"
+    },
+    "errorLoad": "Failed to load alerts"
+  },
+  "alertDailyChart": {
+    "title": "Last 30 days",
+    "today": "Today",
+    "thirtyDaysAgo": "30 days ago"
+  },
+  "alertTable": {
+    "header": {
+      "device": "DEVICE",
+      "severity": "SEVERITY",
+      "space": "SPACE",
+      "variable": "VARIABLE",
+      "time": "TIME",
+      "status": "STATUS"
+    },
+    "empty": "No alerts found",
+    "noSpace": "-"
+  },
+  "alertCard": {
+    "thresholdLabel": "Threshold",
+    "actualLabel": "Actual",
+    "resolvedPrefix": "Resolved"
+  },
+  "alertList": {
+    "gridViewAria": "Grid view",
+    "listViewAria": "List view",
+    "loading": "Loading alerts...",
+    "empty": "No alerts found"
+  },
+  "alertFilters": {
+    "statusLabel": "Status",
+    "metricLabel": "Metric",
+    "all": "All"
+  },
+  "alertStatus": {
+    "active": "ACTIVE",
+    "acknowledged": "ACKNOWLEDGED",
+    "resolved": "RESOLVED"
+  },
+  "alertSeverity": {
+    "critical": "CRITICAL",
+    "warning": "WARNING",
+    "low": "LOW"
+  },
+  "metricType": {
+    "pm25": { "label": "PM2.5", "unit": "µg/m³" },
+    "co2": { "label": "CO2", "unit": "ppm" },
+    "temperature": { "label": "Temperature", "unit": "°C" },
+    "humidity": { "label": "Humidity", "unit": "%" }
+  }
+}

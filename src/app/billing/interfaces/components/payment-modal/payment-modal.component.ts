@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, ChangeDetectorRef, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { loadStripe, Stripe, StripeElements, StripeCardNumberElement, StripeCardExpiryElement, StripeCardCvcElement } from '@stripe/stripe-js';
 import { jwtDecode } from 'jwt-decode';
 import { firstValueFrom } from 'rxjs';
@@ -23,7 +24,7 @@ type AccessTokenPayload = {
 @Component({
   selector: 'app-payment-modal',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   templateUrl: './payment-modal.component.html',
   styleUrl: './payment-modal.component.css'
 })
@@ -39,6 +40,8 @@ export class PaymentModalComponent implements OnInit, AfterViewInit {
   cardError: string | null = null;
   isProcessing: boolean = false;
   userId: string | null = null;
+
+  private readonly translate = inject(TranslateService);
 
   constructor(
     public dialogRef: MatDialogRef<PaymentModalComponent>,
@@ -125,7 +128,7 @@ export class PaymentModalComponent implements OnInit, AfterViewInit {
   async onAdd() {
     if (!this.stripe || !this.cardNumber) return;
     if (!this.userId) {
-      this.cardError = 'User ID not found. Please log in again.';
+      this.cardError = this.translate.instant('paymentModal.error.userIdNotFound');
       return;
     }
 
@@ -157,16 +160,20 @@ export class PaymentModalComponent implements OnInit, AfterViewInit {
       });
 
       if (result.error) {
-        this.cardError = result.error.message || 'Payment failed';
+        this.cardError = result.error.message || this.translate.instant('paymentModal.error.paymentFailed');
       } else {
-        this.snackBar.open('Payment successful! Your plan has been upgraded.', 'Close', {
-          duration: 5000,
-          panelClass: ['subtle-snackbar']
-        });
+        this.snackBar.open(
+          this.translate.instant('paymentModal.snackbar.success'),
+          this.translate.instant('paymentModal.snackbar.close'),
+          {
+            duration: 5000,
+            panelClass: ['subtle-snackbar']
+          }
+        );
         this.dialogRef.close(true);
       }
     } catch (error: any) {
-      this.cardError = error.message || 'An unexpected error occurred';
+      this.cardError = error.message || this.translate.instant('paymentModal.error.unexpected');
     } finally {
       this.isProcessing = false;
       this.cdr.detectChanges();

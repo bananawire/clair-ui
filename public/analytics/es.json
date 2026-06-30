@@ -1,0 +1,220 @@
+{
+  "overview": {
+    "loading": "Cargando resumen...",
+    "error": "No se puede cargar el resumen en este momento.",
+    "pollutantsTitle": "Contaminantes",
+    "updatesEveryMinute": "Se actualiza cada minuto",
+    "metrics": {
+      "aqi": { "title": "AQI" },
+      "pm25": { "label": "PM2.5", "unit": "µg/m³" },
+      "co2": { "label": "CO₂", "unit": "ppm" },
+      "temperature": { "label": "TEMP", "unit": "°C" },
+      "humidity": { "label": "HUMEDAD", "unit": "%" }
+    }
+  },
+  "aqiCard": {
+    "title": "Índice de calidad del aire",
+    "averageOf": "Promedio de",
+    "deviceLabel": {
+      "zero": "-- dispositivos",
+      "one": "1 dispositivo",
+      "many": "{{count}} dispositivos"
+    },
+    "updated": {
+      "now": "Actualizado --",
+      "secondsAgo": "Actualizado hace {{seconds}} segundos"
+    },
+    "categories": {
+      "good": "Bueno",
+      "moderate": "Moderado",
+      "unhealthyForSensitive": "Insalubre para grupos sensibles",
+      "unhealthy": "Insalubre",
+      "veryUnhealthy": "Muy insalubre",
+      "hazardous": "Peligroso"
+    }
+  },
+  "pollutantCard": {
+    "noValue": "--",
+    "noDelta": "--"
+  },
+  "alertsCard": {
+    "title": "Alertas",
+    "subtitle": "Por organización",
+    "empty": "No hay alertas disponibles"
+  },
+  "organizationCard": {
+    "title": "Organizaciones",
+    "empty": "No hay organizaciones disponibles",
+    "noName": "--"
+  },
+  "analytics": {
+    "title": "Calidad del aire",
+    "period": {
+      "live": "EN VIVO",
+      "day": "Día",
+      "week": "Semana",
+      "month": "Mes"
+    },
+    "calendarAria": "Calendario",
+    "calendarTitle": "Seleccionar rango personalizado",
+    "label": {
+      "organization": "ORGANIZACIÓN",
+      "spaces": "ESPACIOS",
+      "device": "DISPOSITIVO"
+    },
+    "loading": "Cargando datos analíticos...",
+    "liveUnavailable": "Los datos en vivo no están disponibles en este momento.",
+    "noMeasurements": {
+      "title": "No hay mediciones disponibles",
+      "body": "Este dispositivo no tiene telemetría ni datos históricos para el período seleccionado."
+    },
+    "updatedPrefix": "Actualizado",
+    "updatedTime": {
+      "justNow": "justo ahora",
+      "secondsAgo": "hace {{seconds}} segundos"
+    },
+    "metrics": {
+      "aqi": { "title": "AQI", "unit": "" },
+      "pm25": { "title": "PM2.5", "unit": "µg/m³" },
+      "co2": { "title": "CO₂", "unit": "ppm" },
+      "temperature": { "title": "TEMP", "unit": "°C" },
+      "humidity": { "title": "HUMEDAD", "unit": "%" }
+    },
+    "aqiGauge": {
+      "title": "ÍNDICE DE CALIDAD DEL AIRE",
+      "noMeasurements": "No hay mediciones"
+    },
+    "metricCard": {
+      "deltaNull": "N/A"
+    },
+    "trendChart": {
+      "titlePrefix": "TENDENCIA",
+      "empty": "No hay datos históricos en este rango de tiempo. Prueba a seleccionar un rango distinto o a comprobar la conectividad del dispositivo.",
+      "deltaNull": "N/A"
+    },
+    "error": {
+      "loadOrganizations": "Error al cargar organizaciones. Por favor, inténtalo de nuevo.",
+      "loadSpaces": "Error al cargar espacios.",
+      "loadDevices": "Error al cargar dispositivos."
+    }
+  },
+  "reports": {
+    "title": "Reportes",
+    "period": {
+      "daily": "Diario",
+      "monthly": "Mensual"
+    },
+    "selectPeriodAria": "Seleccionar período",
+    "selectPeriodTitle": "Seleccionar período",
+    "exportCsv": "Exportar CSV",
+    "exportCsvTitle": "Exportar reporte como CSV",
+    "label": {
+      "organization": "ORGANIZACIÓN",
+      "spaces": "ESPACIOS",
+      "device": "DISPOSITIVO"
+    },
+    "loading": "Cargando reporte...",
+    "upsell": {
+      "title": "Los reportes mensuales son una función premium",
+      "body": "Mejora tu plan para desbloquear reportes mensuales de calidad del aire y tendencias más largas.",
+      "upgradeLink": "Mejorar plan"
+    },
+    "notFound": {
+      "title": "No hay reporte disponible",
+      "body": "Aún no hay un reporte agregado para este dispositivo en el período seleccionado."
+    },
+    "summary": {
+      "averageAqi": "AQI PROMEDIO",
+      "peakPm25": "PM2.5 MÁXIMO",
+      "aqiChange": "CAMBIO DE AQI",
+      "readings": "LECTURAS",
+      "daysCovered": "{{days}} días cubiertos",
+      "vsPreviousDay": "vs día anterior",
+      "vsPreviousMonth": "vs mes anterior"
+    },
+    "metricStatistics": {
+      "title": "ESTADÍSTICAS DE MÉTRICAS",
+      "header": {
+        "metric": "Métrica",
+        "avg": "Prom",
+        "min": "Mín",
+        "max": "Máx"
+      }
+    },
+    "categoryDistribution": {
+      "title": "DISTRIBUCIÓN POR CATEGORÍA AQI",
+      "header": {
+        "category": "Categoría",
+        "readings": "Lecturas",
+        "share": "Porcentaje"
+      },
+      "emptyCell": "Sin datos de categoría"
+    },
+    "metricLabels": {
+      "aqi": "AQI",
+      "pm25": "PM2.5",
+      "co2": "CO₂",
+      "temperature": "Temp",
+      "humidity": "Humedad"
+    },
+    "metricUnits": {
+      "pm25": "µg/m³",
+      "co2": "ppm",
+      "temperature": "°C",
+      "humidity": "%"
+    },
+    "donutCard": {
+      "title": "PORCENTAJE POR CATEGORÍA AQI",
+      "avgAqi": "AQI PROMEDIO",
+      "dominant": "Dominante: {{category}}",
+      "empty": "No hay distribución por categoría disponible para este período."
+    },
+    "rangesCard": {
+      "title": "RANGOS DE MÉTRICAS · MÍN · PROM · MÁX",
+      "min": "mín {{value}}",
+      "max": "máx {{value}}",
+      "markerTitle": "prom {{value}}"
+    },
+    "trendCard": {
+      "titlePrefix": "TENDENCIA · {{metric}}",
+      "empty": "Aún no hay reportes históricos en esta ventana. Los períodos anteriores pueden no estar consolidados."
+    },
+    "periodLabel": {
+      "latestDay": "Último día",
+      "previousMonth": "Mes anterior"
+    },
+    "error": {
+      "loadOrganizations": "Error al cargar organizaciones. Por favor, inténtalo de nuevo.",
+      "loadSpaces": "Error al cargar espacios.",
+      "loadDevices": "Error al cargar dispositivos.",
+      "forbidden": "No tienes acceso a los reportes de este dispositivo.",
+      "loadReport": "Error al cargar el reporte. Por favor, inténtalo de nuevo."
+    },
+    "csv": {
+      "header": {
+        "report": "Reporte",
+        "device": "Dispositivo",
+        "period": "Período",
+        "averageAqi": "AQI promedio",
+        "dominantCategory": "Categoría dominante",
+        "peakPm25": "PM2.5 máximo",
+        "peakPm25At": "PM2.5 máximo a las",
+        "aqiDeltaPct": "Cambio de AQI %",
+        "readings": "Lecturas",
+        "daysCovered": "Días cubiertos",
+        "metricAvgMinMax": "métrica,prom,mín,máx",
+        "categoryCountPercentage": "categoría,conteo,porcentaje"
+      },
+      "fallbackDeviceName": "dispositivo",
+      "filenamePrefix": "reporte"
+    }
+  },
+  "aqiCategories": {
+    "good": "Bueno",
+    "moderate": "Moderado",
+    "unhealthyForSensitive": "No saludable para grupos sensibles",
+    "unhealthy": "No saludable",
+    "veryUnhealthy": "Muy no saludable",
+    "hazardous": "Peligroso"
+  }
+}

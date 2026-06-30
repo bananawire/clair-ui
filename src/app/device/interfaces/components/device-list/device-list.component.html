@@ -1,27 +1,27 @@
 <div *ngIf="selectedSpace" class="view-toggle">
-  <button mat-button type="button" [class.active]="viewMode === 'grid'" (click)="setViewMode('grid')" aria-label="Grid view">
+  <button mat-button type="button" [class.active]="viewMode === 'grid'" (click)="setViewMode('grid')" [attr.aria-label]="'deviceList.gridViewAria' | translate">
     <mat-icon>grid_view</mat-icon>
-    Grid
+    {{ 'deviceList.grid' | translate }}
   </button>
-  <button mat-button type="button" [class.active]="viewMode === 'list'" (click)="setViewMode('list')" aria-label="List view">
+  <button mat-button type="button" [class.active]="viewMode === 'list'" (click)="setViewMode('list')" [attr.aria-label]="'deviceList.listViewAria' | translate">
     <mat-icon>view_list</mat-icon>
-    List
+    {{ 'deviceList.list' | translate }}
   </button>
 </div>
 
 <div *ngIf="!selectedSpace && !loadingDevices" class="empty-state centered">
-  Select an organization with spaces to view devices.
+  {{ 'deviceList.selectOrgWithSpaces' | translate }}
 </div>
 
 <div *ngIf="loadingDevices" class="loading-state centered">
   <mat-spinner diameter="24"></mat-spinner>
-  <span>Loading devices...</span>
+  <span>{{ 'deviceList.loading' | translate }}</span>
 </div>
 
 <div *ngIf="errorDevices && !loadingDevices" class="error-state centered">{{ errorDevices }}</div>
 
 <div *ngIf="!loadingDevices && devicesPage && devicesPage.content.length === 0" class="empty-state centered">
-  No devices registered in this space.
+  {{ 'deviceList.noDevices' | translate }}
 </div>
 
 <div *ngIf="!loadingDevices && devicesPage && devicesPage.content.length > 0" [class.device-grid]="viewMode === 'grid'" [class.device-list]="viewMode === 'list'">

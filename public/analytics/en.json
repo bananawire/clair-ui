@@ -1,0 +1,220 @@
+{
+  "overview": {
+    "loading": "Loading overview...",
+    "error": "Unable to load overview right now.",
+    "pollutantsTitle": "Pollutants",
+    "updatesEveryMinute": "Updates every minute",
+    "metrics": {
+      "aqi": { "title": "AQI" },
+      "pm25": { "label": "PM2.5", "unit": "µg/m³" },
+      "co2": { "label": "CO₂", "unit": "ppm" },
+      "temperature": { "label": "TEMP", "unit": "°C" },
+      "humidity": { "label": "HUMIDITY", "unit": "%" }
+    }
+  },
+  "aqiCard": {
+    "title": "Air Quality Index",
+    "averageOf": "Average of",
+    "deviceLabel": {
+      "zero": "-- devices",
+      "one": "1 device",
+      "many": "{{count}} devices"
+    },
+    "updated": {
+      "now": "Updated --",
+      "secondsAgo": "Updated {{seconds}} seconds ago"
+    },
+    "categories": {
+      "good": "Good",
+      "moderate": "Moderate",
+      "unhealthyForSensitive": "Unhealthy for Sensitive",
+      "unhealthy": "Unhealthy",
+      "veryUnhealthy": "Very Unhealthy",
+      "hazardous": "Hazardous"
+    }
+  },
+  "pollutantCard": {
+    "noValue": "--",
+    "noDelta": "--"
+  },
+  "alertsCard": {
+    "title": "Alerts",
+    "subtitle": "Per organization",
+    "empty": "No alerts available"
+  },
+  "organizationCard": {
+    "title": "Organizations",
+    "empty": "No organizations available",
+    "noName": "--"
+  },
+  "analytics": {
+    "title": "Air Quality",
+    "period": {
+      "live": "LIVE",
+      "day": "Day",
+      "week": "Week",
+      "month": "Month"
+    },
+    "calendarAria": "Calendar",
+    "calendarTitle": "Select custom range",
+    "label": {
+      "organization": "ORGANIZATION",
+      "spaces": "SPACES",
+      "device": "DEVICE"
+    },
+    "loading": "Loading analytics data...",
+    "liveUnavailable": "Live data is not available right now.",
+    "noMeasurements": {
+      "title": "No measurements available",
+      "body": "This device has no telemetry or historical data for the selected period."
+    },
+    "updatedPrefix": "Updated",
+    "updatedTime": {
+      "justNow": "just now",
+      "secondsAgo": "{{seconds}} seconds ago"
+    },
+    "metrics": {
+      "aqi": { "title": "AQI", "unit": "" },
+      "pm25": { "title": "PM2.5", "unit": "µg/m³" },
+      "co2": { "title": "CO₂", "unit": "ppm" },
+      "temperature": { "title": "TEMP", "unit": "°C" },
+      "humidity": { "title": "HUMIDITY", "unit": "%" }
+    },
+    "aqiGauge": {
+      "title": "AIR QUALITY INDEX",
+      "noMeasurements": "No measurements"
+    },
+    "metricCard": {
+      "deltaNull": "N/A"
+    },
+    "trendChart": {
+      "titlePrefix": "TREND",
+      "empty": "No historical data in this time range. Try selecting a different range or checking the device connectivity.",
+      "deltaNull": "N/A"
+    },
+    "error": {
+      "loadOrganizations": "Failed to load organizations. Please try again.",
+      "loadSpaces": "Failed to load spaces.",
+      "loadDevices": "Failed to load devices."
+    }
+  },
+  "reports": {
+    "title": "Reports",
+    "period": {
+      "daily": "Daily",
+      "monthly": "Monthly"
+    },
+    "selectPeriodAria": "Select period",
+    "selectPeriodTitle": "Select period",
+    "exportCsv": "Export CSV",
+    "exportCsvTitle": "Export report as CSV",
+    "label": {
+      "organization": "ORGANIZATION",
+      "spaces": "SPACES",
+      "device": "DEVICE"
+    },
+    "loading": "Loading report...",
+    "upsell": {
+      "title": "Monthly reports are a premium feature",
+      "body": "Upgrade your plan to unlock monthly air-quality reports and longer trends.",
+      "upgradeLink": "Upgrade Plan"
+    },
+    "notFound": {
+      "title": "No report available",
+      "body": "There is no aggregated report for this device in the selected period yet."
+    },
+    "summary": {
+      "averageAqi": "AVERAGE AQI",
+      "peakPm25": "PEAK PM2.5",
+      "aqiChange": "AQI CHANGE",
+      "readings": "READINGS",
+      "daysCovered": "{{days}} days covered",
+      "vsPreviousDay": "vs previous day",
+      "vsPreviousMonth": "vs previous month"
+    },
+    "metricStatistics": {
+      "title": "METRIC STATISTICS",
+      "header": {
+        "metric": "Metric",
+        "avg": "Avg",
+        "min": "Min",
+        "max": "Max"
+      }
+    },
+    "categoryDistribution": {
+      "title": "AQI CATEGORY DISTRIBUTION",
+      "header": {
+        "category": "Category",
+        "readings": "Readings",
+        "share": "Share"
+      },
+      "emptyCell": "No category data"
+    },
+    "metricLabels": {
+      "aqi": "AQI",
+      "pm25": "PM2.5",
+      "co2": "CO₂",
+      "temperature": "Temp",
+      "humidity": "Humidity"
+    },
+    "metricUnits": {
+      "pm25": "µg/m³",
+      "co2": "ppm",
+      "temperature": "°C",
+      "humidity": "%"
+    },
+    "donutCard": {
+      "title": "AQI CATEGORY SHARES",
+      "avgAqi": "AVG AQI",
+      "dominant": "Dominant: {{category}}",
+      "empty": "No category distribution available for this period."
+    },
+    "rangesCard": {
+      "title": "METRIC RANGES · MIN · AVG · MAX",
+      "min": "min {{value}}",
+      "max": "max {{value}}",
+      "markerTitle": "avg {{value}}"
+    },
+    "trendCard": {
+      "titlePrefix": "TREND · {{metric}}",
+      "empty": "No historical reports in this window yet. Earlier periods may not be rolled up."
+    },
+    "periodLabel": {
+      "latestDay": "Latest day",
+      "previousMonth": "Previous month"
+    },
+    "error": {
+      "loadOrganizations": "Failed to load organizations. Please try again.",
+      "loadSpaces": "Failed to load spaces.",
+      "loadDevices": "Failed to load devices.",
+      "forbidden": "You do not have access to this device's reports.",
+      "loadReport": "Failed to load the report. Please try again."
+    },
+    "csv": {
+      "header": {
+        "report": "Report",
+        "device": "Device",
+        "period": "Period",
+        "averageAqi": "Average AQI",
+        "dominantCategory": "Dominant category",
+        "peakPm25": "Peak PM2.5",
+        "peakPm25At": "Peak PM2.5 at",
+        "aqiDeltaPct": "AQI delta %",
+        "readings": "Readings",
+        "daysCovered": "Days covered",
+        "metricAvgMinMax": "metric,avg,min,max",
+        "categoryCountPercentage": "category,count,percentage"
+      },
+      "fallbackDeviceName": "device",
+      "filenamePrefix": "report"
+    }
+  },
+  "aqiCategories": {
+    "good": "Good",
+    "moderate": "Moderate",
+    "unhealthyForSensitive": "Unhealthy for sensitive",
+    "unhealthy": "Unhealthy",
+    "veryUnhealthy": "Very unhealthy",
+    "hazardous": "Hazardous"
+  }
+}

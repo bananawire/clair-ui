@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MetricStats } from '../../../domain/model/valueobjects/report.value-object';
 import { formatStat, hasRange, rangePosition } from '../../rest/transform/report-page.transform';
 
@@ -12,11 +13,11 @@ export interface RangeMetricRow {
 @Component({
   selector: 'app-report-ranges-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   template: `
     <div class="kpi-card ranges-card">
       <div class="kpi-header">
-        <span class="kpi-title">METRIC RANGES · MIN · AVG · MAX</span>
+        <span class="kpi-title">{{ 'reports.rangesCard.title' | translate }}</span>
       </div>
 
       <div class="ranges-body">
@@ -29,7 +30,7 @@ export interface RangeMetricRow {
           <div class="range-track">
             <ng-container *ngIf="showMarker(row.stats); else noData">
               <div class="range-fill"></div>
-              <div class="range-marker" [style.left.%]="position(row.stats)" [title]="'avg ' + format(row.stats.avg)"></div>
+              <div class="range-marker" [style.left.%]="position(row.stats)" [title]="'reports.rangesCard.markerTitle' | translate: { value: format(row.stats.avg) }"></div>
             </ng-container>
             <ng-template #noData>
               <div class="range-empty"></div>
@@ -37,8 +38,8 @@ export interface RangeMetricRow {
           </div>
 
           <div class="range-bounds">
-            <span>min {{ format(row.stats.min) }}</span>
-            <span>max {{ format(row.stats.max) }}</span>
+            <span>{{ 'reports.rangesCard.min' | translate: { value: format(row.stats.min) } }}</span>
+            <span>{{ 'reports.rangesCard.max' | translate: { value: format(row.stats.max) } }}</span>
           </div>
         </div>
       </div>
@@ -48,6 +49,8 @@ export interface RangeMetricRow {
 })
 export class ReportRangesCardComponent {
   @Input() rows: RangeMetricRow[] = [];
+
+  private readonly translate = inject(TranslateService);
 
   format(value: number | null): string {
     return formatStat(value);

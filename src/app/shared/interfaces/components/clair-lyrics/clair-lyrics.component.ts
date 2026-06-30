@@ -1,17 +1,18 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-clair-lyrics',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   template: `
     <svg
       viewBox="0 0 604 75"
       xmlns="http://www.w3.org/2000/svg"
       [class]="computedClass"
       role="img"
-      aria-label="Clair lyrics"
+      [attr.aria-label]="'icon.clairLyrics' | translate"
     >
       <path
         d="M515.138 0.159545C524.664 -0.181461 536.554 0.130407 546.272 0.12939L603.711 0.177571C603.63 7.54633 604.679 26.7815 603.191 32.9663C602.535 35.7228 601.142 38.2492 599.159 40.2759C593.578 45.8951 582.102 44.4041 574.153 44.4255C583.997 54.1557 593.778 63.9479 603.497 73.8019C596.256 73.8552 589.012 73.8457 581.772 73.7738C579.052 71.6299 575.034 67.2907 572.426 64.6759L555.534 47.6764L551.947 44.4329C544.918 44.2137 537.102 44.3684 530.012 44.3613L529.998 73.8068L515.163 73.7903C515.388 59.2548 515.184 44.1843 515.184 29.6057L558.837 29.6523C566.189 29.659 573.542 29.7884 580.888 29.5071C590.223 29.1498 588.981 21.8297 588.928 14.8935L548.648 14.9201C544.152 14.9222 538.979 14.7518 534.536 14.9212C523.488 15.3427 516.598 11.9105 515.138 0.159545Z"

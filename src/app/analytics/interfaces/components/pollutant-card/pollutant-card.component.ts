@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 type PollutantTone = 'warning' | 'success' | 'info' | 'muted';
 
@@ -18,6 +19,8 @@ export class PollutantCardComponent {
   @Input() deltaLabel: string | null = null;
   @Input() tone: PollutantTone = 'success';
 
+  private readonly translate = inject(TranslateService);
+
   private parseDeltaNumber(value: string | null): number | null {
     if (!value) return null;
     const cleaned = value.trim().replace('%', '');
@@ -27,7 +30,9 @@ export class PollutantCardComponent {
   }
 
   get displayValue(): string | number {
-    return this.value === null || !Number.isFinite(this.value) ? '--' : this.value;
+    return this.value === null || !Number.isFinite(this.value)
+      ? this.translate.instant('pollutantCard.noValue')
+      : this.value;
   }
 
   get displayUnit(): string {
@@ -37,7 +42,7 @@ export class PollutantCardComponent {
   get displayDelta(): string {
     return this.deltaLabel && this.deltaLabel.trim().length > 0
       ? this.deltaLabel
-      : '--';
+      : this.translate.instant('pollutantCard.noDelta');
   }
 
   get deltaClass(): string {

@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ClairLyricsComponent } from '../clair-lyrics/clair-lyrics.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
   NOTIFICATIONS_CONTEXT_FACADE,
   NotificationsContextFacade,
@@ -25,7 +26,7 @@ import {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule, ClairLyricsComponent],
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule, ClairLyricsComponent, TranslatePipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,6 +38,7 @@ export class HeaderComponent implements OnInit {
   private readonly notificationsContextFacade = inject(NOTIFICATIONS_CONTEXT_FACADE) as NotificationsContextFacade;
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly translate = inject(TranslateService);
 
   notifications: ReadonlyArray<PushNotificationLog> = [];
   isNotificationPanelOpen = false;
@@ -124,13 +126,13 @@ export class HeaderComponent implements OnInit {
     const diffDays = Math.floor(diffHours / 24);
 
     if (diffSecs < 60) {
-      return 'just now';
+      return this.translate.instant('header.relativeTime.justNow');
     } else if (diffMins < 60) {
-      return `${diffMins}m ago`;
+      return this.translate.instant('header.relativeTime.minutesAgo', { minutes: diffMins });
     } else if (diffHours < 24) {
-      return `${diffHours}h ago`;
+      return this.translate.instant('header.relativeTime.hoursAgo', { hours: diffHours });
     } else {
-      return `${diffDays}d ago`;
+      return this.translate.instant('header.relativeTime.daysAgo', { days: diffDays });
     }
   }
 }

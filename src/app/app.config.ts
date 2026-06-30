@@ -1,6 +1,8 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ApplicationConfig, provideBrowserGlobalErrorListeners, inject } from '@angular/core';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
+import { provideTranslateService, provideTranslateLoader } from '@ngx-translate/core';
+import { MultiTranslationHttpLoader } from './shared/infrastructure/i18n/multi-translation-http.loader';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AUTH_GATEWAY } from './iam/infrastructure/api/gateways/auth.gateway';
@@ -73,6 +75,8 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes),
     provideAnimationsAsync(),
+    provideTranslateService({ lang: 'en', fallbackLang: 'en' }),
+    provideTranslateLoader(() => new MultiTranslationHttpLoader(inject(HttpClient))),
     { provide: AUTH_GATEWAY, useClass: AuthHttpGateway },
     { provide: TOKEN_STORAGE_GATEWAY, useClass: LocalTokenStorageGateway },
     { provide: DEVICE_GATEWAY, useClass: DeviceHttpGateway },

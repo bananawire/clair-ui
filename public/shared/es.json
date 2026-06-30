@@ -1,0 +1,55 @@
+{
+  "app": {
+    "title": "Clair"
+  },
+  "header": {
+    "toggleSidebarAria": "Alternar barra lateral",
+    "notificationsAria": "Notificaciones",
+    "notificationsTitle": "Notificaciones",
+    "closeNotificationsAria": "Cerrar notificaciones",
+    "emptyNotifications": "No hay notificaciones nuevas",
+    "notificationFailedToSend": "No se pudo enviar",
+    "userProfileAria": "Perfil de usuario",
+    "unreadCount99plus": "99+",
+    "relativeTime": {
+      "justNow": "justo ahora",
+      "minutesAgo": "hace {{minutes}} min",
+      "hoursAgo": "hace {{hours}} h",
+      "daysAgo": "hace {{days}} d"
+    }
+  },
+  "sidebar": {
+    "searchPlaceholder": "Buscar",
+    "nav": {
+      "overview": "Resumen",
+      "airQuality": "Calidad del aire",
+      "alertsActions": "Alertas y acciones",
+      "reports": "Reportes",
+      "spaceDevices": "Espacios y dispositivos"
+    },
+    "upgradePlan": "Mejorar el plan",
+    "settings": "Configuración"
+  },
+  "icon": {
+    "clairLyrics": "Texto de Clair",
+    "clairLogo": "Logotipo de Clair",
+    "google": "Icono de Google",
+    "overview": "Icono de resumen",
+    "airQuality": "Icono de calidad del aire",
+    "alertsActions": "Icono de alertas y acciones",
+    "reports": "Icono de reportes",
+    "spaceDevices": "Icono de espacios y dispositivos",
+    "clairDevice": "Dispositivo Clair"
+  },
+  "common": {
+    "close": "Cerrar",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "create": "Crear",
+    "edit": "Editar",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito"
+  }
+}

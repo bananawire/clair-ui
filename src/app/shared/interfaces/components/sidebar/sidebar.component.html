@@ -2,7 +2,7 @@
   <!-- Search -->
   <div *ngIf="isOpen" class="search-wrapper">
     <mat-icon class="search-icon">search</mat-icon>
-    <input type="text" placeholder="Search" class="search-input" />
+    <input type="text" [attr.placeholder]="'sidebar.searchPlaceholder' | translate" class="search-input" />
   </div>
 
   <!-- Navigation -->
@@ -16,7 +16,7 @@
         <app-reports *ngSwitchCase="'reports'" class="nav-icon"></app-reports>
         <app-space-devices *ngSwitchCase="'space-devices'" class="nav-icon"></app-space-devices>
       </div>
-      <span *ngIf="isOpen">{{ item.label }}</span>
+      <span *ngIf="isOpen">{{ item.label | translate }}</span>
     </a>
 
   </nav>
@@ -24,7 +24,7 @@
   <a *ngIf="isUpgradeVisible" class="nav-item upgrade-btn" routerLink="/select-plan" routerLinkActive="active"
     [routerLinkActiveOptions]="{ exact: true }" (click)="onNavItemClick()">
     <mat-icon>workspace_premium</mat-icon>
-    <span *ngIf="isOpen">Upgrade Plan</span>
+    <span *ngIf="isOpen">{{ 'sidebar.upgradePlan' | translate }}</span>
   </a>
 
   <!-- Settings -->
@@ -32,7 +32,7 @@
     <a class="nav-item" routerLink="/settings" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
       (click)="onNavItemClick()">
       <mat-icon>settings</mat-icon>
-      <span *ngIf="isOpen">Settings</span>
+      <span *ngIf="isOpen">{{ 'sidebar.settings' | translate }}</span>
     </a>
   </div>
 </aside>

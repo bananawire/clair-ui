@@ -1,0 +1,65 @@
+{
+  "selectPlan": {
+    "title": "Select your plan",
+    "subtitle": "Start monitoring your air"
+  },
+  "freePlan": {
+    "title": "Free",
+    "price": "S/ 0",
+    "period": "Free for everyone",
+    "cta": "Try Clair",
+    "feature1": "Support for one Clair Alpha",
+    "feature2": "Real-time CO2 and particulate matter tracking",
+    "feature3": "Live environmental dashboard access"
+  },
+  "premiumPlan": {
+    "title": "Mesh Network",
+    "price": "S/ 29.90",
+    "period": "Per month",
+    "cta": "Try Clair",
+    "featuresHeader": "Everything in Free, plus:",
+    "feature1": "Support for more than one device",
+    "feature2": "Multi-room dashboard",
+    "feature3": "Advanced historical data and analytics",
+    "feature4": "Centralized sensor managament"
+  },
+  "checkout": {
+    "title": "Proceed with payout",
+    "subtitle": "Start monitoring your air",
+    "planName": "Mesh Network",
+    "planPrice": "S/ 29.90",
+    "planPeriod": "Per month",
+    "orderDetails": "Order Details",
+    "orderItemName": "Mesh Network",
+    "orderItemPrice": "S/29.90",
+    "subtotal": "Subtotal",
+    "totalDueToday": "Total due today",
+    "totalPrice": "S/29.90",
+    "addPaymentMethod": "Add payment method",
+    "autorenewText": "Your subscription will autorenew on {{date}}",
+    "termsText": "I accept Clair to charge me the accorded amount on a monthly subscriptions.",
+    "subscribe": "Subscribe"
+  },
+  "paymentModal": {
+    "title": "Payment method",
+    "fullNameLabel": "Full name",
+    "fullNamePlaceholder": "Name",
+    "addressLabel": "Address line",
+    "addressPlaceholder": "Avenue",
+    "cardNumberLabel": "Card number",
+    "expirationDateLabel": "Expiration date",
+    "securityCodeLabel": "Security code",
+    "cancel": "Cancel",
+    "add": "Add",
+    "processing": "Processing...",
+    "error": {
+      "userIdNotFound": "User ID not found. Please log in again.",
+      "paymentFailed": "Payment failed",
+      "unexpected": "An unexpected error occurred"
+    },
+    "snackbar": {
+      "success": "Payment successful! Your plan has been upgraded.",
+      "close": "Close"
+    }
+  }
+}
