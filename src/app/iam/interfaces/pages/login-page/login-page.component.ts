@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ClairLogoComponent } from '../../components/icons/clair-logo/clair-logo.component';
 import { GoogleIconComponent } from '../../components/icons/google/google-icon.component';
 import { AUTH_COMMAND_SERVICE, AuthCommandService } from '../../../domain/services/auth-command-service';
@@ -41,6 +42,7 @@ import {
     RouterLink,
     ClairLogoComponent,
     GoogleIconComponent,
+    TranslatePipe,
   ],
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css',
@@ -53,6 +55,7 @@ export class LoginPageComponent {
   private readonly snackBar = inject(MatSnackBar);
   private readonly notificationsContextFacade = inject(NOTIFICATIONS_CONTEXT_FACADE) as NotificationsContextFacade;
   private readonly destroyRef = inject(DestroyRef);
+  private readonly translate = inject(TranslateService);
 
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -103,29 +106,29 @@ export class LoginPageComponent {
             console.error('[Login] Error decoding token for OneSignal:', e);
           }
 
-          this.snackBar.open('Login successful', 'Close', { duration: 2500 });
+          this.snackBar.open(this.translate.instant('login.snackbar.success'), this.translate.instant('login.snackbar.close'), { duration: 2500 });
           this.router.navigate(['/']);
         },
         error: (err) => {
           console.error('[Login] Error:', err);
           this.loading = false;
           if (err.status === 401) {
-            this.errorMessage = 'Invalid email or password.';
+            this.errorMessage = this.translate.instant('login.error.invalidCredentials');
           } else if (err.status === 0) {
-            this.errorMessage = 'Cannot connect to server. Is the backend running?';
+            this.errorMessage = this.translate.instant('login.error.cannotConnect');
           } else {
-            this.errorMessage = err?.error?.message || 'An unexpected error occurred. Please try again.';
+            this.errorMessage = err?.error?.message || this.translate.instant('login.error.unexpected');
           }
 
           if (this.errorMessage) {
-            this.snackBar.open(this.errorMessage, 'Close', { duration: 4000 });
+            this.snackBar.open(this.errorMessage, this.translate.instant('login.snackbar.close'), { duration: 4000 });
           }
         },
       });
     } catch (err: any) {
       console.error('[Login] Validation error:', err);
       this.loading = false;
-      this.errorMessage = err.message || 'Validation error';
+      this.errorMessage = err.message || this.translate.instant('login.validationError');
     }
   }
 

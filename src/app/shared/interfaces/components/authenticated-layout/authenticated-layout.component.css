@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+.layout {
+  min-height: 100vh;
+  background: #000000;
+  color: #ffffff;
+}
+
+.body-layout {
+  display: flex;
+  min-height: calc(100vh - 84px);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  background: #000000;
+}
+
+@media (max-width: 768px) {
+  .body-layout {
+    min-height: calc(100vh - 84px);
+  }
+}

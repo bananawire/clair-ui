@@ -1,7 +1,7 @@
 <section class="aqi-card">
   <div class="aqi-header">
     <div class="aqi-title-row">
-      <h2>Air Quality Index</h2>
+      <h2>{{ 'aqiCard.title' | translate }}</h2>
       <span class="status-pill" [ngClass]="toneClass">{{ displayCategory }}</span>
     </div>
     <span class="aqi-score">{{ displayAqiValue }}</span>
@@ -11,7 +11,7 @@
   </div>
   <div class="aqi-footer">
     <div class="aqi-meta">
-      <p>Average of {{ deviceLabel }}</p>
+      <p>{{ 'aqiCard.averageOf' | translate }} {{ deviceLabel }}</p>
       <span>{{ updatedLabel }}</span>
       </div>
   </div>

@@ -2,27 +2,27 @@
   <div class="thresholds-header">
     <div class="thresholds-title-section">
       <div class="title-row">
-        <h2 class="thresholds-title">Thresholds</h2>
+        <h2 class="thresholds-title">{{ 'deviceThresholdsCard.title' | translate }}</h2>
         <mat-icon class="info-icon" style="font-size: 14px; width: 14px; height: 14px; color: #6b7280; margin-top: 4px;">info</mat-icon>
       </div>
-      <p class="thresholds-subtitle">May affect device health</p>
+      <p class="thresholds-subtitle">{{ 'deviceThresholdsCard.subtitle' | translate }}</p>
     </div>
-    <button mat-fab class="action-button action-button--secondary" (click)="editThresholds()" aria-label="Edit thresholds">
+    <button mat-fab class="action-button action-button--secondary" (click)="editThresholds()" [attr.aria-label]="'deviceThresholdsCard.editAria' | translate">
       <mat-icon>edit</mat-icon>
     </button>
   </div>
 
   <div class="thresholds-container">
     <mat-card *ngFor="let metric of metrics" class="threshold-card">
-      <div class="threshold-label">{{ metricDetails(metric).label }}</div>
+      <div class="threshold-label">{{ ('deviceThresholdsCard.metrics.' + getMetricTranslationKey(metric) + '.label') | translate }}</div>
       <div class="threshold-value">
         <ng-container *ngIf="thresholdFor(metric) as t; else emptyValue">
           <span class="threshold-number">{{ t.value | number:'1.0-2' }}</span>
-          <span class="threshold-unit">{{ metricDetails(metric).unit }}</span>
+          <span class="threshold-unit">{{ ('deviceThresholdsCard.metrics.' + getMetricTranslationKey(metric) + '.unit') | translate }}</span>
         </ng-container>
         <ng-template #emptyValue>
           <span class="threshold-number threshold-number--empty">--</span>
-          <span class="threshold-unit">{{ metricDetails(metric).unit }}</span>
+          <span class="threshold-unit">{{ ('deviceThresholdsCard.metrics.' + getMetricTranslationKey(metric) + '.unit') | translate }}</span>
         </ng-template>
       </div>
     </mat-card>

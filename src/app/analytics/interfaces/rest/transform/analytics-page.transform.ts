@@ -44,8 +44,8 @@ export const getHumidityStatusColor = (value: number | undefined | null): string
   return '#ef4444';
 };
 
-export const formatDelta = (delta: number | null | undefined): string => {
-  if (delta === null || delta === undefined) return 'N/A';
+export const formatDelta = (delta: number | null | undefined): string | null => {
+  if (delta === null || delta === undefined) return null;
   const absVal = Math.abs(delta).toFixed(1);
   return `${absVal}%`;
 };
@@ -153,7 +153,4 @@ export const getActiveMetricDelta = (
   }
 };
 
-export const formatUpdateTime = (secondsSinceUpdate: number): string => {
-  if (secondsSinceUpdate < 5) return 'just now';
-  return `${secondsSinceUpdate} seconds ago`;
-};
+

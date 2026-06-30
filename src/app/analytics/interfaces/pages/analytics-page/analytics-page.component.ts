@@ -12,9 +12,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Subscription, interval, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
-import { SidebarComponent } from '../../../../shared/interfaces/components/sidebar/sidebar.component';
-import { HeaderComponent } from '../../../../shared/interfaces/components/header/header.component';
 import { ExternalDeviceService } from '../../../application/internal/outboundservices/acl/external-device.service';
 import { AnalyticsQueryService, DashboardMetrics, LiveTelemetry } from '../../../domain/services/analytics-query-service';
 import {
@@ -33,7 +32,6 @@ import {
   getTempStatusColor,
   getHumidityStatusColor,
   getActiveMetricDelta,
-  formatUpdateTime,
 } from '../../rest/transform/analytics-page.transform';
 
 // Reusable Components
@@ -48,6 +46,7 @@ import { TrendChartCardComponent } from '../../components/trend-chart-card/trend
   imports: [
     CommonModule,
     FormsModule,
+    TranslatePipe,
     MatCardModule,
     MatIconModule,
     MatButtonModule,
@@ -55,8 +54,6 @@ import { TrendChartCardComponent } from '../../components/trend-chart-card/trend
     MatSelectModule,
     MatInputModule,
     MatDatepickerModule,
-    SidebarComponent,
-    HeaderComponent,
     AqiGaugeCardComponent,
     MetricCardComponent,
     TrendChartCardComponent,
@@ -68,9 +65,8 @@ export class AnalyticsPageComponent implements OnInit, OnDestroy {
   private readonly deviceAclService = inject(ExternalDeviceService);
   private readonly analyticsQueryService = inject(ANALYTICS_QUERY_SERVICE) as AnalyticsQueryService;
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly translate = inject(TranslateService);
   private readonly destroy$ = new Subject<void>();
-
-  isSidebarOpen = true;
   loading = false;
   error: string | null = null;
   liveUnavailable = false;
@@ -104,14 +100,6 @@ export class AnalyticsPageComponent implements OnInit, OnDestroy {
   private secondsCounterSubscription?: Subscription;
   private liveStreamSubscription?: Subscription;
 
-  toggleSidebar(): void {
-    this.isSidebarOpen = !this.isSidebarOpen;
-  }
-
-  closeSidebar(): void {
-    this.isSidebarOpen = false;
-  }
-
   ngOnInit(): void {
     this.loadOrganizations();
     this.startSecondsCounter();
@@ -143,7 +131,7 @@ export class AnalyticsPageComponent implements OnInit, OnDestroy {
           }
         },
         error: (err) => {
-          this.error = 'Failed to load organizations. Please try again.';
+          this.error = this.translate.instant('analytics.error.loadOrganizations');
           this.loading = false;
           this.cdr.markForCheck();
         },
@@ -172,7 +160,7 @@ export class AnalyticsPageComponent implements OnInit, OnDestroy {
           }
         },
         error: (err) => {
-          this.error = 'Failed to load spaces.';
+          this.error = this.translate.instant('analytics.error.loadSpaces');
           this.loading = false;
           this.cdr.markForCheck();
         },
@@ -201,7 +189,7 @@ export class AnalyticsPageComponent implements OnInit, OnDestroy {
           }
         },
         error: (err) => {
-          this.error = 'Failed to load devices.';
+          this.error = this.translate.instant('analytics.error.loadDevices');
           this.loading = false;
           this.cdr.markForCheck();
         },
@@ -261,8 +249,8 @@ export class AnalyticsPageComponent implements OnInit, OnDestroy {
           this.liveData = null;
           if (err?.status === 404) {
             this.liveUnavailable = true;
-            const deviceName = this.devices.find((d) => d.id === this.selectedDeviceId)?.name || 'Device';
-            this.liveUnavailableMessage = (err?.error?.message || 'Live data is not available right now.').replace(this.selectedDeviceId, `"${deviceName}"`);
+            const deviceName = this.devices.find((d) => d.id === this.selectedDeviceId)?.name || this.translate.instant('reports.csv.fallbackDeviceName');
+            this.liveUnavailableMessage = (err?.error?.message || this.translate.instant('analytics.liveUnavailable')).replace(this.selectedDeviceId, `"${deviceName}"`);
           }
           this.cdr.markForCheck();
         },
@@ -317,7 +305,7 @@ export class AnalyticsPageComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (telemetry) => {
-          const calculatedAqi = calculateAqiFromPm25(telemetry.pm2_5);
+          const calculatedAqi = calculateAqiFromPm25(telemetry.pm2_5, this.translate);
           if (this.liveData) {
             this.liveData = {
               ...this.liveData,
@@ -420,11 +408,24 @@ export class AnalyticsPageComponent implements OnInit, OnDestroy {
   }
 
   get aqiCategory(): string {
-    return this.liveData?.aqi.category ?? 'No measurements';
+    const category = this.liveData?.aqi.category;
+    if (!category) {
+      return this.translate.instant('analytics.aqiGauge.noMeasurements');
+    }
+    const key = category
+      .trim()
+      .toUpperCase()
+      .replace(/[\s-]+/g, '_')
+      .replace(/_+/g, '_');
+    const camelCaseKey = key.toLowerCase().replace(/_([a-z])/g, (_, letter) => letter.toUpperCase());
+    return this.translate.instant(`aqiCategories.${camelCaseKey}`);
   }
 
   get formattedUpdateTime(): string {
-    return formatUpdateTime(this.secondsSinceUpdate);
+    if (this.secondsSinceUpdate < 5) {
+      return this.translate.instant('analytics.updatedTime.justNow');
+    }
+    return this.translate.instant('analytics.updatedTime.secondsAgo', { seconds: this.secondsSinceUpdate });
   }
 
   get pm25StatusColor(): string {
@@ -448,7 +449,7 @@ export class AnalyticsPageComponent implements OnInit, OnDestroy {
   }
 }
 
-function calculateAqiFromPm25(pm2_5: number): { value: number; category: string } {
+function calculateAqiFromPm25(pm2_5: number, translate: TranslateService): { value: number; category: string } {
   let aqi: number;
   if (pm2_5 <= 12.0) {
     aqi = ((50 - 0) / (12.0 - 0.0)) * (pm2_5 - 0.0) + 0;
@@ -467,13 +468,13 @@ function calculateAqiFromPm25(pm2_5: number): { value: number; category: string 
   }
 
   aqi = Math.round(aqi);
-  let category = 'Good';
-  if (aqi <= 50) category = 'Good';
-  else if (aqi <= 100) category = 'Moderate';
-  else if (aqi <= 150) category = 'Unhealthy for Sensitive';
-  else if (aqi <= 200) category = 'Unhealthy';
-  else if (aqi <= 300) category = 'Very Unhealthy';
-  else category = 'Hazardous';
+  let categoryKey = 'good';
+  if (aqi <= 50) categoryKey = 'good';
+  else if (aqi <= 100) categoryKey = 'moderate';
+  else if (aqi <= 150) categoryKey = 'unhealthyForSensitive';
+  else if (aqi <= 200) categoryKey = 'unhealthy';
+  else if (aqi <= 300) categoryKey = 'veryUnhealthy';
+  else categoryKey = 'hazardous';
 
-  return { value: aqi, category };
+  return { value: aqi, category: translate.instant(`aqiCategories.${categoryKey}`) };
 }

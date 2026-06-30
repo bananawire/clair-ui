@@ -1,17 +1,18 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-alerts-actions',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   template: `
     <svg
       viewBox="0 0 20 16"
       xmlns="http://www.w3.org/2000/svg"
       [class]="computedClass"
       role="img"
-      aria-label="Alerts actions icon"
+      [attr.aria-label]="'icon.alertsActions' | translate"
     >
       <path
         d="M10 3.77L16.39 14H3.61L10 3.77ZM10 0L0 16H20L10 0Z"

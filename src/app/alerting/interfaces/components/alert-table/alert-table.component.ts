@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Alert } from '../../../domain/services/alert-query-service';
 import { AlertSeverityBadgeComponent } from '../alert-severity-badge/alert-severity-badge.component';
@@ -8,7 +9,7 @@ import { AlertStatusBadgeComponent } from '../alert-status-badge/alert-status-ba
 @Component({
   selector: 'app-alert-table',
   standalone: true,
-  imports: [CommonModule, MatIconModule, AlertSeverityBadgeComponent, AlertStatusBadgeComponent],
+  imports: [CommonModule, TranslatePipe, MatIconModule, AlertSeverityBadgeComponent, AlertStatusBadgeComponent],
   templateUrl: './alert-table.component.html',
   styleUrl: './alert-table.component.css',
 })

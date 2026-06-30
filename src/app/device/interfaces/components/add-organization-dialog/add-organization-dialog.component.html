@@ -1,14 +1,14 @@
-<h2 mat-dialog-title>Add Organization</h2>
+<h2 mat-dialog-title>{{ 'addOrganizationDialog.title' | translate }}</h2>
 <mat-dialog-content>
   <form [formGroup]="form" (ngSubmit)="submit()">
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Organization Name</mat-label>
-      <input matInput formControlName="name" placeholder="Enter organization name" />
-      <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
+      <mat-label>{{ 'addOrganizationDialog.nameLabel' | translate }}</mat-label>
+      <input matInput formControlName="name" [placeholder]="'addOrganizationDialog.namePlaceholder' | translate" />
+      <mat-error *ngIf="form.get('name')?.hasError('required')">{{ 'addOrganizationDialog.nameRequired' | translate }}</mat-error>
     </mat-form-field>
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button (click)="cancel()">Cancel</button>
-  <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="submit()">Create</button>
+  <button mat-button (click)="cancel()">{{ 'addOrganizationDialog.cancel' | translate }}</button>
+  <button mat-flat-button color="primary" [disabled]="form.invalid" (click)="submit()">{{ 'addOrganizationDialog.create' | translate }}</button>
 </mat-dialog-actions>

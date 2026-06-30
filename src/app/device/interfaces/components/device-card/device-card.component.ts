@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Device } from '../../../domain/services/device-query-service';
 import { DeviceTelemetrySnapshot } from '../../../application/internal/outboundservices/acl/external-telemetry-evaluation.service';
 import { resolveDeviceConnectivityColor } from '../../rest/transform/device-connectivity-color.transform';
@@ -12,7 +13,7 @@ type ViewMode = 'grid' | 'list';
 @Component({
   selector: 'app-device-card',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule, TranslatePipe],
   templateUrl: './device-card.component.html',
   styleUrl: './device-card.component.css',
 })

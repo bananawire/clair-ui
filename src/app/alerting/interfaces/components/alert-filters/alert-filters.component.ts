@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -9,7 +10,7 @@ import { MetricType, MetricTypes } from '../../../domain/model/valueobjects/metr
 @Component({
   selector: 'app-alert-filters',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule],
+  imports: [CommonModule, TranslatePipe, FormsModule, MatFormFieldModule, MatSelectModule],
   templateUrl: './alert-filters.component.html',
   styleUrl: './alert-filters.component.css',
 })

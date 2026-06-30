@@ -5,6 +5,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export type PairDeviceDialogResult = Readonly<{
   hardwareId: string;
@@ -13,7 +14,7 @@ export type PairDeviceDialogResult = Readonly<{
 @Component({
   selector: 'app-pair-device-dialog',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule, TranslatePipe],
   templateUrl: './pair-device-dialog.component.html',
   styleUrl: './pair-device-dialog.component.css',
 })

@@ -1,16 +1,17 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { getAqiColor, getProgressOffset, formatDelta } from '../../rest/transform/analytics-page.transform';
 
 @Component({
   selector: 'app-aqi-gauge-card',
   standalone: true,
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, TranslatePipe],
   template: `
     <div class="kpi-card aqi-card" [class.selected]="isSelected" (click)="cardClick.emit()">
       <div class="kpi-header">
-        <span class="kpi-title">AIR QUALITY INDEX</span>
+        <span class="kpi-title">{{ 'analytics.aqiGauge.title' | translate }}</span>
         <span class="status-badge" [style.background-color]="aqiColor" [style.color]="'#000'">
           {{ category | uppercase }}
         </span>
@@ -30,11 +31,11 @@ import { getAqiColor, getProgressOffset, formatDelta } from '../../rest/transfor
 
       <div class="kpi-footer">
         <div class="trend-delta" [class.negative]="!isDeltaPositive">
-          <ng-container *ngIf="delta !== null">
+          <ng-container *ngIf="formattedDelta !== null">
             <mat-icon>{{ isDeltaPositive ? 'trending_up' : 'trending_down' }}</mat-icon>
             <span>{{ formattedDelta }}</span>
           </ng-container>
-          <span *ngIf="delta === null" class="delta-null">N/A</span>
+          <span *ngIf="formattedDelta === null" class="delta-null">{{ 'analytics.metricCard.deltaNull' | translate }}</span>
         </div>
       </div>
     </div>
@@ -43,10 +44,12 @@ import { getAqiColor, getProgressOffset, formatDelta } from '../../rest/transfor
 })
 export class AqiGaugeCardComponent {
   @Input() value: number | string = '--';
-  @Input() category = 'No measurements';
+  @Input() category = '';
   @Input() delta: number | null = null;
   @Input() isSelected = false;
   @Output() cardClick = new EventEmitter<void>();
+
+  private readonly translate = inject(TranslateService);
 
   get aqiColor(): string {
     return getAqiColor(typeof this.value === 'number' ? this.value : null);
@@ -60,7 +63,7 @@ export class AqiGaugeCardComponent {
     return this.delta !== null && this.delta >= 0;
   }
 
-  get formattedDelta(): string {
+  get formattedDelta(): string | null {
     return formatDelta(this.delta);
   }
 }

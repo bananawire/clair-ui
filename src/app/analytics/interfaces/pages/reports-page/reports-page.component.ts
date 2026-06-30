@@ -13,9 +13,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Subject, forkJoin, of } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
-import { SidebarComponent } from '../../../../shared/interfaces/components/sidebar/sidebar.component';
-import { HeaderComponent } from '../../../../shared/interfaces/components/header/header.component';
 import { ExternalDeviceService } from '../../../application/internal/outboundservices/acl/external-device.service';
 import {
   FacadeOrganization,
@@ -32,14 +31,14 @@ import {
   ReportMetricKey,
   TrendPointInput,
   buildReportCsv,
-  categoryLabel,
   formatAqi,
-  formatCount,
-  formatDeltaPct,
-  formatPeakAt,
   formatStat,
+  formatDeltaPct,
   reportCsvFilename,
   reportMetricTrendValue,
+  categoryLabel,
+  formatCount,
+  formatPeakAt,
 } from '../../rest/transform/report-page.transform';
 import { ReportDonutCardComponent } from '../../components/report-donut-card/report-donut-card.component';
 import { ReportRangesCardComponent, RangeMetricRow } from '../../components/report-ranges-card/report-ranges-card.component';
@@ -63,14 +62,13 @@ const MONTHLY_WINDOW = 12;
     CommonModule,
     FormsModule,
     RouterLink,
+    TranslatePipe,
     MatIconModule,
     MatButtonModule,
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
     MatDatepickerModule,
-    SidebarComponent,
-    HeaderComponent,
     ReportDonutCardComponent,
     ReportRangesCardComponent,
     ReportTrendCardComponent,
@@ -82,12 +80,11 @@ export class ReportsPageComponent implements OnInit, OnDestroy {
   private readonly deviceAclService = inject(ExternalDeviceService);
   private readonly reportQueryService = inject(REPORT_QUERY_SERVICE) as ReportQueryService;
   private readonly cdr = inject(ChangeDetectorRef);
+  private readonly translate = inject(TranslateService);
   private readonly destroy$ = new Subject<void>();
 
   readonly metrics = REPORT_METRICS;
   readonly rangeMetrics = RANGE_METRICS;
-
-  isSidebarOpen = true;
 
   // Dropdown data
   organizations: FacadeOrganization[] = [];
@@ -131,14 +128,6 @@ export class ReportsPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  toggleSidebar(): void {
-    this.isSidebarOpen = !this.isSidebarOpen;
-  }
-
-  closeSidebar(): void {
-    this.isSidebarOpen = false;
   }
 
   // --- Plan -----------------------------------------------------------------
@@ -193,7 +182,7 @@ export class ReportsPageComponent implements OnInit, OnDestroy {
           }
         },
         error: () => {
-          this.error = 'Failed to load organizations. Please try again.';
+          this.error = this.translate.instant('reports.error.loadOrganizations');
           this.loading = false;
           this.cdr.markForCheck();
         },
@@ -221,7 +210,7 @@ export class ReportsPageComponent implements OnInit, OnDestroy {
           }
         },
         error: () => {
-          this.error = 'Failed to load spaces.';
+          this.error = this.translate.instant('reports.error.loadSpaces');
           this.loading = false;
           this.cdr.markForCheck();
         },
@@ -249,7 +238,7 @@ export class ReportsPageComponent implements OnInit, OnDestroy {
           }
         },
         error: () => {
-          this.error = 'Failed to load devices.';
+          this.error = this.translate.instant('reports.error.loadDevices');
           this.loading = false;
           this.cdr.markForCheck();
         },
@@ -352,10 +341,10 @@ export class ReportsPageComponent implements OnInit, OnDestroy {
           if (!this.isPremium && this.periodType === 'MONTHLY') {
             this.showUpsell = true;
           } else {
-            this.error = 'You do not have access to this device\'s reports.';
+            this.error = this.translate.instant('reports.error.forbidden');
           }
         } else {
-          this.error = 'Failed to load the report. Please try again.';
+          this.error = this.translate.instant('reports.error.loadReport');
         }
         this.cdr.markForCheck();
       },
@@ -393,13 +382,13 @@ export class ReportsPageComponent implements OnInit, OnDestroy {
 
   exportCsv(): void {
     if (!this.report) return;
-    const deviceName = this.devices.find((d) => d.id === this.selectedDeviceId)?.name || 'device';
-    const csv = buildReportCsv(this.report);
+    const deviceName = this.devices.find((d) => d.id === this.selectedDeviceId)?.name || this.translate.instant('reports.csv.fallbackDeviceName');
+    const csv = buildReportCsv(this.report, this.translate);
     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = reportCsvFilename(this.report, deviceName);
+    link.download = reportCsvFilename(this.report, deviceName, this.translate);
     link.click();
     URL.revokeObjectURL(url);
   }
@@ -409,8 +398,8 @@ export class ReportsPageComponent implements OnInit, OnDestroy {
   get rangeRows(): RangeMetricRow[] {
     if (!this.report) return [];
     return this.rangeMetrics.map((m) => ({
-      label: m.label,
-      unit: m.unit,
+      label: this.translate.instant(m.labelKey),
+      unit: m.unitKey ? this.translate.instant(m.unitKey) : '',
       stats: this.report![m.key as Exclude<ReportMetricKey, 'aqiValue'>],
     }));
   }
@@ -423,26 +412,29 @@ export class ReportsPageComponent implements OnInit, OnDestroy {
   }
 
   get trendTitle(): string {
-    return this.metrics.find((m) => m.key === this.selectedMetric)?.label ?? 'AQI';
+    const meta = this.metrics.find((m) => m.key === this.selectedMetric);
+    return meta ? this.translate.instant(meta.labelKey) : 'AQI';
   }
 
   get trendSubtitle(): string {
-    return this.periodType === 'DAILY' ? `Last ${DAILY_WINDOW} days` : `Last ${MONTHLY_WINDOW} months`;
+    return this.periodType === 'DAILY'
+      ? this.translate.instant('reports.periodLabel.latestDay')
+      : this.translate.instant('reports.periodLabel.previousMonth');
   }
 
   get selectedPeriodLabel(): string {
     if (this.report) return this.report.periodLabel;
-    if (this.periodType === 'DAILY') return this.selectedDate ? this.toDateParam(this.selectedDate)! : 'Latest day';
-    return this.selectedMonth ? this.toMonthParam(this.selectedMonth)! : 'Previous month';
+    if (this.periodType === 'DAILY') return this.selectedDate ? this.toDateParam(this.selectedDate)! : this.translate.instant('reports.periodLabel.latestDay');
+    return this.selectedMonth ? this.toMonthParam(this.selectedMonth)! : this.translate.instant('reports.periodLabel.previousMonth');
   }
 
   // Formatting passthroughs for the template
   formatAqi = formatAqi;
   formatStat = formatStat;
-  formatCount = formatCount;
+  formatCount = (value: number | null | undefined): string => formatCount(value, this.translate.getCurrentLang() || undefined);
   formatDeltaPct = formatDeltaPct;
-  formatPeakAt = formatPeakAt;
-  categoryLabel = categoryLabel;
+  formatPeakAt = (iso: string | null | undefined): string => formatPeakAt(iso, this.translate.getCurrentLang() || undefined);
+  categoryLabel = (category: Parameters<typeof categoryLabel>[0]): string => categoryLabel(category, this.translate);
 
   get aqiDeltaPositive(): boolean {
     return (this.report?.aqiDeltaPct ?? 0) >= 0;
@@ -486,7 +478,7 @@ export class ReportsPageComponent implements OnInit, OnDestroy {
     for (let i = n - 1; i >= 0; i--) {
       const d = new Date(Date.UTC(year, month - 1 - i, 1));
       const param = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`;
-      const label = d.toLocaleString('en-US', { month: 'short', timeZone: 'UTC' });
+      const label = d.toLocaleString(this.translate.getCurrentLang() || 'en', { month: 'short', timeZone: 'UTC' });
       out.push({ param, label });
     }
     return out;

@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ClairLogoComponent } from '../../components/icons/clair-logo/clair-logo.component';
 import { GoogleIconComponent } from '../../components/icons/google/google-icon.component';
 import { AUTH_COMMAND_SERVICE, AuthCommandService } from '../../../domain/services/auth-command-service';
@@ -37,6 +38,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     RouterLink,
     ClairLogoComponent,
     GoogleIconComponent,
+    TranslatePipe,
   ],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.css',
@@ -47,6 +49,7 @@ export class RegisterPageComponent {
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly translate = inject(TranslateService);
 
   registerForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -77,19 +80,19 @@ export class RegisterPageComponent {
       this.authCommandService.handleSignUp(command).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: (result) => {
           this.loading = false;
-          this.snackBar.open('Registration successful. Check your email to confirm.', 'Close', { duration: 3000 });
+          this.snackBar.open(this.translate.instant('register.snackbar.success'), this.translate.instant('register.snackbar.close'), { duration: 3000 });
           this.router.navigate(['/confirm'], { queryParams: { sessionId: result.sessionId } });
         },
         error: (err) => {
           this.loading = false;
-          this.errorMessage = err?.error?.message || 'Registration failed. Please try again.';
-          this.snackBar.open(this.errorMessage ?? 'Registration failed. Please try again.', 'Close', { duration: 4000 });
+          this.errorMessage = err?.error?.message || this.translate.instant('register.error.unexpected');
+          this.snackBar.open(this.errorMessage ?? this.translate.instant('register.error.unexpected'), this.translate.instant('register.snackbar.close'), { duration: 4000 });
         },
       });
     } catch (err: any) {
       this.loading = false;
-      this.errorMessage = err.message || 'Validation error';
-      this.snackBar.open(this.errorMessage ?? 'Validation error', 'Close', { duration: 4000 });
+      this.errorMessage = err.message || this.translate.instant('register.validationError');
+      this.snackBar.open(this.errorMessage ?? this.translate.instant('register.validationError'), this.translate.instant('register.snackbar.close'), { duration: 4000 });
     }
   }
 

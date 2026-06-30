@@ -1,31 +1,31 @@
 <mat-card class="plan-card" appearance="outlined">
 	<div class="plan-header">
 		<span class="material-symbols-outlined feature-icon">air</span>
-		<h2 class="plan-title">Free</h2>
+		<h2 class="plan-title">{{ 'freePlan.title' | translate }}</h2>
 	</div>
 
 	<div class="plan-price-section">
-		<h3 class="plan-price">S/ 0</h3>
-		<p class="plan-price-subtitle">Free for everyone</p>
+		<h3 class="plan-price">{{ 'freePlan.price' | translate }}</h3>
+		<p class="plan-price-subtitle">{{ 'freePlan.period' | translate }}</p>
 	</div>
 
 	<button class="submit-button" (click)="onPress()">
-		Try Clair
+		{{ 'freePlan.cta' | translate }}
 	</button>
 
 	<div class="features-list">
 		<div class="feature-item">
 			<span class="material-symbols-outlined feature-icon">check</span>
-			<p class="feature-text">Support for one Clair Alpha</p>
+			<p class="feature-text">{{ 'freePlan.feature1' | translate }}</p>
 
 		</div>
 		<div class="feature-item">
 			<span class="material-symbols-outlined feature-icon">check</span>
-			<p class="feature-text">Real-time CO2 and particulate matter tracking</p>
+			<p class="feature-text">{{ 'freePlan.feature2' | translate }}</p>
 		</div>
 		<div class="feature-item">
 			<span class="material-symbols-outlined feature-icon">check</span>
-			<p class="feature-text">Live environmental dashboard access</p>
+			<p class="feature-text">{{ 'freePlan.feature3' | translate }}</p>
 		</div>
 	</div>
 </mat-card>

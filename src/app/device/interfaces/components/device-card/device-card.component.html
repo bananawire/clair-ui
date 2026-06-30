@@ -10,8 +10,8 @@
   </div>
   <div class="card-footer">
     <mat-icon class="footer-icon">history</mat-icon>
-    <span class="footer-text">Updated {{ device.updatedAt | date:'short' }}</span>
-    <button mat-icon-button class="go-button" (click)="onDeviceClick()" aria-label="Go to device">
+    <span class="footer-text">{{ 'deviceCard.updatedPrefix' | translate }} {{ device.updatedAt | date:'short' }}</span>
+    <button mat-icon-button class="go-button" (click)="onDeviceClick()" [attr.aria-label]="'deviceCard.goToDeviceAria' | translate">
       <mat-icon>chevron_right</mat-icon>
     </button>
   </div>
@@ -28,8 +28,8 @@
   </div>
   <div class="list-meta">
     <mat-icon class="footer-icon">history</mat-icon>
-    <span class="list-date">Updated {{ device.updatedAt | date:'short' }}</span>
-    <button mat-icon-button class="go-button" (click)="onDeviceClick()" aria-label="Go to device">
+    <span class="list-date">{{ 'deviceCard.updatedPrefix' | translate }} {{ device.updatedAt | date:'short' }}</span>
+    <button mat-icon-button class="go-button" (click)="onDeviceClick()" [attr.aria-label]="'deviceCard.goToDeviceAria' | translate">
       <mat-icon>chevron_right</mat-icon>
     </button>
   </div>

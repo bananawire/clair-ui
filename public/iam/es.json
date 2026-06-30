@@ -1,0 +1,111 @@
+{
+  "login": {
+    "title": "Iniciar sesión en Clair",
+    "subtitle": "Ingresa tus credenciales",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "nombre@gmail.com",
+    "emailRequired": "El correo electrónico es obligatorio",
+    "emailInvalid": "Formato de correo electrónico inválido",
+    "passwordLabel": "Contraseña",
+    "passwordRequired": "La contraseña es obligatoria",
+    "passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
+    "loginButton": "Iniciar sesión",
+    "loading": "Iniciar sesión",
+    "divider": "O INICIA SESIÓN CON",
+    "googleButton": "Google",
+    "footer": "¿No tienes una cuenta?",
+    "registerLink": "Regístrate",
+    "error": {
+      "invalidCredentials": "Correo electrónico o contraseña inválidos.",
+      "cannotConnect": "No se puede conectar al servidor. ¿El backend está en ejecución?",
+      "unexpected": "Ocurrió un error inesperado. Por favor, inténtalo de nuevo."
+    },
+    "validationError": "Error de validación",
+    "snackbar": {
+      "success": "Inicio de sesión exitoso",
+      "close": "Cerrar"
+    }
+  },
+  "register": {
+    "title": "Crear una cuenta",
+    "subtitle": "Comienza a monitorear tu aire",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "nombre@gmail.com",
+    "emailRequired": "El correo electrónico es obligatorio",
+    "emailInvalid": "Formato de correo electrónico inválido",
+    "passwordLabel": "Contraseña",
+    "passwordRequired": "La contraseña es obligatoria",
+    "passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
+    "termsPrefix": "Acepto los",
+    "termsLink": "Términos y Condiciones",
+    "termsAnd": "y la",
+    "privacyLink": "Política de Privacidad",
+    "registerButton": "Registrarse",
+    "divider": "O REGÍSTRATE CON",
+    "googleButton": "Google",
+    "footer": "¿Ya tienes una cuenta?",
+    "loginLink": "Inicia sesión",
+    "snackbar": {
+      "success": "Registro exitoso. Revisa tu correo electrónico para confirmar.",
+      "close": "Cerrar"
+    },
+    "error": {
+      "unexpected": "El registro falló. Por favor, inténtalo de nuevo."
+    },
+    "validationError": "Error de validación"
+  },
+  "confirm": {
+    "title": "Verificar cuenta",
+    "subtitle": "Ingresa el código de verificación enviado a tu correo electrónico",
+    "codeLabel": "Código de verificación",
+    "codePlaceholder": "ABCD-1234",
+    "codeRequired": "El código es obligatorio",
+    "codePattern": "El código debe tener el formato XXXX-XXXX",
+    "verifyButton": "Verificar",
+    "backToLogin": "Volver al inicio de sesión",
+    "error": {
+      "invalidSession": "Sesión de registro inválida. Por favor, regístrate de nuevo.",
+      "invalidCode": "Código de verificación inválido. Por favor, inténtalo de nuevo."
+    },
+    "success": "Cuenta verificada exitosamente. Redirigiendo al inicio de sesión...",
+    "validationError": "Error de validación",
+    "snackbar": {
+      "close": "Cerrar"
+    }
+  },
+  "authCallback": {
+    "title": "Autenticando...",
+    "subtitle": "Por favor espera mientras completamos tu inicio de sesión.",
+    "backToLogin": "Volver al inicio de sesión",
+    "error": {
+      "googleFailed": "La autenticación con Google falló. Por favor, inténtalo de nuevo.",
+      "missingTokens": "Autenticación incompleta. Faltan tokens."
+    },
+    "snackbar": {
+      "success": "Inicio de sesión exitoso",
+      "close": "Cerrar"
+    }
+  },
+  "settings": {
+    "title": "Configuración",
+    "subtitle": "Gestiona la sesión de tu cuenta.",
+    "languageCard": {
+      "title": "Idioma",
+      "subtitle": "Elige el idioma que deseas usar en toda la aplicación."
+    },
+    "sessionCard": {
+      "title": "Sesión de la cuenta",
+      "subtitle": "Cierra la sesión de tu cuenta en este dispositivo."
+    },
+    "languageLabel": "Idioma",
+    "languageEnglish": "Inglés",
+    "languageSpanish": "Español",
+    "logoutButton": "Cerrar sesión",
+    "loggingOut": "Cerrando sesión...",
+    "snackbar": {
+      "sessionClosed": "Sesión cerrada exitosamente.",
+      "sessionClosedLocal": "Sesión cerrada localmente tras un problema con el cierre de sesión en la API.",
+      "close": "Cerrar"
+    }
+  }
+}

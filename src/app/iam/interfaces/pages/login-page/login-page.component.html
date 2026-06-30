@@ -2,50 +2,50 @@
   <app-clair-logo class="logo-login" fill="white" stroke="white"></app-clair-logo>
 
   <mat-card class="auth-card" appearance="outlined">
-    <h2 class="title">Login to Clair</h2>
-    <p class="subtitle">Enter your credentials</p>
+    <h2 class="title">{{ 'login.title' | translate }}</h2>
+    <p class="subtitle">{{ 'login.subtitle' | translate }}</p>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
 
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" placeholder="name@gmail.com" />
+        <mat-label>{{ 'login.emailLabel' | translate }}</mat-label>
+        <input matInput type="email" formControlName="email" [placeholder]="'login.emailPlaceholder' | translate" />
         <mat-icon matPrefix>mail_outline</mat-icon>
-        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Email is required</mat-error>
-        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Invalid email format</mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">{{ 'login.emailRequired' | translate }}</mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">{{ 'login.emailInvalid' | translate }}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Password</mat-label>
+        <mat-label>{{ 'login.passwordLabel' | translate }}</mat-label>
         <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" />
         <mat-icon matPrefix>lock_outline</mat-icon>
         <button type="button" mat-icon-button matSuffix (click)="hidePassword = !hidePassword">
           <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
-        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
-        <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">Password must be at least 8 characters</mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">{{ 'login.passwordRequired' | translate }}</mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">{{ 'login.passwordMinLength' | translate }}</mat-error>
       </mat-form-field>
 
       <button mat-flat-button class="submit-button" type="submit" [disabled]="loginForm.invalid || loading">
         <span *ngIf="loading" class="spinner"><mat-spinner diameter="16"></mat-spinner></span>
-        <span *ngIf="!loading">Login</span>
+        <span *ngIf="!loading">{{ 'login.loginButton' | translate }}</span>
       </button>
     </form>
 
     <div class="divider-container">
       <mat-divider class="divider-line"></mat-divider>
-      <span class="divider-text">OR LOGIN WITH</span>
+      <span class="divider-text">{{ 'login.divider' | translate }}</span>
       <mat-divider class="divider-line"></mat-divider>
     </div>
 
     <button type="button" class="google-button" (click)="onGoogleSignIn()">
       <app-google-icon class="google-icon-svg"></app-google-icon>
-      <span>Google</span>
+      <span>{{ 'login.googleButton' | translate }}</span>
     </button>
 
     <p class="footer-text">
-      Do not have an account? <a routerLink="/register">Register</a>
+      {{ 'login.footer' | translate }} <a routerLink="/register">{{ 'login.registerLink' | translate }}</a>
     </p>
   </mat-card>
 </div>

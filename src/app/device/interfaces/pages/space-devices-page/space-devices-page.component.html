@@ -1,11 +1,4 @@
-<div class="page-layout">
-  <app-header [isSidebarOpen]="isSidebarOpen" (sidebarToggleRequested)="toggleSidebar()"></app-header>
-
-  <div class="page-body">
-    <app-sidebar [isOpen]="isSidebarOpen" (closeRequested)="closeSidebar()"></app-sidebar>
-
-    <main class="content">
-      <div class="workspace">
+<div class="workspace">
         <div class="desktop-organizations-panel">
           <app-organizations-panel
             [selectedSpaceId]="selectedSpace?.id?.value ?? null"
@@ -17,9 +10,9 @@
         <!-- Right panel: Spaces & Devices or Device Detail -->
         <section class="detail-panel">
           <div class="mobile-context-bar">
-            <button class="context-button" type="button" (click)="openOrganizationsDrawer()" aria-label="Change organization or space">
-              <span class="context-eyebrow">Current space</span>
-              <span class="context-name">{{ selectedSpace?.name ?? 'Select a space' }}</span>
+            <button class="context-button" type="button" (click)="openOrganizationsDrawer()" [attr.aria-label]="'spaceDevices.changeOrgSpaceAria' | translate">
+              <span class="context-eyebrow">{{ 'spaceDevices.currentSpaceEyebrow' | translate }}</span>
+              <span class="context-name">{{ selectedSpace?.name ?? ('spaceDevices.selectSpace' | translate) }}</span>
               <mat-icon>expand_more</mat-icon>
             </button>
           </div>
@@ -60,19 +53,16 @@
           </ng-template>
         </section>
       </div>
-    </main>
-  </div>
-</div>
 
 <div *ngIf="isOrganizationsDrawerOpen" class="organizations-drawer-backdrop open" (click)="closeOrganizationsDrawer()"></div>
-<aside *ngIf="isOrganizationsDrawerOpen" class="organizations-drawer open" aria-label="Organizations and spaces">
+<aside *ngIf="isOrganizationsDrawerOpen" class="organizations-drawer open" [attr.aria-label]="'spaceDevices.organizationsAndSpacesAria' | translate">
   <div class="drawer-handle"></div>
   <div class="drawer-header">
     <div>
-      <p class="drawer-eyebrow">Workspace</p>
-      <h2>Organizations</h2>
+      <p class="drawer-eyebrow">{{ 'spaceDevices.drawerEyebrow' | translate }}</p>
+      <h2>{{ 'spaceDevices.drawerTitle' | translate }}</h2>
     </div>
-    <button mat-icon-button type="button" class="drawer-close-button" (click)="closeOrganizationsDrawer()" aria-label="Close organizations">
+    <button mat-icon-button type="button" class="drawer-close-button" (click)="closeOrganizationsDrawer()" [attr.aria-label]="'spaceDevices.closeOrganizationsAria' | translate">
       <mat-icon>close</mat-icon>
     </button>
   </div>

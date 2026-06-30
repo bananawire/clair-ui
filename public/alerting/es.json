@@ -1,0 +1,69 @@
+{
+  "alerts": {
+    "title": "Alertas",
+    "updatedPrefix": "Actualizado",
+    "updatedTime": {
+      "justNow": "justo ahora",
+      "secondsAgo": "hace {{seconds}} segundos"
+    },
+    "tab": {
+      "active": "Activas",
+      "history": "Historial"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "pageInfo": "Página {{currentPage}} de {{totalPages}}"
+    },
+    "errorLoad": "Error al cargar alertas"
+  },
+  "alertDailyChart": {
+    "title": "Últimos 30 días",
+    "today": "Hoy",
+    "thirtyDaysAgo": "hace 30 días"
+  },
+  "alertTable": {
+    "header": {
+      "device": "DISPOSITIVO",
+      "severity": "SEVERIDAD",
+      "space": "ESPACIO",
+      "variable": "VARIABLE",
+      "time": "HORA",
+      "status": "ESTADO"
+    },
+    "empty": "No se encontraron alertas",
+    "noSpace": "-"
+  },
+  "alertCard": {
+    "thresholdLabel": "Umbral",
+    "actualLabel": "Actual",
+    "resolvedPrefix": "Resuelta"
+  },
+  "alertList": {
+    "gridViewAria": "Vista de cuadrícula",
+    "listViewAria": "Vista de lista",
+    "loading": "Cargando alertas...",
+    "empty": "No se encontraron alertas"
+  },
+  "alertFilters": {
+    "statusLabel": "Estado",
+    "metricLabel": "Métrica",
+    "all": "Todas"
+  },
+  "alertStatus": {
+    "active": "ACTIVA",
+    "acknowledged": "ATENDIDA",
+    "resolved": "RESUELTA"
+  },
+  "alertSeverity": {
+    "critical": "CRÍTICA",
+    "warning": "ADVERTENCIA",
+    "low": "BAJA"
+  },
+  "metricType": {
+    "pm25": { "label": "PM2.5", "unit": "µg/m³" },
+    "co2": { "label": "CO2", "unit": "ppm" },
+    "temperature": { "label": "Temperatura", "unit": "°C" },
+    "humidity": { "label": "Humedad", "unit": "%" }
+  }
+}

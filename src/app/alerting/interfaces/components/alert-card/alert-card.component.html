@@ -2,8 +2,8 @@
   <div class="card-header">
     <div class="metric-row">
       <mat-icon class="metric-icon">{{ metricIcon(alert.metric) }}</mat-icon>
-      <span class="metric-name">{{ alert.metricLabel }}</span>
-      <span class="metric-unit">({{ alert.metricUnit }})</span>
+      <span class="metric-name">{{ 'metricType.' + alert.metric.toLowerCase() + '.label' | translate }}</span>
+      <span class="metric-unit">({{ 'metricType.' + alert.metric.toLowerCase() + '.unit' | translate }})</span>
     </div>
     <app-alert-status-badge [status]="alert.status"></app-alert-status-badge>
   </div>
@@ -12,11 +12,11 @@
 
   <div class="values-row">
     <div class="value-block">
-      <span class="value-label">Threshold</span>
+      <span class="value-label">{{ 'alertCard.thresholdLabel' | translate }}</span>
       <span class="value-number">{{ alert.thresholdValue }}</span>
     </div>
     <div class="value-block">
-      <span class="value-label">Actual</span>
+      <span class="value-label">{{ 'alertCard.actualLabel' | translate }}</span>
       <span class="value-number">{{ alert.actualValue }}</span>
     </div>
   </div>
@@ -27,7 +27,7 @@
       <span>{{ formatDate(alert.occurredAt) }}</span>
     </div>
     <div *ngIf="alert.resolvedAt" class="resolved-text">
-      Resolved {{ formatDate(alert.resolvedAt) }}
+      {{ 'alertCard.resolvedPrefix' | translate }} {{ formatDate(alert.resolvedAt) }}
     </div>
   </div>
 </mat-card>

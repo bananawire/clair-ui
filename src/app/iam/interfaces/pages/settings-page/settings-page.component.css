@@ -1,43 +1,57 @@
-.layout {
-  min-height: 100vh;
-  background: #000000;
+.settings-container {
+  width: min(100%, 640px);
+  margin: 0 auto;
+  padding: 32px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-sizing: border-box;
 }
 
-.body-layout {
-  display: flex;
-  min-height: calc(100vh - 84px);
-}
-
-.content {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
+.page-title {
+  margin: 0;
+  color: #f5f5f5;
+  font-size: 28px;
+  font-weight: 500;
 }
 
 .settings-card {
   width: 100%;
-  max-width: 520px;
   background: #141414;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
-  padding: 32px;
+  padding: 24px;
   color: #f5f5f5;
 }
 
-h1 {
-  margin: 0 0 8px;
+.card-header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
 }
 
-p {
-  margin: 0 0 20px;
+.card-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: #f5f5f5;
+}
+
+.card-subtitle {
+  margin: 0;
   color: #bdbdbd;
+  font-size: 14px;
+}
+
+.language-field {
+  width: 100%;
 }
 
 .status {
   margin-top: 16px;
   margin-bottom: 0;
+  color: #bdbdbd;
 }
 
 .logout-spinner {
@@ -46,7 +60,8 @@ p {
 }
 
 @media (max-width: 768px) {
-  .content {
-    padding: 16px;
+  .settings-container {
+    width: 100%;
+    padding: 24px 16px 32px;
   }
 }

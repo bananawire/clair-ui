@@ -1,17 +1,17 @@
 <div class="table-wrapper" *ngIf="alerts && alerts.length > 0">
   <div class="table-header">
-    <span class="col id">DEVICE</span>
-    <span class="col severity">SEVERITY</span>
-    <span class="col space">SPACE</span>
-    <span class="col variable">VARIABLE</span>
-    <span class="col time">TIME</span>
-    <span class="col status">STATUS</span>
+    <span class="col id">{{ 'alertTable.header.device' | translate }}</span>
+    <span class="col severity">{{ 'alertTable.header.severity' | translate }}</span>
+    <span class="col space">{{ 'alertTable.header.space' | translate }}</span>
+    <span class="col variable">{{ 'alertTable.header.variable' | translate }}</span>
+    <span class="col time">{{ 'alertTable.header.time' | translate }}</span>
+    <span class="col status">{{ 'alertTable.header.status' | translate }}</span>
   </div>
   <div class="table-row" *ngFor="let alert of alerts">
     <span class="col id" [title]="alert.deviceName || ''">{{ displayDevice(alert) }}</span>
     <span class="col severity"><app-alert-severity-badge [severity]="alert.severity"></app-alert-severity-badge></span>
-    <span class="col space">{{ alert.spaceName ?? '-' }}</span>
-    <span class="col variable">{{ alert.metric }}</span>
+    <span class="col space">{{ alert.spaceName ?? ('alertTable.noSpace' | translate) }}</span>
+    <span class="col variable">{{ 'metricType.' + alert.metric.toLowerCase() + '.label' | translate }}</span>
     <span class="col time">{{ formatTime(alert.occurredAt) }}</span>
     <span class="col status"><app-alert-status-badge [status]="alert.status"></app-alert-status-badge></span>
   </div>
@@ -19,5 +19,5 @@
 
 <div class="table-empty" *ngIf="!loading && (!alerts || alerts.length === 0)">
   <mat-icon>notifications_off</mat-icon>
-  <span>No alerts found</span>
+  <span>{{ 'alertTable.empty' | translate }}</span>
 </div>

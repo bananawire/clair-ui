@@ -1,11 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 import { DailyAlertCount } from '../../../domain/services/alert-query-service';
 
 @Component({
   selector: 'app-alert-daily-chart',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TranslatePipe],
   templateUrl: './alert-daily-chart.component.html',
   styleUrl: './alert-daily-chart.component.css',
 })

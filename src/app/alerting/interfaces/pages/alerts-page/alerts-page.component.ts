@@ -2,12 +2,10 @@ import { Inject } from '@angular/core';
 import { ALERT_QUERY_SERVICE, AlertQueryService } from '../../../domain/services/alert-query-service';
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
-import { SidebarComponent } from '../../../../shared/interfaces/components/sidebar/sidebar.component';
-import { HeaderComponent } from '../../../../shared/interfaces/components/header/header.component';
 
 import { Alert, AlertPage, DailyAlertCount } from '../../../domain/services/alert-query-service';
 import { AlertStatus_ACTIVE, AlertStatus_ACKNOWLEDGED, AlertStatus_RESOLVED } from '../../../domain/model/valueobjects/alert-status.value-object';
@@ -23,9 +21,8 @@ type AlertTab = 'active' | 'history';
   standalone: true,
   imports: [
     CommonModule,
+    TranslatePipe,
     MatIconModule,
-    SidebarComponent,
-    HeaderComponent,
     AlertDailyChartComponent,
     AlertTableComponent,
   ],
@@ -36,10 +33,9 @@ export class AlertsPageComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
 
   constructor(@Inject(ALERT_QUERY_SERVICE) private readonly alertQueryService: AlertQueryService,
-    private readonly cdr: ChangeDetectorRef
+    private readonly cdr: ChangeDetectorRef,
+    private readonly translate: TranslateService
   ) {}
-
-  isSidebarOpen = true;
 
   // Daily chart
   dailySummary: DailyAlertCount[] | null = null;
@@ -71,14 +67,6 @@ export class AlertsPageComponent implements OnInit, OnDestroy {
     if (this.secondsCounterSubscription) {
       clearInterval(this.secondsCounterSubscription);
     }
-  }
-
-  toggleSidebar(): void {
-    this.isSidebarOpen = !this.isSidebarOpen;
-  }
-
-  closeSidebar(): void {
-    this.isSidebarOpen = false;
   }
 
   setTab(tab: AlertTab): void {
@@ -136,8 +124,8 @@ export class AlertsPageComponent implements OnInit, OnDestroy {
           this.cdr.markForCheck();
         },
         error: (err: any) => {
-          console.error('Failed to load alerts', err);
-          this.errorAlerts = 'Failed to load alerts';
+          console.error(this.translate.instant('alerts.errorLoad'), err);
+          this.errorAlerts = this.translate.instant('alerts.errorLoad');
           this.loadingAlerts = false;
           this.cdr.markForCheck();
         },
@@ -183,8 +171,8 @@ export class AlertsPageComponent implements OnInit, OnDestroy {
   }
 
   get formattedUpdateTime(): string {
-    if (this.secondsSinceUpdate < 5) return 'just now';
-    return `${this.secondsSinceUpdate} seconds ago`;
+    if (this.secondsSinceUpdate < 5) return this.translate.instant('alerts.updatedTime.justNow');
+    return this.translate.instant('alerts.updatedTime.secondsAgo', { seconds: this.secondsSinceUpdate });
   }
 
   private startSecondsCounter(): void {

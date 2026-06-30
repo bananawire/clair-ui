@@ -5,6 +5,7 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslatePipe } from '@ngx-translate/core';
 
 export type ClaimDeviceDialogResult = Readonly<{
   claimToken: string;
@@ -13,7 +14,7 @@ export type ClaimDeviceDialogResult = Readonly<{
 @Component({
   selector: 'app-claim-device-dialog',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [CommonModule, ReactiveFormsModule, MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule, TranslatePipe],
   templateUrl: './claim-device-dialog.component.html',
   styleUrl: './claim-device-dialog.component.css',
 })

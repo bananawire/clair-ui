@@ -7,49 +7,49 @@
   <div class="checkout-content">
 
     <div class="checkout-header">
-      <h1 class="checkout-title">Proceed with payout</h1>
-      <p class="checkout-subtitle">Start monitoring your air</p>
+      <h1 class="checkout-title">{{ 'checkout.title' | translate }}</h1>
+      <p class="checkout-subtitle">{{ 'checkout.subtitle' | translate }}</p>
     </div>
 
     <div class="checkout-details-container">
       <!-- Mesh Network Plan Details -->
       <div class="plan-summary-box">
-        <h2 class="plan-summary-title">Mesh Network</h2>
+        <h2 class="plan-summary-title">{{ 'checkout.planName' | translate }}</h2>
         <div class="plan-price-info">
-          <h3 class="plan-price-amount">S/ 29.90</h3>
-          <p class="plan-price-period">Per month</p>
+          <h3 class="plan-price-amount">{{ 'checkout.planPrice' | translate }}</h3>
+          <p class="plan-price-period">{{ 'checkout.planPeriod' | translate }}</p>
         </div>
       </div>
 
       <!-- Order Details -->
       <div class="order-details-box">
-        <h2 class="order-details-title">Order Details</h2>
+        <h2 class="order-details-title">{{ 'checkout.orderDetails' | translate }}</h2>
         <div class="order-item">
-          <span class="order-item-name">Mesh Network</span>
-          <span class="order-item-price">S/29.90</span>
+          <span class="order-item-name">{{ 'checkout.orderItemName' | translate }}</span>
+          <span class="order-item-price">{{ 'checkout.orderItemPrice' | translate }}</span>
         </div>
         <div class="order-divider"></div>
         <div class="order-item">
-          <span class="order-item-name">Subtotal</span>
-          <span class="order-item-price">S/29.90</span>
+          <span class="order-item-name">{{ 'checkout.subtotal' | translate }}</span>
+          <span class="order-item-price">{{ 'checkout.orderItemPrice' | translate }}</span>
         </div>
         <div class="order-divider"></div>
         <div class="order-item order-total">
-          <span class="order-item-name">Total due today</span>
-          <span class="order-item-price">S/29.90</span>
+          <span class="order-item-name">{{ 'checkout.totalDueToday' | translate }}</span>
+          <span class="order-item-price">{{ 'checkout.totalPrice' | translate }}</span>
         </div>
       </div>
 
       <!-- Payment Method Button -->
       <button class="add-payment-btn" (click)="onPress()">
         <span class="material-symbols-outlined payment-icon">credit_card</span>
-        <span class="payment-btn-text">Add payment method</span>
+        <span class="payment-btn-text">{{ 'checkout.addPaymentMethod' | translate }}</span>
       </button>
 
       <!-- Autorenew Info -->
       <div class="autorenew-box">
         <span class="material-symbols-outlined info-icon">info</span>
-        <p class="autorenew-text">Your subscription will autorenew on {{ autorenewDate }}</p>
+        <p class="autorenew-text">{{ 'checkout.autorenewText' | translate: { date: autorenewDate } }}</p>
       </div>
 
       <!-- Terms checkbox -->
@@ -58,12 +58,12 @@
           <input type="checkbox" class="terms-checkbox" id="terms-checkbox">
           <label for="terms-checkbox" class="custom-checkbox"></label>
         </div>
-        <p class="terms-text">I accept Clair to charge me the accorded amount on a monthly subscriptions.</p>
+        <p class="terms-text">{{ 'checkout.termsText' | translate }}</p>
       </div>
 
       <!-- Subscribe Button -->
       <button class="subscribe-btn" (click)="onPress()">
-        Subscribe
+        {{ 'checkout.subscribe' | translate }}
       </button>
     </div>
   </div>

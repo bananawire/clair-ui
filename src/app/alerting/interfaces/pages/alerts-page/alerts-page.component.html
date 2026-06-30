@@ -1,14 +1,7 @@
-<div class="page-layout">
-  <app-header [isSidebarOpen]="isSidebarOpen" (sidebarToggleRequested)="toggleSidebar()"></app-header>
-
-  <div class="page-body">
-    <app-sidebar [isOpen]="isSidebarOpen" (closeRequested)="closeSidebar()"></app-sidebar>
-
-    <main class="content">
-      <div class="alerts-container">
+<div class="alerts-container">
         <!-- Header -->
         <div class="page-header">
-          <h1 class="page-title">Alerts</h1>
+          <h1 class="page-title">{{ 'alerts.title' | translate }}</h1>
         </div>
 
         <!-- Daily Chart -->
@@ -17,16 +10,16 @@
         <!-- Update info -->
         <div class="update-info">
           <mat-icon class="update-icon">sync</mat-icon>
-          <span>Updated {{ formattedUpdateTime }}</span>
+          <span>{{ 'alerts.updatedPrefix' | translate }} {{ formattedUpdateTime }}</span>
         </div>
 
         <!-- Tabs -->
         <div class="tabs-row">
           <button class="tab-btn" [class.active]="activeTab === 'active'" (click)="setTab('active')">
-            Active Alerts
+            {{ 'alerts.tab.active' | translate }}
           </button>
           <button class="tab-btn" [class.active]="activeTab === 'history'" (click)="setTab('history')">
-            History
+            {{ 'alerts.tab.history' | translate }}
           </button>
         </div>
 
@@ -36,14 +29,11 @@
         <!-- Pagination -->
         <div class="pagination-bar" *ngIf="showPagination">
           <button mat-button (click)="prevPage()" [disabled]="currentPage === 0">
-            <mat-icon>chevron_left</mat-icon> Previous
+            <mat-icon>chevron_left</mat-icon> {{ 'alerts.pagination.previous' | translate }}
           </button>
-          <span class="page-info">Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+          <span class="page-info">{{ 'alerts.pagination.pageInfo' | translate: { currentPage: currentPage + 1, totalPages: totalPages } }}</span>
           <button mat-button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">
-            Next <mat-icon>chevron_right</mat-icon>
+            {{ 'alerts.pagination.next' | translate }} <mat-icon>chevron_right</mat-icon>
           </button>
         </div>
       </div>
-    </main>
-  </div>
-</div>
