@@ -34,6 +34,7 @@
     "@angular/cli": "^21.2.8",
     "@angular/compiler-cli": "^21.2.0",
     "@cucumber/cucumber": "^12.8.3",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^25.7.0",
     "autoprefixer": "^10.5.0",
     "postcss": "^8.5.14",
