@@ -15,8 +15,8 @@ test.describe('Login', () => {
     await expect(page.getByRole('button', { name: 'Login' })).toBeDisabled();
   });
 
-  // DEFECTO CONOCIDO: la app es zoneless y errorMessage es un campo normal (no signal),
-  // la vista no se repinta tras el error (spinner permanente, sin mensaje) y la consola muestra NG0100.
+  // DEFECTO CONOCIDO: la app es zoneless y errorMessage es un campo normal,
+  // la vista no se repinta tras el error  y la consola muestra NG0100.
   test('muestra error con credenciales inválidas (API mockeada con 401)', async ({ page }) => {
     test.fail();
     await page.route('**/api/v1/auth/sign-in', (route) =>
@@ -73,7 +73,7 @@ test.describe('Login', () => {
     expect(await page.evaluate(() => localStorage.getItem('refreshToken'))).toBe('fake-refresh-token');
   });
 
-  // DEFECTO CONOCIDO: mismo problema que el 401 (ver comentario arriba), la vista no refleja errorMessage.
+  // DEFECTO CONOCIDO: mismo problema que el 401 , la vista no refleja errorMessage.
   test('muestra error con fallo de servidor (API mockeada con 500)', async ({ page }) => {
     test.fail();
     await page.route('**/api/v1/auth/sign-in', (route) =>
@@ -90,7 +90,7 @@ test.describe('Login', () => {
     await expect(page.locator('.error-message')).toHaveText('An unexpected error occurred. Please try again.');
   });
 
-  // DEFECTO CONOCIDO: mismo problema que el 401 (ver comentario arriba), la vista no refleja errorMessage.
+  // DEFECTO CONOCIDO: mismo problema que el 401, la vista no refleja errorMessage.
   test('muestra error de red cuando la API no responde', async ({ page }) => {
     test.fail();
     await page.route('**/api/v1/auth/sign-in', (route) => route.abort('failed'));

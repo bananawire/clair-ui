@@ -25,7 +25,7 @@ test.describe('Billing', () => {
 
   test.describe('/checkout', () => {
     test.beforeEach(async ({ authenticatedPage: page }) => {
-      // Stripe.js real se bloquea: no se prueba el ingreso real de tarjeta (ver CLAUDE.md).
+      // Stripe.js real se bloquea.
       await page.route('**js.stripe.com**', (route) => route.abort());
       await page.goto('/checkout');
     });

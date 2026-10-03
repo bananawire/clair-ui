@@ -50,10 +50,7 @@ test.describe('Confirm', () => {
     await expect(page).toHaveURL(/\/login/, { timeout: 5000 });
   });
 
-  // DEFECTO CONOCIDO: igual que en /login y /register (ver tests/login.spec.ts), la app es zoneless
-  // y errorMessage/successMessage son campos normales (no signal); tras la respuesta la vista no
-  // se repinta (spinner permanente, sin mensaje) y la consola muestra NG0100.
-  test('muestra código incorrecto (API mockeada con 400)', async ({ page }) => {
+  test('muestra codigo incorrecto (API mockeada con 400)', async ({ page }) => {
     test.fail();
     await page.goto('/confirm?sessionId=session-123');
 

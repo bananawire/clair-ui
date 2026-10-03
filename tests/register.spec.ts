@@ -64,9 +64,6 @@ test.describe('Register', () => {
     await expect(page).toHaveURL(/\/confirm\?sessionId=session-123/);
   });
 
-  // DEFECTO CONOCIDO: igual que en /login (ver tests/login.spec.ts), la app es zoneless
-  // y errorMessage es un campo normal (no signal); tras el error la vista no se repinta
-  // (spinner permanente, sin mensaje) y la consola muestra NG0100.
   test('muestra error cuando el email ya existe (API mockeada con 409)', async ({ page }) => {
     test.fail();
     await page.route('**/api/v1/auth/sign-up', (route) =>
