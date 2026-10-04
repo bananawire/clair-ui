@@ -89,7 +89,7 @@ test.describe('Overview', () => {
     await expect(page.getByRole('heading', { name: 'Main Office' })).toBeVisible();
   });
 
-  // DEFECTO CONOCIDO: igual que en /confirm y /auth/callback (ver tests/confirm.spec.ts), aca
+  // DEFECTO CONOCIDO: igual que en /confirm (ver tests/confirm.spec.ts), aca
   // en alerts-card.component.ts y organization-card.component.ts, ngOnInit llama
   // translate.instant() antes de que terminen de cargar las traducciones, así que se
   // muestran las claves crudas en vez del texto. Se retrasa la
