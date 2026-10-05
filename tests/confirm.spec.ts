@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures/base';
 
 test.describe('Confirm', () => {
   test('muestra el formulario con un sessionId válido en la URL', async ({ page }) => {

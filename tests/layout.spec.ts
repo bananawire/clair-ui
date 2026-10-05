@@ -33,7 +33,7 @@ test.describe('Layout', () => {
     await page.getByRole('link', { name: 'Settings' }).click();
     await expect(page).toHaveURL(/\/settings/);
 
-    await page.getByLabel('Language').click();
+    await page.getByRole('combobox', { name: 'Language' }).click();
     await page.getByRole('option', { name: 'Spanish' }).click();
 
     await expect(page.getByRole('link', { name: 'Icono de resumen Resumen' })).toBeVisible();

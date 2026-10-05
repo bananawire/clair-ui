@@ -7,12 +7,12 @@ test.describe('Settings', () => {
 
   test('carga la página con el título, el selector de idioma y el botón de logout', async ({ authenticatedPage: page }) => {
     await expect(page.getByRole('heading', { name: 'Settings' })).toBeVisible();
-    await expect(page.getByLabel('Language')).toBeVisible();
+    await expect(page.getByRole('combobox', { name: 'Language' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Logout' })).toBeVisible();
   });
 
   test('cambiar el idioma a español guarda clair-language y cambia los textos', async ({ authenticatedPage: page }) => {
-    await page.getByLabel('Language').click();
+    await page.getByRole('combobox', { name: 'Language' }).click();
     await page.getByRole('option', { name: 'Spanish' }).click();
 
     await expect(page.getByRole('heading', { name: 'Configuración' })).toBeVisible();
