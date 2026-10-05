@@ -1,9 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
-try {
-  process.loadEnvFile('.env');
-} catch {
-}
+const REAL_BASE_URL = 'https://clair-ui.vercel.app';
 
 const AUTH_FILE = 'playwright/.auth/user.json';
 
@@ -25,7 +22,7 @@ export default defineConfig({
     {
       name: 'setup',
       testMatch: /auth\.setup\.ts/,
-      use: { ...devices['Desktop Chrome'], baseURL: process.env.E2E_BASE_URL, trace: 'off', screenshot: 'off' },
+      use: { ...devices['Desktop Chrome'], baseURL: REAL_BASE_URL, trace: 'off', screenshot: 'off' },
     },
     {
       name: 'mocked',
@@ -40,7 +37,7 @@ export default defineConfig({
       workers: 1,
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: process.env.E2E_BASE_URL,
+        baseURL: REAL_BASE_URL,
         storageState: AUTH_FILE,
         trace: 'off',
         screenshot: 'off',
@@ -50,7 +47,7 @@ export default defineConfig({
   ],
   webServer: needsWebServer
     ? {
-        command: 'npx ng serve --configuration production',
+        command: 'npx ng serve --configuration production --proxy-config tests/proxy.conf.json',
         url: 'http://localhost:4200',
         reuseExistingServer: true,
         timeout: 240_000,
