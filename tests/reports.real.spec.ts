@@ -14,7 +14,7 @@ test.describe('Sistema real: /reports (solo lectura)', () => {
     for (const name of ['AQI', 'PM2.5', 'CO₂', 'Temp', 'Humidity']) {
       await expect(page.getByRole('button', { name, exact: true })).toBeVisible();
     }
-    // Export CSV solo se comprueba que existe, no se pulsa.
+
     await expect(page.getByRole('button', { name: 'Export CSV' })).toBeVisible();
   });
 
