@@ -45,3 +45,10 @@ __screenshots__/
 Thumbs.db
 
 files/
+
+# Playwright
+test-results/
+playwright-report/
+
+# Playwright: sesiones reales (tokens)
+playwright/.auth/
