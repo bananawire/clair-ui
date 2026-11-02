@@ -1,0 +1,85 @@
+.composer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #141414;
+  border: 1px solid #2a2a2a;
+  border-radius: 16px;
+}
+
+.composer:focus-within {
+  border-color: #4b5563;
+}
+
+.composer-input {
+  width: 100%;
+  resize: none;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-height: 200px;
+}
+
+.composer-input::placeholder {
+  color: #6b7280;
+}
+
+.composer-input:disabled {
+  opacity: 0.6;
+}
+
+.composer-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.composer-hint {
+  flex: 1;
+  font-size: 0.75rem;
+  color: #6b7280;
+}
+
+.composer-counter {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-variant-numeric: tabular-nums;
+}
+
+.composer-counter.near-limit {
+  color: #f59e0b;
+}
+
+.send-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 9999px;
+  background-color: #ffffff;
+  color: #000000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.send-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+@media (max-width: 640px) {
+  .composer-hint {
+    display: none;
+  }
+
+  .composer-counter {
+    flex: 1;
+  }
+}

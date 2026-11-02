@@ -1,0 +1,32 @@
+<article class="message" [class.assistant]="isAssistant" [class.user]="!isAssistant">
+  <div *ngIf="isAssistant" class="avatar" aria-hidden="true">
+    <mat-icon>auto_awesome</mat-icon>
+  </div>
+  <div class="bubble">
+    <p class="content">{{ message.content }}</p>
+    <div *ngIf="isAssistant" class="feedback">
+      <button
+        type="button"
+        class="feedback-btn"
+        [class.selected]="message.feedback === 'UP'"
+        [disabled]="ratingDisabled"
+        [attr.aria-pressed]="message.feedback === 'UP'"
+        [attr.aria-label]="'assistant.feedback.up' | translate"
+        (click)="onRate('UP')"
+      >
+        <mat-icon>thumb_up</mat-icon>
+      </button>
+      <button
+        type="button"
+        class="feedback-btn"
+        [class.selected]="message.feedback === 'DOWN'"
+        [disabled]="ratingDisabled"
+        [attr.aria-pressed]="message.feedback === 'DOWN'"
+        [attr.aria-label]="'assistant.feedback.down' | translate"
+        (click)="onRate('DOWN')"
+      >
+        <mat-icon>thumb_down</mat-icon>
+      </button>
+    </div>
+  </div>
+</article>

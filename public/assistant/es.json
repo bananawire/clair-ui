@@ -1,0 +1,47 @@
+{
+  "assistant": {
+    "title": "Asistente IA",
+    "subtitle": "Pregunta por el aire de tus espacios. El asistente usa tus dispositivos, lecturas, umbrales y alertas.",
+    "usage": {
+      "count": "{{used}} de {{limit}} mensajes hoy",
+      "upgrade": "Mejorar plan"
+    },
+    "history": {
+      "title": "Conversaciones",
+      "new": "Nueva conversación",
+      "empty": "Aún no tienes conversaciones."
+    },
+    "empty": {
+      "title": "¿En qué te ayudo?",
+      "body": "Puedo explicarte tus lecturas de CO2, PM2.5, temperatura y humedad, y decirte qué hacer cuando algo sale de rango."
+    },
+    "suggestions": {
+      "status": "¿Cómo está el aire de mis espacios ahora?",
+      "co2": "¿Qué nivel de CO2 es saludable en una oficina?",
+      "alerts": "Explícame mis alertas activas",
+      "ventilation": "¿Cuándo debería ventilar?"
+    },
+    "composer": {
+      "placeholder": "Escribe tu pregunta…",
+      "hint": "Enter para enviar · Shift + Enter para un salto de línea",
+      "send": "Enviar pregunta"
+    },
+    "typing": "El asistente está escribiendo…",
+    "loadingConversation": "Cargando conversación…",
+    "feedback": {
+      "up": "Respuesta útil",
+      "down": "Respuesta no útil"
+    },
+    "banner": {
+      "quota": {
+        "title": "Usaste tus {{limit}} mensajes de hoy",
+        "body": "Tu cupo se renueva a la medianoche.",
+        "upgrade": "Pasar a Premium"
+      },
+      "unavailable": "El asistente no está disponible en este momento. Intenta de nuevo en unos minutos.",
+      "error": "No se pudo enviar tu pregunta. Inténtalo de nuevo.",
+      "load": "No se pudo cargar la conversación."
+    },
+    "disclaimer": "El asistente puede equivocarse y no reemplaza una evaluación profesional de salud."
+  }
+}

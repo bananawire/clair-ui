@@ -1,0 +1,34 @@
+.usage {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid #2a2a2a;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  color: #9ca3af;
+  font-variant-numeric: tabular-nums;
+}
+
+.usage.exhausted {
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+
+.usage-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.usage-upgrade {
+  color: #f59e0b;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 0.25rem;
+}
+
+.usage-upgrade:hover,
+.usage-upgrade:focus-visible {
+  text-decoration: underline;
+}
