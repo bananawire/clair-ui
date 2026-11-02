@@ -8,7 +8,14 @@ title: Assistant Bounded Context - Class Diagram
 classDiagram
 
 namespace interfaces {
-    class AssistantPageComponent {
+    class HeaderComponent {
+        <<shared>>
+        +assistantToggleRequested EventEmitter
+    }
+    class AssistantPanelComponent {
+        +open boolean
+        +closeRequested EventEmitter
+        +view PanelView
         +messages ConversationMessage[]
         +conversations Conversation[]
         +usage AssistantUsage
@@ -113,12 +120,13 @@ namespace infrastructure {
     }
 }
 
-AssistantPageComponent --> AssistantCommandService
-AssistantPageComponent --> AssistantQueryService
-AssistantPageComponent *-- ChatMessageComponent
-AssistantPageComponent *-- ChatComposerComponent
-AssistantPageComponent *-- UsageIndicatorComponent
-AssistantPageComponent *-- SuggestedPromptsComponent
+HeaderComponent ..> AssistantPanelComponent : opens
+AssistantPanelComponent --> AssistantCommandService
+AssistantPanelComponent --> AssistantQueryService
+AssistantPanelComponent *-- ChatMessageComponent
+AssistantPanelComponent *-- ChatComposerComponent
+AssistantPanelComponent *-- UsageIndicatorComponent
+AssistantPanelComponent *-- SuggestedPromptsComponent
 AssistantCommandServiceImpl ..|> AssistantCommandService
 AssistantQueryServiceImpl ..|> AssistantQueryService
 AssistantCommandServiceImpl --> AssistantGateway
@@ -132,9 +140,13 @@ AssistantReply --> AssistantUsage
 
 ## Notes
 
+- The assistant is a companion chat, not a route: the AI icon in the header (left of the
+  notifications bell) toggles a panel that slides in from the right on any screen. The panel is
+  mounted on first open and kept while closed, so the conversation and draft survive navigation.
+  Escape or the close button hides it.
 - The assistant answer is rendered with text interpolation only (no `innerHTML`), so model output
   cannot inject markup.
 - A failed send (HTTP 429 or 503) puts the question back in the composer. On 429 the composer is
   disabled until the daily allowance resets, and Free users get a link to `/select-plan`.
-- The DeepSeek API key never reaches the browser: the page only calls `/api/v1/assistant/**` on
+- The DeepSeek API key never reaches the browser: the panel only calls `/api/v1/assistant/**` on
   Clair Core.
