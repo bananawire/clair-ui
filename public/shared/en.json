@@ -25,6 +25,7 @@
       "airQuality": "Air Quality",
       "alertsActions": "Alerts & Actions",
       "reports": "Reports",
+      "aiAssistant": "AI Assistant",
       "spaceDevices": "Space & Devices"
     },
     "upgradePlan": "Upgrade Plan",
@@ -38,6 +39,7 @@
     "airQuality": "Air quality icon",
     "alertsActions": "Alerts actions icon",
     "reports": "Reports icon",
+    "aiAssistant": "AI assistant icon",
     "spaceDevices": "Space devices icon",
     "clairDevice": "Clair device"
   },
