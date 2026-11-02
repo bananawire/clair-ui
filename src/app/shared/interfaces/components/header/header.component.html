@@ -7,6 +7,18 @@
   </div>
 
   <div class="header-right">
+    <button
+      mat-icon-button
+      class="action-button assistant-button"
+      [class.active]="isAssistantOpen"
+      [attr.aria-label]="'header.assistantAria' | translate"
+      [attr.aria-expanded]="isAssistantOpen"
+      [attr.title]="'header.assistantAria' | translate"
+      (click)="onToggleAssistant($event)"
+    >
+      <app-ai-assistant class="assistant-icon"></app-ai-assistant>
+    </button>
+
     <div class="notifications-wrapper">
       <button mat-icon-button class="action-button" [attr.aria-label]="'header.notificationsAria' | translate" (click)="toggleNotifications($event)">
         <mat-icon>notifications</mat-icon>

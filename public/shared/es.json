@@ -5,6 +5,7 @@
   "header": {
     "toggleSidebarAria": "Alternar barra lateral",
     "notificationsAria": "Notificaciones",
+    "assistantAria": "Asistente IA",
     "notificationsTitle": "Notificaciones",
     "closeNotificationsAria": "Cerrar notificaciones",
     "emptyNotifications": "No hay notificaciones nuevas",
@@ -25,7 +26,6 @@
       "airQuality": "Calidad del aire",
       "alertsActions": "Alertas y acciones",
       "reports": "Reportes",
-      "aiAssistant": "Asistente IA",
       "spaceDevices": "Espacios y dispositivos"
     },
     "upgradePlan": "Mejorar el plan",

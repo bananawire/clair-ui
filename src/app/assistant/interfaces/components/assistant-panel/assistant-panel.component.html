@@ -1,0 +1,145 @@
+<aside
+  class="assistant-panel"
+  [class.open]="open"
+  role="dialog"
+  aria-modal="false"
+  [attr.aria-hidden]="!open"
+  [attr.inert]="open ? null : ''"
+  [attr.aria-label]="'assistant.title' | translate"
+>
+  <!-- Header -->
+  <div class="panel-header">
+    <div class="panel-title">
+      <mat-icon class="title-icon" aria-hidden="true">auto_awesome</mat-icon>
+      <h2>{{ 'assistant.title' | translate }}</h2>
+    </div>
+    <div class="panel-actions">
+      <button
+        type="button"
+        class="icon-btn"
+        [class.active]="view === 'history'"
+        [attr.aria-pressed]="view === 'history'"
+        [attr.aria-label]="'assistant.history.title' | translate"
+        [attr.title]="'assistant.history.title' | translate"
+        (click)="toggleHistory()"
+      >
+        <mat-icon>history</mat-icon>
+      </button>
+      <button
+        type="button"
+        class="icon-btn"
+        [disabled]="sending"
+        [attr.aria-label]="'assistant.history.new' | translate"
+        [attr.title]="'assistant.history.new' | translate"
+        (click)="newConversation()"
+      >
+        <mat-icon>add_comment</mat-icon>
+      </button>
+      <button
+        type="button"
+        class="icon-btn"
+        [attr.aria-label]="'assistant.panel.close' | translate"
+        [attr.title]="'assistant.panel.close' | translate"
+        (click)="close()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="panel-usage">
+    <app-usage-indicator [usage]="usage"></app-usage-indicator>
+  </div>
+
+  <!-- History view -->
+  <div *ngIf="view === 'history'" class="history">
+    <p *ngIf="conversations.length === 0" class="history-empty">
+      {{ 'assistant.history.empty' | translate }}
+    </p>
+    <ul class="history-list">
+      <li *ngFor="let conversation of conversations; trackBy: trackConversation">
+        <button
+          type="button"
+          class="history-item"
+          [class.active]="isActive(conversation)"
+          [attr.aria-current]="isActive(conversation) ? 'true' : null"
+          [disabled]="sending"
+          (click)="openConversation(conversation)"
+        >
+          <span class="history-item-title">{{ conversation.title }}</span>
+          <span class="history-item-date">{{ conversation.lastMessageAt | date: 'short' }}</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Chat view -->
+  <ng-container *ngIf="view === 'chat'">
+    <div #messageList class="message-list" aria-live="polite">
+      <div *ngIf="isEmpty && !loadingConversation" class="empty-state">
+        <h3>{{ 'assistant.empty.title' | translate }}</h3>
+        <p>{{ 'assistant.empty.body' | translate }}</p>
+        <app-suggested-prompts
+          [promptKeys]="suggestionKeys"
+          [disabled]="composerDisabled"
+          (select)="send($event)"
+        ></app-suggested-prompts>
+      </div>
+
+      <div *ngIf="loadingConversation" class="loading-state">
+        {{ 'assistant.loadingConversation' | translate }}
+      </div>
+
+      <app-chat-message
+        *ngFor="let message of messages; trackBy: trackMessage"
+        [message]="message"
+        [ratingDisabled]="ratingMessageId === message.id.value"
+        (rate)="rate(message, $event)"
+      ></app-chat-message>
+
+      <ng-container *ngIf="pendingQuestion !== null">
+        <div class="pending-question">
+          <p>{{ pendingQuestion }}</p>
+        </div>
+        <div class="typing" role="status">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-label">{{ 'assistant.typing' | translate }}</span>
+        </div>
+      </ng-container>
+    </div>
+
+    <!-- Banners -->
+    <div *ngIf="banner === 'quota' || (quotaReached && !sending)" class="banner banner-quota" role="alert">
+      <mat-icon>workspace_premium</mat-icon>
+      <div class="banner-text">
+        <strong>{{ 'assistant.banner.quota.title' | translate: { limit: usage?.limit ?? 0 } }}</strong>
+        <span>{{ 'assistant.banner.quota.body' | translate }}</span>
+        <a *ngIf="isFreemium" class="upgrade-link" routerLink="/select-plan" (click)="close()">
+          {{ 'assistant.banner.quota.upgrade' | translate }}
+        </a>
+      </div>
+    </div>
+    <div *ngIf="banner === 'unavailable'" class="banner banner-error" role="alert">
+      <mat-icon>cloud_off</mat-icon>
+      <span>{{ 'assistant.banner.unavailable' | translate }}</span>
+    </div>
+    <div *ngIf="banner === 'error'" class="banner banner-error" role="alert">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{ 'assistant.banner.error' | translate }}</span>
+    </div>
+    <div *ngIf="banner === 'load'" class="banner banner-error" role="alert">
+      <mat-icon>error_outline</mat-icon>
+      <span>{{ 'assistant.banner.load' | translate }}</span>
+    </div>
+
+    <div class="panel-footer">
+      <app-chat-composer
+        [(value)]="draft"
+        [disabled]="composerDisabled"
+        (send)="send($event)"
+      ></app-chat-composer>
+      <p class="disclaimer">{{ 'assistant.disclaimer' | translate }}</p>
+    </div>
+  </ng-container>
+</aside>

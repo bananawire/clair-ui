@@ -28,7 +28,6 @@ export const routes: Routes = [
       { path: 'analytics', loadComponent: () => import('./analytics/interfaces/pages/analytics-page/analytics-page.component').then(c => c.AnalyticsPageComponent) },
       { path: 'reports', loadComponent: () => import('./analytics/interfaces/pages/reports-page/reports-page.component').then(c => c.ReportsPageComponent) },
       { path: 'alerts', loadComponent: () => import('./alerting/interfaces/pages/alerts-page/alerts-page.component').then(c => c.AlertsPageComponent) },
-      { path: 'assistant', loadComponent: () => import('./assistant/interfaces/pages/assistant-page/assistant-page.component').then(c => c.AssistantPageComponent) },
       { path: 'select-plan', loadComponent: () => import('./billing/interfaces/pages/select-plan/select-plan.component').then(c => c.SelectPlanComponent) },
       { path: 'checkout-premium', loadComponent: () => import('./billing/interfaces/pages/premium-checkout/premium-checkout.component').then(c => c.PremiumCheckoutComponent) },
     ],

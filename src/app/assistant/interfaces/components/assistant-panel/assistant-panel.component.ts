@@ -2,9 +2,14 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  EventEmitter,
+  HostListener,
   Inject,
+  Input,
+  OnChanges,
   OnDestroy,
-  OnInit,
+  Output,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -38,15 +43,20 @@ import {
 import { Conversation } from '../../../domain/model/valueobjects/conversation.value-object';
 import { FeedbackRating } from '../../../domain/model/valueobjects/feedback-rating.value-object';
 import { LanguageService } from '../../../../shared/interfaces/services/language.service';
-import { ChatComposerComponent } from '../../components/chat-composer/chat-composer.component';
-import { ChatMessageComponent } from '../../components/chat-message/chat-message.component';
-import { SuggestedPromptsComponent } from '../../components/suggested-prompts/suggested-prompts.component';
-import { UsageIndicatorComponent } from '../../components/usage-indicator/usage-indicator.component';
+import { ChatComposerComponent } from '../chat-composer/chat-composer.component';
+import { ChatMessageComponent } from '../chat-message/chat-message.component';
+import { SuggestedPromptsComponent } from '../suggested-prompts/suggested-prompts.component';
+import { UsageIndicatorComponent } from '../usage-indicator/usage-indicator.component';
 
 type AssistantBanner = 'quota' | 'unavailable' | 'error' | 'load' | null;
+type PanelView = 'chat' | 'history';
 
+/**
+ * The assistant as a companion chat that slides in from the right of any screen. It stays mounted
+ * while closed, so reopening it keeps the current conversation and any unsent draft.
+ */
 @Component({
-  selector: 'app-assistant-page',
+  selector: 'app-assistant-panel',
   standalone: true,
   imports: [
     CommonModule,
@@ -58,10 +68,13 @@ type AssistantBanner = 'quota' | 'unavailable' | 'error' | 'load' | null;
     SuggestedPromptsComponent,
     UsageIndicatorComponent,
   ],
-  templateUrl: './assistant-page.component.html',
-  styleUrl: './assistant-page.component.css',
+  templateUrl: './assistant-panel.component.html',
+  styleUrl: './assistant-panel.component.css',
 })
-export class AssistantPageComponent implements OnInit, OnDestroy {
+export class AssistantPanelComponent implements OnChanges, OnDestroy {
+  @Input() open = false;
+  @Output() closeRequested = new EventEmitter<void>();
+
   private readonly destroy$ = new Subject<void>();
 
   @ViewChild(ChatComposerComponent) private composer?: ChatComposerComponent;
@@ -74,6 +87,7 @@ export class AssistantPageComponent implements OnInit, OnDestroy {
     'assistant.suggestions.ventilation',
   ];
 
+  view: PanelView = 'chat';
   messages: ConversationMessage[] = [];
   conversations: readonly Conversation[] = [];
   activeConversationId: ConversationId | null = null;
@@ -92,14 +106,23 @@ export class AssistantPageComponent implements OnInit, OnDestroy {
     private readonly cdr: ChangeDetectorRef,
   ) {}
 
-  ngOnInit(): void {
-    this.loadUsage();
-    this.loadConversations();
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['open'] && this.open) {
+      // Usage and history can change elsewhere (another tab, a plan upgrade), so refresh on open.
+      this.loadUsage();
+      this.loadConversations();
+      this.focusComposer();
+    }
   }
 
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this.open) this.close();
   }
 
   get quotaReached(): boolean {
@@ -116,6 +139,15 @@ export class AssistantPageComponent implements OnInit, OnDestroy {
 
   get isFreemium(): boolean {
     return this.usage?.plan === 'FREEMIUM';
+  }
+
+  close(): void {
+    this.closeRequested.emit();
+  }
+
+  toggleHistory(): void {
+    this.view = this.view === 'history' ? 'chat' : 'history';
+    if (this.view === 'chat') this.focusComposer();
   }
 
   send(content: string): void {
@@ -189,7 +221,9 @@ export class AssistantPageComponent implements OnInit, OnDestroy {
   }
 
   openConversation(conversation: Conversation): void {
-    if (this.sending || this.activeConversationId?.value === conversation.id.value) return;
+    if (this.sending) return;
+    this.view = 'chat';
+    if (this.activeConversationId?.value === conversation.id.value) return;
 
     this.activeConversationId = conversation.id;
     this.messages = [];
@@ -217,6 +251,7 @@ export class AssistantPageComponent implements OnInit, OnDestroy {
 
   newConversation(): void {
     if (this.sending) return;
+    this.view = 'chat';
     this.activeConversationId = null;
     this.messages = [];
     this.banner = null;
@@ -280,6 +315,6 @@ export class AssistantPageComponent implements OnInit, OnDestroy {
   }
 
   private focusComposer(): void {
-    setTimeout(() => this.composer?.focus());
+    setTimeout(() => this.composer?.focus(), 250);
   }
 }

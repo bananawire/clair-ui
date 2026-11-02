@@ -1,5 +1,10 @@
 <div class="layout">
-  <app-header [isSidebarOpen]="isSidebarOpen" (sidebarToggleRequested)="toggleSidebar()"></app-header>
+  <app-header
+    [isSidebarOpen]="isSidebarOpen"
+    [isAssistantOpen]="isAssistantOpen"
+    (sidebarToggleRequested)="toggleSidebar()"
+    (assistantToggleRequested)="toggleAssistant()"
+  ></app-header>
 
   <div class="body-layout">
     <app-sidebar [isOpen]="isSidebarOpen"></app-sidebar>
@@ -8,4 +13,10 @@
       <router-outlet></router-outlet>
     </section>
   </div>
+
+  <app-assistant-panel
+    *ngIf="assistantMounted"
+    [open]="isAssistantOpen"
+    (closeRequested)="closeAssistant()"
+  ></app-assistant-panel>
 </div>

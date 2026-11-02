@@ -26,6 +26,9 @@
       "hint": "Enter to send · Shift + Enter for a new line",
       "send": "Send question"
     },
+    "panel": {
+      "close": "Close assistant"
+    },
     "typing": "The assistant is typing…",
     "loadingConversation": "Loading conversation…",
     "feedback": {

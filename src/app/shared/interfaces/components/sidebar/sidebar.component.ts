@@ -8,7 +8,6 @@ import { AlertsActionsComponent } from '../icons/alerts-actions/alerts-actions.c
 import { OverviewComponent } from '../icons/overview/overview.component';
 import { ReportsComponent } from '../icons/reports/reports.component';
 import { SpaceDevicesComponent } from '../icons/space-devices/space-devices.component';
-import { AiAssistantComponent } from '../icons/ai-assistant/ai-assistant.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { jwtDecode } from 'jwt-decode';
 import { TOKEN_STORAGE_GATEWAY, TokenStorageGateway } from '../../../../iam/infrastructure/storage/token-storage.gateway';
@@ -33,7 +32,7 @@ type AccessTokenPayload = {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, MatIconModule, MatButtonModule, AirQualityComponent, AlertsActionsComponent, OverviewComponent, ReportsComponent, SpaceDevicesComponent, AiAssistantComponent, TranslatePipe],
+  imports: [CommonModule, RouterLink, RouterLinkActive, MatIconModule, MatButtonModule, AirQualityComponent, AlertsActionsComponent, OverviewComponent, ReportsComponent, SpaceDevicesComponent, TranslatePipe],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -86,7 +85,6 @@ export class SidebarComponent implements OnInit {
     { label: 'sidebar.nav.airQuality', component: 'air-quality', route: '/analytics' },
     { label: 'sidebar.nav.alertsActions', component: 'alerts-actions', route: '/alerts' },
     { label: 'sidebar.nav.reports', component: 'reports', route: '/reports' },
-    { label: 'sidebar.nav.aiAssistant', component: 'ai-assistant', route: '/assistant' },
     { label: 'sidebar.nav.spaceDevices', component: 'space-devices', route: '/space-devices' },
   ];
 }

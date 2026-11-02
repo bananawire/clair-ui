@@ -26,6 +26,9 @@
       "hint": "Enter para enviar · Shift + Enter para un salto de línea",
       "send": "Enviar pregunta"
     },
+    "panel": {
+      "close": "Cerrar asistente"
+    },
     "typing": "El asistente está escribiendo…",
     "loadingConversation": "Cargando conversación…",
     "feedback": {
