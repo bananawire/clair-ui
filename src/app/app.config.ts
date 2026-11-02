@@ -54,6 +54,12 @@ import { NOTIFICATION_GATEWAY } from './notifications/infrastructure/api/gateway
 import { NotificationHttpGateway } from './notifications/infrastructure/api/gateways/notification-http.gateway';
 import { NOTIFICATIONS_CONTEXT_FACADE } from './notifications/interfaces/acl/notifications-context-facade';
 import { NotificationsContextFacadeImpl } from './notifications/application/acl/notifications-context-facade.impl';
+import { ASSISTANT_COMMAND_SERVICE } from './assistant/domain/services/assistant-command-service';
+import { AssistantCommandServiceImpl } from './assistant/application/internal/commandservices/assistant-command-service.impl';
+import { ASSISTANT_QUERY_SERVICE } from './assistant/domain/services/assistant-query-service';
+import { AssistantQueryServiceImpl } from './assistant/application/internal/queryservices/assistant-query-service.impl';
+import { ASSISTANT_GATEWAY } from './assistant/infrastructure/api/gateways/assistant.gateway';
+import { AssistantHttpGateway } from './assistant/infrastructure/api/gateways/assistant-http.gateway';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -71,6 +77,8 @@ export const appConfig: ApplicationConfig = {
     { provide: REPORT_QUERY_SERVICE, useClass: ReportQueryServiceImpl },
     { provide: TELEMETRY_EVALUATION_QUERY_SERVICE, useClass: TelemetryEvaluationQueryServiceImpl },
     { provide: TELEMETRY_EVALUATION_COMMAND_SERVICE, useClass: TelemetryEvaluationCommandServiceImpl },
+    { provide: ASSISTANT_COMMAND_SERVICE, useClass: AssistantCommandServiceImpl },
+    { provide: ASSISTANT_QUERY_SERVICE, useClass: AssistantQueryServiceImpl },
     provideBrowserGlobalErrorListeners(),
     provideHttpClient(withInterceptorsFromDi()),
     provideRouter(routes),
@@ -82,6 +90,7 @@ export const appConfig: ApplicationConfig = {
     { provide: DEVICE_GATEWAY, useClass: DeviceHttpGateway },
     { provide: NOTIFICATION_GATEWAY, useClass: NotificationHttpGateway },
     { provide: TELEMETRY_EVALUATION_GATEWAY, useClass: TelemetryEvaluationHttpGateway },
+    { provide: ASSISTANT_GATEWAY, useClass: AssistantHttpGateway },
     { provide: EVALUATION_CONTEXT_FACADE, useClass: EvaluationContextFacadeImpl },
     { provide: DEVICE_CONTEXT_FACADE, useClass: DeviceContextFacadeImpl },
     { provide: ANALYTICS_CONTEXT_FACADE, useClass: AnalyticsContextFacadeImpl },
