@@ -67,6 +67,9 @@ export class HeaderComponent implements OnInit {
     this.isNotificationPanelOpen = !this.isNotificationPanelOpen;
     
     if (this.isNotificationPanelOpen) {
+      if (this.isAssistantOpen) {
+        this.assistantToggleRequested.emit();
+      }
       this.loadNotifications(false);
     }
     this.cdr.markForCheck();
