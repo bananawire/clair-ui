@@ -13,8 +13,8 @@
   width: 32px;
   height: 32px;
   border-radius: 9999px;
-  background-color: #141414;
-  border: 1px solid #2a2a2a;
+  background-color: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,7 +24,7 @@
   font-size: 18px;
   width: 18px;
   height: 18px;
-  color: #ffffff;
+  color: var(--clair-text);
 }
 
 .bubble {
@@ -45,15 +45,15 @@
 }
 
 .message.user .content {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--clair-text);
+  color: var(--clair-bg);
   border-bottom-right-radius: 4px;
 }
 
 .message.assistant .content {
-  background-color: #141414;
-  color: #ffffff;
-  border: 1px solid #2a2a2a;
+  background-color: var(--clair-surface-2);
+  color: var(--clair-text);
+  border: 1px solid var(--clair-border);
   border-top-left-radius: 4px;
 }
 
@@ -67,7 +67,7 @@
   border: none;
   padding: 0.25rem;
   border-radius: 8px;
-  color: #6b7280;
+  color: var(--clair-text-muted);
   cursor: pointer;
   display: inline-flex;
   transition: color 0.2s ease, background-color 0.2s ease;
@@ -81,12 +81,12 @@
 
 .feedback-btn:hover:not(:disabled),
 .feedback-btn:focus-visible {
-  color: #ffffff;
-  background-color: #1a1a1a;
+  color: var(--clair-text);
+  background-color: var(--clair-surface-2);
 }
 
 .feedback-btn.selected {
-  color: #ffffff;
+  color: var(--clair-text);
 }
 
 .feedback-btn:disabled {

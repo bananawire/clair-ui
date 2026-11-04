@@ -1,8 +1,8 @@
 .payment-modal-container {
-  background-color: #151515;
+  background-color: var(--clair-surface-2);
   padding: 2rem;
   border-radius: 12px;
-  color: #ffffff;
+  color: var(--clair-text);
   font-family: var(--app-font-body);
   display: flex;
   flex-direction: column;
@@ -36,15 +36,15 @@
   font-family: var(--app-font-headline);
   font-size: 0.875rem;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--clair-text);
 }
 
 .custom-input {
   background-color: transparent;
-  border: 1px solid #757676;
+  border: 1px solid var(--clair-text-muted);
   border-radius: 6px;
   padding: 0.75rem 1rem;
-  color: #ffffff;
+  color: var(--clair-text);
   font-size: 1rem;
   font-family: var(--app-font-body);
   outline: none;
@@ -52,11 +52,11 @@
 }
 
 .custom-input::placeholder {
-  color: #757676;
+  color: var(--clair-text-muted);
 }
 
 .custom-input:focus-within {
-  border-color: #ffffff;
+  border-color: var(--clair-text);
 }
 
 .stripe-element {
@@ -65,7 +65,7 @@
 }
 
 #card-errors {
-  color: #ff5252;
+  color: var(--clair-danger);
   font-size: 0.875rem;
   margin-top: -0.5rem;
 }
@@ -90,22 +90,22 @@
 
 .btn-cancel {
   background-color: transparent;
-  border: 1px solid #ffffff;
-  color: #ffffff;
+  border: 1px solid var(--clair-text);
+  color: var(--clair-text);
 }
 
 .btn-cancel:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(var(--clair-ink-rgb), 0.1);
 }
 
 .btn-add {
-  background-color: #ffffff;
-  border: 1px solid #ffffff;
-  color: #000000;
+  background-color: var(--clair-text);
+  border: 1px solid var(--clair-text);
+  color: var(--clair-bg);
 }
 
 .btn-add:hover {
-  background-color: #e0e0e0;
+  background-color: rgba(var(--clair-ink-rgb), 0.85);
 }
 
 .btn-add:disabled {

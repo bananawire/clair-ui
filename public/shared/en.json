@@ -53,5 +53,22 @@
     "loading": "Loading...",
     "error": "Error",
     "success": "Success"
+  },
+  "notificationsBell": {
+    "buttonAria": "Notifications",
+    "unreadAria": "{{count}} unread",
+    "title": "Notifications",
+    "explanation": "Alerts when a device detects poor air quality.",
+    "permission": {
+      "default": {
+        "title": "Browser notifications are off",
+        "hint": "Turn them on to get alerts even when Clair is closed."
+      },
+      "denied": {
+        "title": "Browser notifications are blocked",
+        "hint": "Allow them for this site from the lock icon next to the address."
+      }
+    },
+    "enableButton": "Turn on"
   }
 }

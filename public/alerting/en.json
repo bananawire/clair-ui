@@ -13,6 +13,7 @@
     "pagination": {
       "previous": "Previous",
       "next": "Next",
+      "navAria": "Alerts pagination",
       "pageInfo": "Page {{currentPage}} of {{totalPages}}"
     },
     "errorLoad": "Failed to load alerts"

@@ -1,10 +1,83 @@
 <section class="settings-container">
-  <h1 class="page-title">{{ 'settings.title' | translate }}</h1>
+  <header class="page-header">
+    <h1 class="page-title">{{ 'settings.title' | translate }}</h1>
+    <p class="page-subtitle">{{ 'settings.subtitle' | translate }}</p>
+  </header>
 
-  <mat-card class="settings-card" appearance="outlined">
-    <div class="card-header-text">
-      <h2 class="card-title">{{ 'settings.languageCard.title' | translate }}</h2>
-      <p class="card-subtitle">{{ 'settings.languageCard.subtitle' | translate }}</p>
+  <!-- Profile -->
+  <section class="settings-section" aria-labelledby="settings-profile-title">
+    <div class="section-header">
+      <span class="section-icon" aria-hidden="true"><mat-icon>person</mat-icon></span>
+      <div class="section-text">
+        <h2 id="settings-profile-title" class="section-title">{{ 'settings.profileCard.title' | translate }}</h2>
+        <p class="section-description">{{ 'settings.profileCard.subtitle' | translate }}</p>
+      </div>
+    </div>
+
+    <dl class="detail-list">
+      <div class="detail-row">
+        <dt>{{ 'settings.profileCard.emailLabel' | translate }}</dt>
+        <dd>{{ email ?? '—' }}</dd>
+      </div>
+      <div class="detail-row">
+        <dt>{{ 'settings.profileCard.planLabel' | translate }}</dt>
+        <dd class="plan-cell">
+          <span class="plan-pill" [class.premium]="plan === 'PREMIUM'" *ngIf="plan; else planLoading">
+            <mat-icon aria-hidden="true">{{ plan === 'PREMIUM' ? 'workspace_premium' : 'eco' }}</mat-icon>
+            {{ (plan === 'PREMIUM' ? 'settings.profileCard.planPremium' : 'settings.profileCard.planFree') | translate }}
+          </span>
+          <ng-template #planLoading>—</ng-template>
+          <a *ngIf="plan === 'FREEMIUM'" class="text-link" routerLink="/select-plan">
+            {{ 'settings.profileCard.upgradeLink' | translate }}
+          </a>
+        </dd>
+      </div>
+    </dl>
+  </section>
+
+  <!-- Appearance -->
+  <section class="settings-section" aria-labelledby="settings-appearance-title">
+    <div class="section-header">
+      <span class="section-icon" aria-hidden="true"><mat-icon>contrast</mat-icon></span>
+      <div class="section-text">
+        <h2 id="settings-appearance-title" class="section-title">{{ 'settings.appearanceCard.title' | translate }}</h2>
+        <p class="section-description">{{ 'settings.appearanceCard.subtitle' | translate }}</p>
+      </div>
+    </div>
+
+    <div class="theme-options" role="radiogroup" [attr.aria-label]="'settings.appearanceCard.title' | translate">
+      <button type="button" class="theme-option" role="radio" [attr.aria-checked]="theme() === 'dark'"
+        [class.selected]="theme() === 'dark'" (click)="setTheme('dark')">
+        <span class="theme-preview dark" aria-hidden="true">
+          <span class="preview-bar"></span><span class="preview-card"></span>
+        </span>
+        <span class="theme-option-text">
+          <span class="theme-option-title"><mat-icon aria-hidden="true">dark_mode</mat-icon>{{ 'settings.appearanceCard.dark' | translate }}</span>
+          <span class="theme-option-hint">{{ 'settings.appearanceCard.darkHint' | translate }}</span>
+        </span>
+      </button>
+
+      <button type="button" class="theme-option" role="radio" [attr.aria-checked]="theme() === 'light'"
+        [class.selected]="theme() === 'light'" (click)="setTheme('light')">
+        <span class="theme-preview light" aria-hidden="true">
+          <span class="preview-bar"></span><span class="preview-card"></span>
+        </span>
+        <span class="theme-option-text">
+          <span class="theme-option-title"><mat-icon aria-hidden="true">light_mode</mat-icon>{{ 'settings.appearanceCard.light' | translate }}</span>
+          <span class="theme-option-hint">{{ 'settings.appearanceCard.lightHint' | translate }}</span>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Language -->
+  <section class="settings-section" aria-labelledby="settings-language-title">
+    <div class="section-header">
+      <span class="section-icon" aria-hidden="true"><mat-icon>translate</mat-icon></span>
+      <div class="section-text">
+        <h2 id="settings-language-title" class="section-title">{{ 'settings.languageCard.title' | translate }}</h2>
+        <p class="section-description">{{ 'settings.languageCard.subtitle' | translate }}</p>
+      </div>
     </div>
 
     <mat-form-field appearance="outline" class="language-field">
@@ -14,20 +87,24 @@
         <mat-option value="es">{{ 'settings.languageSpanish' | translate }}</mat-option>
       </mat-select>
     </mat-form-field>
-  </mat-card>
+  </section>
 
-  <mat-card class="settings-card" appearance="outlined">
-    <div class="card-header-text">
-      <h2 class="card-title">{{ 'settings.sessionCard.title' | translate }}</h2>
-      <p class="card-subtitle">{{ 'settings.sessionCard.subtitle' | translate }}</p>
+  <!-- Session -->
+  <section class="settings-section" aria-labelledby="settings-session-title">
+    <div class="section-header">
+      <span class="section-icon danger" aria-hidden="true"><mat-icon>logout</mat-icon></span>
+      <div class="section-text">
+        <h2 id="settings-session-title" class="section-title">{{ 'settings.sessionCard.title' | translate }}</h2>
+        <p class="section-description">{{ 'settings.sessionCard.subtitle' | translate }}</p>
+      </div>
     </div>
 
-    <button mat-flat-button color="warn" [disabled]="isLoggingOut" (click)="logout()">
-      <mat-icon>logout</mat-icon>
-      <mat-spinner *ngIf="isLoggingOut" diameter="16" class="logout-spinner"></mat-spinner>
+    <button type="button" class="logout-btn" [disabled]="isLoggingOut" (click)="logout()">
+      <mat-spinner *ngIf="isLoggingOut; else logoutIcon" diameter="16" class="logout-spinner"></mat-spinner>
+      <ng-template #logoutIcon><mat-icon aria-hidden="true">logout</mat-icon></ng-template>
       {{ isLoggingOut ? ('settings.loggingOut' | translate) : ('settings.logoutButton' | translate) }}
     </button>
 
-    <p class="status" *ngIf="statusMessage">{{ statusMessage }}</p>
-  </mat-card>
+    <p class="status" role="status" *ngIf="statusMessage">{{ statusMessage }}</p>
+  </section>
 </section>

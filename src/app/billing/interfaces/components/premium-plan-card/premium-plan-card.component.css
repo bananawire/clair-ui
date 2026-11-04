@@ -8,8 +8,8 @@
   max-width: 380px;
   height: 100%;
   box-sizing: border-box;
-  background-color: #000000;
-  border: 1px solid #757676;
+  background-color: var(--clair-bg);
+  border: 1px solid var(--clair-text-muted);
   border-radius: 16px;
   padding: 2rem 1.5rem;
   display: flex;
@@ -25,7 +25,7 @@
 
 .plan-icon {
   font-size: 24px;
-  color: #ffffff;
+  color: var(--clair-text);
   line-height: 1;
   display: flex;
   align-items: center;
@@ -34,7 +34,7 @@
 .plan-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--clair-text);
   margin: 0;
 }
 
@@ -45,13 +45,13 @@
 .plan-price {
   font-size: 2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--clair-text);
   margin: 0 0 0.25rem 0;
 }
 
 .plan-price-subtitle {
   font-size: 1rem;
-  color: #757676;
+  color: var(--clair-text-muted);
   margin: 0;
 }
 
@@ -62,15 +62,15 @@
   font-size: 1rem;
   font-weight: 700;
   border-radius: 8px;
-  background-color: #141414;
-  color: #ffffff;
+  background-color: var(--clair-surface-2);
+  color: var(--clair-text);
   border: none;
   cursor: pointer;
   margin-bottom: 2.5rem;
 }
 
 .submit-button:hover {
-  background-color: #1a1a1a;
+  background-color: var(--clair-surface-2);
 }
 
 .features-list {
@@ -81,7 +81,7 @@
 
 .features-list-header {
   font-size: 1rem;
-  color: #ffffff;
+  color: var(--clair-text);
   margin: 0 0 0.5rem 0;
 }
 
@@ -99,7 +99,7 @@
 
 .feature-text {
   font-size: 1rem;
-  color: #757676;
+  color: var(--clair-text-muted);
   margin: 0;
   line-height: 1.5;
 }

@@ -3,16 +3,16 @@
   align-items: center;
   gap: 0.4rem;
   padding: 0.35rem 0.75rem;
-  border: 1px solid #2a2a2a;
+  border: 1px solid var(--clair-border);
   border-radius: 9999px;
   font-size: 0.8rem;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   font-variant-numeric: tabular-nums;
 }
 
 .usage.exhausted {
-  border-color: #f59e0b;
-  color: #f59e0b;
+  border-color: var(--clair-warning);
+  color: var(--clair-warning);
 }
 
 .usage-icon {
@@ -22,7 +22,7 @@
 }
 
 .usage-upgrade {
-  color: #f59e0b;
+  color: var(--clair-warning);
   font-weight: 600;
   text-decoration: none;
   margin-left: 0.25rem;

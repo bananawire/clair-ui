@@ -1,6 +1,6 @@
 .kpi-card {
-  background: #141414;
-  border: 1px solid #2a2a2a;
+  background: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
   border-radius: 16px;
   padding: 1.5rem;
   display: flex;
@@ -10,7 +10,7 @@
   position: relative;
   overflow: hidden;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--clair-shadow-sm);
 }
 
 .parameter-card {
@@ -19,15 +19,14 @@
 
 .kpi-card:hover {
   transform: translateY(-4px);
-  border-color: #3e3e3e;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  border-color: var(--clair-border-strong);
+  box-shadow: var(--clair-shadow-sm);
 }
 
 .kpi-card.selected {
-  border-color: #10b981;
+  border-color: var(--clair-success);
   box-shadow:
-    0 0 20px rgba(16, 185, 129, 0.15),
-    0 8px 30px rgba(0, 0, 0, 0.5);
+    var(--clair-shadow-sm);
 }
 
 .kpi-card.selected::before {
@@ -51,7 +50,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   text-transform: uppercase;
 }
 
@@ -71,13 +70,13 @@
 .kpi-value {
   font-size: 2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--clair-text);
   line-height: 1;
 }
 
 .kpi-unit {
   font-size: 0.85rem;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   margin-left: 0.25rem;
 }
 
@@ -93,11 +92,11 @@
   gap: 0.15rem;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #10b981;
+  color: var(--clair-success);
 }
 
 .trend-delta.negative {
-  color: #ef4444;
+  color: var(--clair-danger);
 }
 
 .trend-delta mat-icon {
@@ -107,7 +106,7 @@
 }
 
 .delta-null {
-  color: #6b7280;
+  color: var(--clair-text-muted);
   font-weight: 500;
 }
 

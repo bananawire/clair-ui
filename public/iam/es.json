@@ -88,14 +88,31 @@
   },
   "settings": {
     "title": "Configuración",
-    "subtitle": "Gestiona la sesión de tu cuenta.",
+    "subtitle": "Gestiona tu perfil, cómo se ve Clair, su idioma y tu sesión en este dispositivo.",
+    "profileCard": {
+      "title": "Perfil",
+      "subtitle": "La cuenta con la que iniciaste sesión y el plan que tiene.",
+      "emailLabel": "Correo",
+      "planLabel": "Plan",
+      "planFree": "Gratis",
+      "planPremium": "Premium",
+      "upgradeLink": "Ver planes Premium"
+    },
+    "appearanceCard": {
+      "title": "Apariencia",
+      "subtitle": "Elige el tema de color de Clair. Tu elección se guarda en este navegador y se aplica cada vez que abres la app.",
+      "dark": "Oscuro",
+      "darkHint": "Fondo negro. Más cómodo en lugares con poca luz y de noche.",
+      "light": "Claro",
+      "lightHint": "Fondo gris suave. Mejor en lugares iluminados y para leer reportes."
+    },
     "languageCard": {
       "title": "Idioma",
       "subtitle": "Elige el idioma que deseas usar en toda la aplicación."
     },
     "sessionCard": {
-      "title": "Sesión de la cuenta",
-      "subtitle": "Cierra la sesión de tu cuenta en este dispositivo."
+      "title": "Sesión",
+      "subtitle": "Cierra la sesión de Clair en este dispositivo. Tus espacios, dispositivos y alertas siguen guardados en tu cuenta."
     },
     "languageLabel": "Idioma",
     "languageEnglish": "Inglés",

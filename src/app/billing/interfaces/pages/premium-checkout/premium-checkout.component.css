@@ -1,7 +1,7 @@
 .checkout-page-container {
   display: flex;
   flex-direction: column;
-  background-color: #000000;
+  background-color: var(--clair-bg);
   min-height: 100vh;
   position: relative;
 }
@@ -23,7 +23,7 @@
 }
 
 .back-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(var(--clair-ink-rgb), 0.1);
 }
 
 .checkout-content {
@@ -51,7 +51,7 @@
 }
 
 .checkout-title {
-  color: #ffffff;
+  color: var(--clair-text);
   font-size: 2rem;
   font-weight: 700;
   margin: 0;
@@ -60,7 +60,7 @@
 }
 
 .checkout-subtitle {
-  color: #757676;
+  color: var(--clair-text-muted);
   font-size: 1rem;
   margin: 0;
   text-align: center;
@@ -83,11 +83,11 @@
   padding: 1.5rem;
   gap: 0.5rem;
   border-radius: 1rem;
-  border: 1px solid #757676;
+  border: 1px solid var(--clair-text-muted);
 }
 
 .plan-summary-title {
-  color: #ffffff;
+  color: var(--clair-text);
   font-size: 1.25rem;
   font-weight: 700;
   margin: 0;
@@ -103,7 +103,7 @@
 }
 
 .plan-price-amount {
-  color: #ffffff;
+  color: var(--clair-text);
   font-size: 1.25rem;
   font-weight: 700;
   margin: 0;
@@ -111,7 +111,7 @@
 }
 
 .plan-price-period {
-  color: #757676;
+  color: var(--clair-text-muted);
   font-size: 1rem;
   margin: 0;
 }
@@ -120,14 +120,14 @@
 .order-details-box {
   display: flex;
   flex-direction: column;
-  background-color: #141414;
+  background-color: var(--clair-surface-2);
   padding: 1.5rem;
   gap: 1rem;
   border-radius: 1rem;
 }
 
 .order-details-title {
-  color: #ffffff;
+  color: var(--clair-text);
   font-size: 1.25rem;
   font-weight: 700;
   margin: 0;
@@ -142,13 +142,13 @@
 
 .order-item-name,
 .order-item-price {
-  color: #A9AAAA;
+  color: var(--clair-text-secondary);
   font-size: 1rem;
 }
 
 .order-divider {
   height: 1px;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(var(--clair-ink-rgb),0.1);
   margin: 0.5rem 0;
 }
 
@@ -156,7 +156,7 @@
 .add-payment-btn {
   display: flex;
   align-items: center;
-  background-color: #141414;
+  background-color: var(--clair-surface-2);
   padding: 0.75rem 1.5rem;
   gap: 0.5rem;
   border-radius: 0.5rem;
@@ -167,16 +167,16 @@
 }
 
 .add-payment-btn:hover {
-  background-color: #1a1a1a;
+  background-color: var(--clair-surface-2);
 }
 
 .payment-icon {
-  color: #ffffff;
+  color: var(--clair-text);
   font-size: 24px;
 }
 
 .payment-btn-text {
-  color: #ffffff;
+  color: var(--clair-text);
   font-size: 1rem;
   font-family: var(--app-font-body);
 }
@@ -187,19 +187,19 @@
   align-items: center;
   padding: 1.5rem;
   border-radius: 1rem;
-  border: 1px solid #757676;
+  border: 1px solid var(--clair-text-muted);
   gap: 1rem;
 }
 
 .info-icon {
-  color: #757676;
+  color: var(--clair-text-muted);
   font-size: 20px;
   display: flex;
   align-items: center;
 }
 
 .autorenew-text {
-  color: #757676;
+  color: var(--clair-text-muted);
   font-size: 1rem;
   margin: 0;
 }
@@ -227,14 +227,14 @@
   width: 16px;
   height: 16px;
   border-radius: 4px;
-  border: 1px solid #757676;
+  border: 1px solid var(--clair-text-muted);
   cursor: pointer;
   display: inline-block;
   position: relative;
 }
 
 .terms-checkbox:checked + .custom-checkbox {
-  background-color: #ffffff;
+  background-color: var(--clair-text);
 }
 
 .terms-checkbox:checked + .custom-checkbox::after {
@@ -250,7 +250,7 @@
 }
 
 .terms-text {
-  color: #ffffff;
+  color: var(--clair-text);
   font-size: 0.875rem;
   margin: 0;
   line-height: 1.4;
@@ -261,18 +261,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #141414;
+  background-color: var(--clair-surface-2);
   padding: 1rem;
   border-radius: 0.5rem;
   border: none;
   cursor: pointer;
   transition: background-color 0.2s;
-  color: #ffffff;
+  color: var(--clair-text);
   font-size: 1rem;
   font-weight: 700;
   font-family: var(--app-font-headline);
 }
 
 .subscribe-btn:hover {
-  background-color: #1a1a1a;
+  background-color: var(--clair-surface-2);
 }

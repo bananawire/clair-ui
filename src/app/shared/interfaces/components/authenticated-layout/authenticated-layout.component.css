@@ -3,25 +3,25 @@
 }
 
 .layout {
-  min-height: 100vh;
-  background: #000000;
-  color: #ffffff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--clair-bg);
+  color: var(--clair-text);
 }
 
+/* Header and sidebar stay fixed; only the page content scrolls */
 .body-layout {
   display: flex;
-  min-height: calc(100vh - 84px);
+  flex: 1;
+  min-height: 0;
 }
 
 .content {
   flex: 1;
   min-width: 0;
-  overflow: hidden;
-  background: #000000;
-}
-
-@media (max-width: 768px) {
-  .body-layout {
-    min-height: calc(100vh - 84px);
-  }
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: var(--clair-bg);
 }

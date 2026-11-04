@@ -53,5 +53,22 @@
     "loading": "Cargando...",
     "error": "Error",
     "success": "Éxito"
+  },
+  "notificationsBell": {
+    "buttonAria": "Notificaciones",
+    "unreadAria": "{{count}} sin leer",
+    "title": "Notificaciones",
+    "explanation": "Avisos cuando un dispositivo detecta mala calidad del aire.",
+    "permission": {
+      "default": {
+        "title": "Notificaciones del navegador desactivadas",
+        "hint": "Actívalas para recibir avisos aunque Clair esté cerrada."
+      },
+      "denied": {
+        "title": "Notificaciones del navegador bloqueadas",
+        "hint": "Permítelas para este sitio desde el candado junto a la dirección."
+      }
+    },
+    "enableButton": "Activar"
   }
 }

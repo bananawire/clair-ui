@@ -3,13 +3,13 @@
   flex-direction: column;
   gap: 0.5rem;
   padding: 0.75rem 1rem;
-  background-color: #141414;
-  border: 1px solid #2a2a2a;
+  background-color: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
   border-radius: 16px;
 }
 
 .composer:focus-within {
-  border-color: #4b5563;
+  border-color: var(--clair-text-muted);
 }
 
 .composer-input {
@@ -18,7 +18,7 @@
   background: transparent;
   border: none;
   outline: none;
-  color: #ffffff;
+  color: var(--clair-text);
   font: inherit;
   font-size: 0.95rem;
   line-height: 1.5;
@@ -26,7 +26,7 @@
 }
 
 .composer-input::placeholder {
-  color: #6b7280;
+  color: var(--clair-text-muted);
 }
 
 .composer-input:disabled {
@@ -42,17 +42,17 @@
 .composer-hint {
   flex: 1;
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--clair-text-muted);
 }
 
 .composer-counter {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   font-variant-numeric: tabular-nums;
 }
 
 .composer-counter.near-limit {
-  color: #f59e0b;
+  color: var(--clair-warning);
 }
 
 .send-btn {
@@ -60,8 +60,8 @@
   height: 36px;
   border: none;
   border-radius: 9999px;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--clair-text);
+  color: var(--clair-bg);
   display: inline-flex;
   align-items: center;
   justify-content: center;

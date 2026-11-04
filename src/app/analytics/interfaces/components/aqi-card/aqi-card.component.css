@@ -1,6 +1,6 @@
 .aqi-card {
-  background: #141414;
-  border: 1px solid #2a2a2a;
+  background: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
   border-radius: 18px;
   padding: 1.75rem 2rem;
   display: flex;
@@ -39,13 +39,13 @@
 
 .status-pill.good {
   background: #d1fae5;
-  border-color: #10b981;
+  border-color: var(--clair-success);
   color: #047857;
 }
 
 .status-pill.moderate {
   background: #fef3c7;
-  border-color: #f59e0b;
+  border-color: var(--clair-warning);
   color: #92400e;
 }
 
@@ -57,7 +57,7 @@
 
 .status-pill.unhealthy {
   background: #fee2e2;
-  border-color: #ef4444;
+  border-color: var(--clair-danger);
   color: #991b1b;
 }
 
@@ -74,9 +74,9 @@
 }
 
 .status-pill.neutral {
-  background: #111827;
-  border-color: #374151;
-  color: #e5e7eb;
+  background: var(--clair-surface-2);
+  border-color: var(--clair-border);
+  color: var(--clair-text);
 }
 
 .aqi-score {
@@ -89,13 +89,13 @@
   width: 100%;
   height: 6px;
   border-radius: 999px;
-  background: #2a2a2a;
+  background: var(--clair-border);
   overflow: hidden;
 }
 
 .aqi-progress-bar {
   height: 100%;
-  background: #6b7280;
+  background: var(--clair-text-muted);
 }
 
 .aqi-progress-bar.good { background: #10b981; }
@@ -104,7 +104,7 @@
 .aqi-progress-bar.unhealthy { background: #ef4444; }
 .aqi-progress-bar.very-unhealthy { background: #8b5cf6; }
 .aqi-progress-bar.hazardous { background: #be123c; }
-.aqi-progress-bar.neutral { background: #6b7280; }
+.aqi-progress-bar.neutral { background: var(--clair-text-muted); }
 
 .aqi-footer {
   display: flex;
@@ -116,21 +116,21 @@
 .aqi-meta p {
   margin: 0 0 0.35rem;
   font-size: 0.9rem;
-  color: #e5e7eb;
+  color: var(--clair-text);
 }
 
 .aqi-meta span {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
 }
 
 .aqi-action {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  border: 1px solid #2a2a2a;
-  background: #1a1a1a;
-  color: #ffffff;
+  border: 1px solid var(--clair-border);
+  background: var(--clair-surface-2);
+  color: var(--clair-text);
   cursor: default;
 }
 
