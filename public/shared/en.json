@@ -5,6 +5,7 @@
   "header": {
     "toggleSidebarAria": "Toggle sidebar",
     "notificationsAria": "Notifications",
+    "assistantAria": "AI Assistant",
     "notificationsTitle": "Notifications",
     "closeNotificationsAria": "Close notifications",
     "emptyNotifications": "No new notifications",
@@ -38,6 +39,7 @@
     "airQuality": "Air quality icon",
     "alertsActions": "Alerts actions icon",
     "reports": "Reports icon",
+    "aiAssistant": "AI assistant icon",
     "spaceDevices": "Space devices icon",
     "clairDevice": "Clair device"
   },

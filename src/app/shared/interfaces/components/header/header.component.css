@@ -32,6 +32,17 @@
   color: #d1d5db !important;
 }
 
+.assistant-button .assistant-icon {
+  width: 22px;
+  height: 22px;
+  flex-basis: 22px;
+}
+
+.assistant-button.active {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
 .logo {
   width: 72px;
   height: auto;

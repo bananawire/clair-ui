@@ -1,0 +1,28 @@
+<form class="composer" (submit)="$event.preventDefault(); submit()">
+  <textarea
+    #input
+    class="composer-input"
+    rows="2"
+    [value]="value"
+    [disabled]="disabled"
+    [attr.maxlength]="maxLength"
+    [attr.placeholder]="'assistant.composer.placeholder' | translate"
+    [attr.aria-label]="'assistant.composer.placeholder' | translate"
+    (input)="onInput($event)"
+    (keydown)="onKeydown($event)"
+  ></textarea>
+  <div class="composer-footer">
+    <span class="composer-hint">{{ 'assistant.composer.hint' | translate }}</span>
+    <span class="composer-counter" [class.near-limit]="value.length > maxLength - 100">
+      {{ value.length }}/{{ maxLength }}
+    </span>
+    <button
+      type="submit"
+      class="send-btn"
+      [disabled]="!canSend"
+      [attr.aria-label]="'assistant.composer.send' | translate"
+    >
+      <mat-icon>arrow_upward</mat-icon>
+    </button>
+  </div>
+</form>

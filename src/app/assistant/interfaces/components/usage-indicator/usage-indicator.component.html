@@ -1,0 +1,7 @@
+<div *ngIf="usage" class="usage" [class.exhausted]="isExhausted">
+  <mat-icon class="usage-icon">bolt</mat-icon>
+  <span>{{ 'assistant.usage.count' | translate: { used: usage.used, limit: usage.limit } }}</span>
+  <a *ngIf="isFreemium" class="usage-upgrade" routerLink="/select-plan">
+    {{ 'assistant.usage.upgrade' | translate }}
+  </a>
+</div>

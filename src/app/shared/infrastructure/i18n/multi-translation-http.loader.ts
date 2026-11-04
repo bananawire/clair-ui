@@ -10,6 +10,7 @@ const BOUNDED_CONTEXTS = [
   'analytics',
   'alerting',
   'billing',
+  'assistant',
 ];
 
 export class MultiTranslationHttpLoader implements TranslateLoader {

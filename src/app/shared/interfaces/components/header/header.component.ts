@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ClairLyricsComponent } from '../clair-lyrics/clair-lyrics.component';
+import { AiAssistantComponent } from '../icons/ai-assistant/ai-assistant.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import {
@@ -26,7 +27,7 @@ import {
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule, ClairLyricsComponent, TranslatePipe],
+  imports: [CommonModule, MatIconModule, MatButtonModule, MatProgressSpinnerModule, ClairLyricsComponent, AiAssistantComponent, TranslatePipe],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,6 +35,8 @@ import {
 export class HeaderComponent implements OnInit {
   @Input() isSidebarOpen = true;
   @Output() sidebarToggleRequested = new EventEmitter<void>();
+  @Input() isAssistantOpen = false;
+  @Output() assistantToggleRequested = new EventEmitter<void>();
 
   private readonly notificationsContextFacade = inject(NOTIFICATIONS_CONTEXT_FACADE) as NotificationsContextFacade;
   private readonly cdr = inject(ChangeDetectorRef);
@@ -53,11 +56,20 @@ export class HeaderComponent implements OnInit {
     this.sidebarToggleRequested.emit();
   }
 
+  onToggleAssistant(event: MouseEvent): void {
+    event.stopPropagation();
+    this.isNotificationPanelOpen = false;
+    this.assistantToggleRequested.emit();
+  }
+
   toggleNotifications(event: MouseEvent): void {
     event.stopPropagation();
     this.isNotificationPanelOpen = !this.isNotificationPanelOpen;
     
     if (this.isNotificationPanelOpen) {
+      if (this.isAssistantOpen) {
+        this.assistantToggleRequested.emit();
+      }
       this.loadNotifications(false);
     }
     this.cdr.markForCheck();
