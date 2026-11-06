@@ -1,6 +1,6 @@
 .pollutant-card {
-  background: #141414;
-  border: 1px solid #2a2a2a;
+  background: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
   border-radius: 12px;
   padding: 1rem 1.1rem;
   display: flex;
@@ -15,7 +15,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #e5e7eb;
+  color: var(--clair-text);
 }
 
 .pollutant-value {
@@ -32,12 +32,12 @@
 
 .pollutant-value span {
   font-size: 0.8rem;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
 }
 
 .pollutant-delta {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
 }
 
 .delta {
@@ -58,15 +58,15 @@
 }
 
 .delta.positive {
-  color: #10b981;
+  color: var(--clair-success);
 }
 
 .delta.negative {
-  color: #ef4444;
+  color: var(--clair-danger);
 }
 
 .delta-null {
-  color: #6b7280;
+  color: var(--clair-text-muted);
 }
 
 .dot {
@@ -77,12 +77,12 @@
 }
 
 .dot.warning {
-  color: #f59e0b;
+  color: var(--clair-warning);
   background: #f59e0b;
 }
 
 .dot.success {
-  color: #10b981;
+  color: var(--clair-success);
   background: #10b981;
 }
 
@@ -92,6 +92,6 @@
 }
 
 .dot.muted {
-  color: #6b7280;
-  background: #6b7280;
+  color: var(--clair-text-muted);
+  background: var(--clair-text-muted);
 }

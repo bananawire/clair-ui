@@ -27,13 +27,17 @@
         <app-alert-table [alerts]="currentAlerts" [loading]="loadingAlerts"></app-alert-table>
 
         <!-- Pagination -->
-        <div class="pagination-bar" *ngIf="showPagination">
-          <button mat-button (click)="prevPage()" [disabled]="currentPage === 0">
-            <mat-icon>chevron_left</mat-icon> {{ 'alerts.pagination.previous' | translate }}
+        <nav class="pagination-bar" *ngIf="showPagination" [attr.aria-label]="'alerts.pagination.navAria' | translate">
+          <button type="button" class="page-btn prev" (click)="prevPage()" [disabled]="currentPage === 0"
+            [attr.aria-label]="'alerts.pagination.previous' | translate">
+            <mat-icon class="page-btn-icon" aria-hidden="true">chevron_left</mat-icon>
+            <span class="page-btn-label">{{ 'alerts.pagination.previous' | translate }}</span>
           </button>
-          <span class="page-info">{{ 'alerts.pagination.pageInfo' | translate: { currentPage: currentPage + 1, totalPages: totalPages } }}</span>
-          <button mat-button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1">
-            {{ 'alerts.pagination.next' | translate }} <mat-icon>chevron_right</mat-icon>
+          <span class="page-info" aria-live="polite">{{ 'alerts.pagination.pageInfo' | translate: { currentPage: currentPage + 1, totalPages: totalPages } }}</span>
+          <button type="button" class="page-btn next" (click)="nextPage()" [disabled]="currentPage >= totalPages - 1"
+            [attr.aria-label]="'alerts.pagination.next' | translate">
+            <span class="page-btn-label">{{ 'alerts.pagination.next' | translate }}</span>
+            <mat-icon class="page-btn-icon" aria-hidden="true">chevron_right</mat-icon>
           </button>
-        </div>
+        </nav>
       </div>

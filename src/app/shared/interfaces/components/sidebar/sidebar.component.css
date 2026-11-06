@@ -5,7 +5,7 @@
 .sidebar-container {
   height: calc(100vh - 84px);
   width: 260px;
-  background-color: #0a0a0a;
+  background-color: var(--clair-surface-1);
   display: flex;
   flex-direction: column;
   padding: 16px;
@@ -13,43 +13,11 @@
   font-family: 'Inter', 'Roboto', sans-serif;
   transition: width 0.25s ease, padding 0.25s ease;
   flex-shrink: 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(var(--clair-ink-rgb), 0.08);
 }
 
 .search-wrapper {
-  position: relative;
   margin-bottom: 20px;
-}
-
-.search-icon {
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #60a5fa;
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-}
-
-.search-input {
-  width: 100%;
-  background-color: #162544;
-  color: #e5e7eb;
-  border: none;
-  border-radius: 12px;
-  padding: 10px 14px 10px 40px;
-  font-size: 14px;
-  outline: none;
-  box-sizing: border-box;
-}
-
-.search-input::placeholder {
-  color: #6b7280;
-}
-
-.search-input:focus {
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
 }
 
 .nav-list {
@@ -68,7 +36,7 @@
   border-radius: 12px;
   font-size: 14px;
   font-weight: 500;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   text-align: left;
   line-height: 20px;
   background: none;
@@ -86,13 +54,13 @@
 }
 
 .nav-item:hover {
-  background-color: rgba(255, 255, 255, 0.06);
-  color: #e5e7eb;
+  background-color: rgba(var(--clair-ink-rgb), 0.06);
+  color: var(--clair-text);
 }
 
 .nav-item.active {
-  background-color: #27272a;
-  color: #ffffff;
+  background-color: var(--clair-surface-active);
+  color: var(--clair-text);
 }
 
 .upgrade-btn {
@@ -101,8 +69,21 @@
 }
 
 .settings-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(var(--clair-ink-rgb), 0.08);
+}
+
+/* Settings takes the row; the notifications bell sits at its right edge */
+.settings-wrapper .settings-link {
+  flex: 1;
+  min-width: 0;
+}
+
+.settings-bell {
+  flex-shrink: 0;
 }
 
 /* Collapsed state */
@@ -118,7 +99,7 @@
 }
 
 .sidebar-container.collapsed .settings-wrapper {
-  display: flex;
+  flex-direction: column-reverse;
   justify-content: center;
 }
 
@@ -137,7 +118,7 @@
     width: 260px;
     transform: translateX(0);
     transition: transform 0.25s ease;
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.6);
+    box-shadow: var(--clair-shadow-sm);
   }
 
   .sidebar-container.collapsed {
@@ -153,7 +134,7 @@
   }
 
   .sidebar-container.collapsed .settings-wrapper {
-    display: block;
+    flex-direction: row;
   }
 
   .sidebar-container.collapsed .settings-wrapper .nav-item {

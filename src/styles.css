@@ -72,6 +72,91 @@
   --mat-sys-title-small: var(--mat-sys-title-small-weight) var(--mat-sys-title-small-size) / var(--mat-sys-title-small-line-height) var(--app-font-headline);
 }
 
+/* Clair color tokens. Dark is the default; ThemeService sets data-theme on <html>. */
+:root {
+  color-scheme: dark;
+
+  --clair-bg: #000000;
+  --clair-surface-1: #0a0a0a;
+  --clair-surface-2: #141414;
+  --clair-surface-3: #1f1f1f;
+  --clair-surface-active: #27272a;
+  --clair-border: #2a2a2a;
+  --clair-border-strong: #3e3e3e;
+  /* Off-white instead of pure white: same hierarchy, less halation on black */
+  --clair-text: #f4f4f5;
+  --clair-text-secondary: #9ca3af;
+  --clair-text-muted: #7b8390;
+  /* RGB triplet of the foreground, for translucent overlays: rgba(var(--clair-ink-rgb), 0.08) */
+  --clair-ink-rgb: 255, 255, 255;
+  --clair-on-accent: #ffffff;
+  --clair-input-bg: #162544;
+  --clair-search-icon: #60a5fa;
+  --clair-focus-ring: rgba(96, 165, 250, 0.6);
+  /* Accent inks for text, icons and borders; fills keep the brand hex */
+  --clair-success: #10b981;
+  --clair-danger: #ef4444;
+  --clair-warning: #f59e0b;
+  --clair-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --clair-shadow-md: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --clair-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.55);
+}
+
+/*
+ * Light theme: "overcast" rather than paper-white. Surfaces stay below pure white
+ * (max luminance ~0.95) with a faint blue-slate bias, and each layer steps ~6-18%
+ * so cards read through tone, not heavy borders. Every ink passes WCAG AA (>= 4.5:1)
+ * on every surface.
+ */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  --clair-bg: #e9ecf0;
+  --clair-surface-1: #f1f3f6;
+  --clair-surface-2: #f8f9fb;
+  --clair-surface-3: #e3e7ec;
+  --clair-surface-active: #dbe1e8;
+  --clair-border: #d5dbe2;
+  --clair-border-strong: #b4bdc8;
+  --clair-text: #1e2733;
+  --clair-text-secondary: #4a5565;
+  --clair-text-muted: #566271;
+  --clair-ink-rgb: 30, 39, 51;
+  --clair-input-bg: #e3e8ee;
+  --clair-search-icon: #2563eb;
+  --clair-focus-ring: rgba(37, 99, 235, 0.5);
+  --clair-success: #046c4e;
+  --clair-danger: #b91c1c;
+  --clair-warning: #8f520a;
+  --clair-shadow-sm: 0 1px 2px rgba(30, 39, 51, 0.06);
+  --clair-shadow-md: 0 1px 2px rgba(30, 39, 51, 0.05), 0 4px 12px rgba(30, 39, 51, 0.06);
+  --clair-shadow-lg: 0 2px 6px rgba(30, 39, 51, 0.06), 0 16px 32px rgba(30, 39, 51, 0.12);
+
+  --mat-sys-background: #e9ecf0;
+  --mat-sys-surface: #f8f9fb;
+  --mat-sys-surface-bright: #f8f9fb;
+  --mat-sys-surface-dim: #e3e7ec;
+  --mat-sys-surface-container-lowest: #f8f9fb;
+  --mat-sys-surface-container-low: #f4f6f8;
+  --mat-sys-surface-container: #f1f3f6;
+  --mat-sys-surface-container-high: #e9ecf0;
+  --mat-sys-surface-container-highest: #e3e7ec;
+  --mat-sys-on-background: #1e2733;
+  --mat-sys-on-surface: #1e2733;
+  --mat-sys-on-surface-variant: #4a5565;
+  --mat-sys-outline: #94a3b8;
+  --mat-sys-outline-variant: #d5dbe2;
+  --mdc-outlined-text-field-input-text-color: #1e2733;
+  --mdc-outlined-text-field-label-text-color: #4a5565;
+  --mdc-outlined-text-field-focus-label-text-color: #1e2733;
+  --mdc-outlined-text-field-supporting-text-color: #4a5565;
+  --mdc-filled-text-field-input-text-color: #1e2733;
+  --mdc-filled-text-field-label-text-color: #4a5565;
+  --mdc-filled-text-field-focus-label-text-color: #1e2733;
+  --mdc-filled-text-field-supporting-text-color: #4a5565;
+  --mdc-circular-progress-active-indicator-color: #1e2733;
+}
+
 *,
 *::before,
 *::after {
@@ -83,9 +168,35 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--clair-bg);
+  color: var(--clair-text);
   font-family: var(--app-font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth cross-fade while switching themes; ThemeService adds the class briefly */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow !important;
+  transition-duration: 200ms !important;
+  transition-timing-function: ease-out !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: none !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--clair-focus-ring);
+  outline-offset: 2px;
 }
 
 body {
@@ -115,10 +226,10 @@ label {
 
 /* Custom Snackbar Styles */
 .subtle-snackbar {
-  --mdc-snackbar-container-color: #141414;
-  --mdc-snackbar-supporting-text-color: #ffffff;
-  --mat-snack-bar-button-color: #ffffff;
-  border: 1px solid #757676;
+  --mdc-snackbar-container-color: var(--clair-surface-2);
+  --mdc-snackbar-supporting-text-color: var(--clair-text);
+  --mat-snack-bar-button-color: var(--clair-text);
+  border: 1px solid var(--clair-border-strong);
   border-radius: 8px;
 }
 
@@ -133,18 +244,18 @@ label {
 
 /* Custom Dialog Styles */
 .mat-mdc-dialog-surface {
-  background-color: #151515 !important;
-  color: #ffffff !important;
+  background-color: var(--clair-surface-2) !important;
+  color: var(--clair-text) !important;
 }
 
 .mat-mdc-dialog-container {
-  --mdc-dialog-container-color: #151515;
-  --mdc-dialog-supporting-text-color: #ffffff;
-  --mdc-dialog-subhead-color: #ffffff;
+  --mdc-dialog-container-color: var(--clair-surface-2);
+  --mdc-dialog-supporting-text-color: var(--clair-text);
+  --mdc-dialog-subhead-color: var(--clair-text);
 }
 
 .custom-dialog-container .mat-mdc-dialog-surface {
-  background-color: #151515 !important;
+  background-color: var(--clair-surface-2) !important;
   box-shadow: none !important;
   border-radius: 12px;
   overflow: hidden;

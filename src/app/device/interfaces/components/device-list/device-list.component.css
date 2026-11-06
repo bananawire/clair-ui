@@ -4,7 +4,7 @@
   align-self: flex-start;
   padding: 0.25rem;
   border-radius: 999px;
-  background: #1a1a1a;
+  background: var(--clair-surface-2);
   margin-bottom: 1.5rem;
 }
 
@@ -12,13 +12,13 @@
   min-width: 70px;
   height: 32px;
   border-radius: 999px;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   font-size: 0.8rem;
 }
 
 .view-toggle button.active {
-  background: #3a3a3a;
-  color: #e5e5e5;
+  background: var(--clair-border);
+  color: var(--clair-text);
 }
 
 .view-toggle mat-icon {
@@ -46,7 +46,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 0;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   font-size: 0.875rem;
 }
 

@@ -3,7 +3,7 @@
 }
 
 .device-info-card {
-  background-color: #111111;
+  background-color: var(--clair-surface-1);
   border-radius: 16px;
   border: none;
   box-shadow: none;
@@ -24,7 +24,7 @@
 }
 
 .back-button {
-  color: #ffffff;
+  color: var(--clair-text);
   margin-right: 16px;
 }
 
@@ -39,7 +39,7 @@
   font-size: 24px;
   font-weight: 500;
   margin: 0;
-  color: #ffffff;
+  color: var(--clair-text);
 }
 
 .status-dot {
@@ -73,17 +73,17 @@
 
 .action-button--on {
   background-color: #10b981;
-  color: #ffffff;
+  color: var(--clair-on-accent);
 }
 
 .action-button--off {
-  background-color: #2a2a2a;
-  color: #ffffff;
+  background-color: var(--clair-border);
+  color: var(--clair-text);
 }
 
 .action-button--secondary {
-  background-color: #2a2a2a;
-  color: #ffffff;
+  background-color: var(--clair-border);
+  color: var(--clair-text);
 }
 
 .action-button mat-icon {
@@ -130,7 +130,7 @@
 }
 
 .metric-item {
-  background-color: #1a1a1a;
+  background-color: var(--clair-surface-2);
   border-radius: 12px;
   padding: 20px;
 }
@@ -138,7 +138,7 @@
 .metric-label {
   font-size: 11px;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--clair-text-muted);
   letter-spacing: 0.5px;
   margin-bottom: 12px;
   text-transform: uppercase;
@@ -154,18 +154,18 @@
   font-size: 18px;
   width: 18px;
   height: 18px;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
 }
 
 .metric-number {
   font-size: 28px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--clair-text);
 }
 
 .metric-unit {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   margin-left: 2px;
 }
 
@@ -182,11 +182,11 @@
 }
 
 .info-label {
-  color: #6b7280;
+  color: var(--clair-text-muted);
   font-weight: 500;
 }
 
 .info-value {
-  color: #ffffff;
+  color: var(--clair-text);
   font-weight: 500;
 }

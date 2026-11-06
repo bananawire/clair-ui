@@ -7,18 +7,18 @@
 .view-toggle {
   display: flex;
   gap: 4px;
-  background: #1c1c1e;
+  background: var(--clair-surface-2);
   border-radius: 8px;
   padding: 4px;
 }
 
 .view-toggle button {
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
 }
 
 .view-toggle button.active {
-  color: #ffffff;
-  background: #2c2c2e;
+  color: var(--clair-text);
+  background: var(--clair-surface-3);
 }
 
 .loading-state,
@@ -30,11 +30,11 @@
   justify-content: center;
   gap: 12px;
   padding: 48px 16px;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
 }
 
 .error-state {
-  color: #ef4444;
+  color: var(--clair-danger);
 }
 
 .empty-state mat-icon,

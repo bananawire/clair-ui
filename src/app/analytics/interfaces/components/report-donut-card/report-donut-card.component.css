@@ -1,6 +1,6 @@
 .kpi-card {
-  background: #141414;
-  border: 1px solid #2a2a2a;
+  background: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
   border-radius: 16px;
   padding: 1.5rem;
   display: flex;
@@ -9,7 +9,7 @@
   min-height: 240px;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--clair-shadow-sm);
 }
 
 .kpi-header {
@@ -23,7 +23,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   text-transform: uppercase;
 }
 
@@ -41,13 +41,13 @@
 }
 
 .donut-center-value {
-  fill: #ffffff;
+  fill: var(--clair-text);
   font-size: 1.6rem;
   font-weight: 700;
 }
 
 .donut-center-label {
-  fill: #9ca3af;
+  fill: var(--clair-text-secondary);
   font-size: 0.55rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -79,7 +79,7 @@
 }
 
 .legend-label {
-  color: #d1d5db;
+  color: var(--clair-text-secondary);
   flex: 1;
   white-space: nowrap;
   overflow: hidden;
@@ -87,7 +87,7 @@
 }
 
 .legend-pct {
-  color: #ffffff;
+  color: var(--clair-text);
   font-weight: 600;
 }
 
@@ -97,7 +97,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  color: #6b7280;
+  color: var(--clair-text-muted);
   font-size: 0.85rem;
   padding: 1.5rem;
 }
@@ -111,7 +111,7 @@
 
 .dominant-label {
   font-size: 0.8rem;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   font-weight: 600;
 }
 
