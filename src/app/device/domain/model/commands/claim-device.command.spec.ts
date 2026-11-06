@@ -1,14 +1,13 @@
-
 import { createClaimDeviceCommand } from './claim-device.command';
 import { createSpaceId } from '../valueobjects/space-id.value-object';
 
 const spaceId = createSpaceId('space-1');
 
 describe('createClaimDeviceCommand', () => {
-  it('normaliza el claimToken, conserva el spaceId y es inmutable', () => {
-    const command = createClaimDeviceCommand('  claim-abc  ', spaceId);
+  it('normaliza el claimToken a uppercase, conserva el spaceId y es inmutable', () => {
+    const command = createClaimDeviceCommand('  ab45-f3b1  ', spaceId);
 
-    expect(command.claimToken).toBe('claim-abc');
+    expect(command.claimToken).toBe('AB45-F3B1');
     expect(command.spaceId).toBe(spaceId);
     expect(Object.isFrozen(command)).toBe(true);
   });

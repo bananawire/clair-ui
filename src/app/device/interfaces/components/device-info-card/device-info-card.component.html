@@ -80,6 +80,44 @@
     </div>
   </div>
 
+  <!-- Outdoor hydrology + power status -->
+  <div class="outdoor-section">
+    <div class="section-title">{{ 'deviceInfoCard.hydrologyTitle' | translate }}</div>
+    <div class="metrics-container metrics-container--two">
+      <div class="metric-item">
+        <div class="metric-label">{{ 'deviceInfoCard.rainfallLabel' | translate }}</div>
+        <div class="metric-value">
+          <span class="material-symbols-outlined metric-icon" aria-hidden="true">rainy</span>
+          <span class="metric-number">{{ formatRainfall() }}</span>
+          <span class="metric-unit">{{ 'deviceInfoCard.rainfallUnit' | translate }}</span>
+        </div>
+      </div>
+
+      <div class="metric-item">
+        <div class="metric-label">{{ 'deviceInfoCard.waterLevelLabel' | translate }}</div>
+        <div class="metric-value">
+          <span class="material-symbols-outlined metric-icon" aria-hidden="true">flood</span>
+          <span class="metric-number">{{ formatWaterLevel() }}</span>
+          <span class="metric-unit">{{ 'deviceInfoCard.waterLevelUnit' | translate }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title section-title--spaced">{{ 'deviceInfoCard.powerTitle' | translate }}</div>
+    <div class="power-chips" role="list">
+      <div class="power-chip" role="listitem">
+        <span class="material-symbols-outlined chip-icon" aria-hidden="true">{{ batteryIcon() }}</span>
+        <span class="chip-label">{{ 'deviceInfoCard.batteryLabel' | translate }}</span>
+        <span class="chip-value">{{ formatBattery() }}</span>
+      </div>
+      <div class="power-chip" role="listitem" [class.power-chip--active]="telemetry?.solarCharging">
+        <span class="material-symbols-outlined chip-icon" aria-hidden="true">solar_power</span>
+        <span class="chip-label">{{ 'deviceInfoCard.solarLabel' | translate }}</span>
+        <span class="chip-value">{{ formatSolarCharging() }}</span>
+      </div>
+    </div>
+  </div>
+
   <!-- Device Info -->
   <div class="device-info">
     <div class="info-row">

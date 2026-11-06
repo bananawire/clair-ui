@@ -38,6 +38,8 @@ export class DeviceThresholdsCardComponent {
       case 'CO2': return 'co2';
       case 'TEMPERATURE': return 'temperature';
       case 'HUMIDITY': return 'humidity';
+      case 'RAINFALL': return 'rainfall';
+      case 'WATER_LEVEL': return 'waterLevel';
     }
   }
 

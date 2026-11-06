@@ -153,17 +153,48 @@
       "minutes": "{{minutes}}m",
       "hours": "{{hours}}h {{minutes}}m",
       "days": "{{days}}d {{hours}}h"
-    }
+    },
+    "hydrologyTitle": "Hydrology",
+    "powerTitle": "Power status",
+    "rainfallLabel": "RAINFALL",
+    "waterLevelLabel": "WATER LEVEL",
+    "rainfallUnit": "mm",
+    "waterLevelUnit": "cm",
+    "batteryLabel": "Battery",
+    "solarLabel": "Solar",
+    "batteryUnavailable": "N/A",
+    "solarChargingOn": "Charging",
+    "solarChargingOff": "Idle"
   },
   "deviceThresholdsCard": {
     "title": "Thresholds",
     "subtitle": "May affect device health",
     "editAria": "Edit thresholds",
     "metrics": {
-      "pm25": { "label": "PM2.5", "unit": "µg/m³" },
-      "co2": { "label": "CO₂", "unit": "ppm" },
-      "temperature": { "label": "TEMP", "unit": "°C" },
-      "humidity": { "label": "HUMIDITY", "unit": "%" }
+      "pm25": {
+        "label": "PM2.5",
+        "unit": "µg/m³"
+      },
+      "co2": {
+        "label": "CO₂",
+        "unit": "ppm"
+      },
+      "temperature": {
+        "label": "TEMP",
+        "unit": "°C"
+      },
+      "humidity": {
+        "label": "HUMIDITY",
+        "unit": "%"
+      },
+      "rainfall": {
+        "label": "RAIN",
+        "unit": "mm"
+      },
+      "waterLevel": {
+        "label": "WATER",
+        "unit": "cm"
+      }
     }
   },
   "editThresholdsDialog": {
@@ -175,10 +206,30 @@
     "saving": "SAVING...",
     "loading": "Loading thresholds...",
     "metrics": {
-      "pm25": { "label": "PM2.5", "unit": "µg/m³" },
-      "co2": { "label": "CO₂", "unit": "ppm" },
-      "temperature": { "label": "TEMP", "unit": "°C" },
-      "humidity": { "label": "HUMIDITY", "unit": "%" }
+      "pm25": {
+        "label": "PM2.5",
+        "unit": "µg/m³"
+      },
+      "co2": {
+        "label": "CO₂",
+        "unit": "ppm"
+      },
+      "temperature": {
+        "label": "TEMP",
+        "unit": "°C"
+      },
+      "humidity": {
+        "label": "HUMIDITY",
+        "unit": "%"
+      },
+      "rainfall": {
+        "label": "RAIN",
+        "unit": "mm"
+      },
+      "waterLevel": {
+        "label": "WATER",
+        "unit": "cm"
+      }
     },
     "snackbar": {
       "invalidDeviceId": "Invalid device id",
@@ -210,5 +261,25 @@
     "snackbar": {
       "close": "Close"
     }
+  },
+  "pairClaimDeviceDialog": {
+    "pairTitle": "Pair Sensor Hardware",
+    "claimTitle": "Claim Sensor",
+    "pairDescription": "Pair a physical sensor by hardware ID. After pairing, the claim token stays visible so you can claim it into this space without re-entering the hardware ID.",
+    "claimDescription": "Confirm the claim token and claim the sensor into the current space.",
+    "hardwareIdLabel": "Hardware ID",
+    "hardwareIdPlaceholder": "CLAIR-0001",
+    "hardwareIdRequired": "Hardware ID is required",
+    "hardwareIdPattern": "Hardware ID must match CLAIR-0001 or HW-0001",
+    "tokenLabel": "Claim Token",
+    "tokenPlaceholder": "AB45-F3B1",
+    "tokenRequired": "Claim token is required",
+    "tokenPattern": "Invalid claim token format",
+    "claimTokenPersistentLabel": "Claim token",
+    "claimTokenMissing": "No claim token returned",
+    "pairedHardwarePrefix": "Hardware:",
+    "cancel": "Cancel",
+    "pair": "Pair",
+    "claim": "Claim into space"
   }
 }

@@ -10,7 +10,7 @@
         <!-- Right panel: Spaces & Devices or Device Detail -->
         <section class="detail-panel">
           <div class="mobile-context-bar">
-            <button class="context-button" type="button" (click)="openOrganizationsDrawer()" [attr.aria-label]="'spaceDevices.changeOrgSpaceAria' | translate">
+            <button #organizationsContextButton class="context-button" type="button" (click)="openOrganizationsDrawer()" [attr.aria-label]="'spaceDevices.changeOrgSpaceAria' | translate">
               <span class="context-eyebrow">{{ 'spaceDevices.currentSpaceEyebrow' | translate }}</span>
               <span class="context-name">{{ selectedSpace?.name ?? ('spaceDevices.selectSpace' | translate) }}</span>
               <mat-icon>expand_more</mat-icon>
@@ -55,7 +55,13 @@
       </div>
 
 <div *ngIf="isOrganizationsDrawerOpen" class="organizations-drawer-backdrop open" (click)="closeOrganizationsDrawer()"></div>
-<aside *ngIf="isOrganizationsDrawerOpen" class="organizations-drawer open" [attr.aria-label]="'spaceDevices.organizationsAndSpacesAria' | translate">
+<aside
+  *ngIf="isOrganizationsDrawerOpen"
+  #organizationsDrawer
+  class="organizations-drawer open"
+  tabindex="-1"
+  [attr.aria-label]="'spaceDevices.organizationsAndSpacesAria' | translate"
+>
   <div class="drawer-handle"></div>
   <div class="drawer-header">
     <div>

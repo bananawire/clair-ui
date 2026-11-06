@@ -1,11 +1,13 @@
 :host {
-  display: contents;
+  display: block; /* was display:contents — restore a real box on desktop */
+  height: 100%;
+  min-height: 0;
 }
 
 @media (max-width: 900px) {
   :host {
     display: block;
     min-height: 0;
-    overflow: auto;
+    overflow: auto; /* already present; keep for drawer */
   }
 }

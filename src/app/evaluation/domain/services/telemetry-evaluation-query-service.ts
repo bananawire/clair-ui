@@ -13,6 +13,8 @@ export type TelemetryEvaluation = Readonly<{
   uptime: SystemUptime;
   airQuality: Readonly<{ co2: number | null; temperature: number | null; humidity: number | null }>;
   particulateMatter: Readonly<{ pm1_0: number | null; pm2_5: number | null; pm10: number | null }>;
+  hydrology: Readonly<{ rainfallMm: number; waterLevelCm: number }>;
+  powerStatus: Readonly<{ batteryPercent: number | null; solarCharging: boolean }>;
   connectivity: Readonly<{ status: string | null; network: string | null; signalStrength: number | null }>;
   location: Readonly<{ country: string | null }>;
   healthStatus: number;

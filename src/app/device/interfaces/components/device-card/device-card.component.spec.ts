@@ -34,6 +34,10 @@ const telemetry = (overrides: Partial<DeviceTelemetrySnapshot> = {}): DeviceTele
   lastUpdateMinutes: 0,
   network: null,
   location: null,
+  rainfallMm: 0,
+  waterLevelCm: 0,
+  batteryPercent: null,
+  solarCharging: false,
   ...overrides,
 });
 

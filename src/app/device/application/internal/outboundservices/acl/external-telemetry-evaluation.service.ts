@@ -13,6 +13,10 @@ export type DeviceTelemetrySnapshot = Readonly<{
   lastUpdateMinutes: number | null;
   network: string | null;
   location: string | null;
+  rainfallMm: number;
+  waterLevelCm: number;
+  batteryPercent: number | null;
+  solarCharging: boolean;
 }>;
 
 @Injectable({ providedIn: "root" })
@@ -34,6 +38,10 @@ export class ExternalTelemetryEvaluationService {
           lastUpdateMinutes: this.computeMinutesSince(summary.recordedAt),
           network: summary.network,
           location: summary.locationCountry,
+          rainfallMm: summary.rainfallMm,
+          waterLevelCm: summary.waterLevelCm,
+          batteryPercent: summary.batteryPercent,
+          solarCharging: summary.solarCharging,
         };
       })
     );

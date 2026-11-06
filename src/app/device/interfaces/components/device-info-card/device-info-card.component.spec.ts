@@ -16,6 +16,10 @@ const telemetry = (overrides: Partial<DeviceTelemetrySnapshot> = {}): DeviceTele
   lastUpdateMinutes: 0,
   network: null,
   location: null,
+  rainfallMm: 0,
+  waterLevelCm: 0,
+  batteryPercent: null,
+  solarCharging: false,
   ...overrides,
 });
 
@@ -102,6 +106,26 @@ describe('DeviceInfoCardComponent', () => {
       const component = build();
       component.telemetry = telemetry({ connectivitySignalStrength: null });
       expect(component.getConnectivityValue()).toBeNull();
+    });
+  });
+
+  describe('outdoor formatting', () => {
+    it('formatea rainfall/water level y N/A de batería nula', () => {
+      const component = build();
+      component.telemetry = telemetry({ rainfallMm: 1.25, waterLevelCm: 40, batteryPercent: null });
+
+      expect(component.formatRainfall()).toBe('1.3');
+      expect(component.formatWaterLevel()).toBe('40');
+      expect(component.formatBattery()).toBe('deviceInfoCard.batteryUnavailable');
+      expect(component.batteryIcon()).toBe('battery_unknown');
+      expect(component.formatSolarCharging()).toBe('deviceInfoCard.solarChargingOff');
+    });
+
+    it('usa icono de batería según porcentaje', () => {
+      const component = build();
+      component.telemetry = telemetry({ batteryPercent: 90, solarCharging: true });
+      expect(component.batteryIcon()).toBe('battery_full');
+      expect(component.formatSolarCharging()).toBe('deviceInfoCard.solarChargingOn');
     });
   });
 

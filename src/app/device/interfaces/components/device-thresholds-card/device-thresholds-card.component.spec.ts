@@ -8,9 +8,16 @@ const threshold = (metric: string, value = 100): DeviceThreshold =>
 describe('DeviceThresholdsCardComponent', () => {
   const build = () => createComponent(DeviceThresholdsCardComponent);
 
-  it('expone las 4 métricas', () => {
+  it('expone las métricas alertables incluyendo outdoor y sin battery/solar', () => {
     const component = build();
-    expect(component.metrics).toEqual(['PM25', 'CO2', 'TEMPERATURE', 'HUMIDITY']);
+    expect(component.metrics).toEqual([
+      'PM25',
+      'CO2',
+      'TEMPERATURE',
+      'HUMIDITY',
+      'RAINFALL',
+      'WATER_LEVEL',
+    ]);
   });
 
   it.each([
@@ -18,6 +25,8 @@ describe('DeviceThresholdsCardComponent', () => {
     ['CO2', 'co2'],
     ['TEMPERATURE', 'temperature'],
     ['HUMIDITY', 'humidity'],
+    ['RAINFALL', 'rainfall'],
+    ['WATER_LEVEL', 'waterLevel'],
   ] as const)('getMetricTranslationKey(%s) → "%s"', (metric, key) => {
     const component = build();
     expect(component.getMetricTranslationKey(metric)).toBe(key);

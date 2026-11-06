@@ -6,7 +6,7 @@ import { DEVICE_COMMAND_SERVICE, DeviceCommandService } from '../../../domain/se
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Observable, from, of, switchMap, tap, interval, startWith, catchError, map, mergeMap } from 'rxjs';
+import { Observable, from, of, switchMap, tap, interval, startWith, catchError, map, mergeMap, finalize } from 'rxjs';
 import { reduce } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 import { ExternalTelemetryEvaluationService, DeviceTelemetrySnapshot } from '../../../application/internal/outboundservices/acl/external-telemetry-evaluation.service';
@@ -24,8 +24,10 @@ import { createUpdateDeviceNameCommand } from '../../../domain/model/commands/up
 import { createDeleteDeviceCommand } from '../../../domain/model/commands/delete-device.command';
 import { createQueueDeviceCommand } from '../../../domain/model/commands/queue-device-command.command';
 import { createDeviceCommandType } from '../../../domain/model/valueobjects/device-command-type.value-object';
-import { ClaimDeviceDialogComponent, ClaimDeviceDialogResult } from '../../components/claim-device-dialog/claim-device-dialog.component';
-import { PairDeviceDialogComponent, PairDeviceDialogResult } from '../../components/pair-device-dialog/pair-device-dialog.component';
+import {
+  PairClaimDeviceDialogComponent,
+  PairClaimDeviceDialogResult,
+} from '../../components/pair-claim-device-dialog/pair-claim-device-dialog.component';
 import { EditNameDialogComponent } from '../../components/edit-name-dialog/edit-name-dialog.component';
 import { DeleteSpaceDialogComponent } from '../../components/delete-space-dialog/delete-space-dialog.component';
 import { DeleteDeviceDialogComponent, DeleteDeviceDialogData } from '../../components/delete-device-dialog/delete-device-dialog.component';
@@ -127,44 +129,101 @@ export class SpaceDevicesPageActionsService {
     );
   }
 
-  runClaimDeviceFlow(selectedSpace: Space): Observable<void> {
-    const dialogRef = this.dialog.open(ClaimDeviceDialogComponent, { width: '420px' });
+  runClaimDeviceFlow(selectedSpace: Space): Observable<boolean> {
+    return this.runPairClaimDeviceFlow(selectedSpace, { startStep: 'claim', autoClaimEnabled: true });
+  }
+
+  /**
+   * Continuous Pair → Claim wizard.
+   * Reloading the space device list is the caller's responsibility and must happen only when this emits true.
+   */
+  runPairClaimDeviceFlow(
+    selectedSpace: Space,
+    options: Readonly<{ startStep?: 'pair' | 'claim'; autoClaimEnabled?: boolean }> = {}
+  ): Observable<boolean> {
+    const autoClaimEnabled = options.autoClaimEnabled ?? true;
+    const startStep = options.startStep ?? 'pair';
+
+    const dialogRef = this.dialog.open(PairClaimDeviceDialogComponent, {
+      width: '460px',
+      disableClose: true,
+      data: {
+        autoClaimEnabled,
+        startStep,
+      },
+    });
+
+    const component = dialogRef.componentInstance;
+
+    const requestsSub = component.requests$.subscribe((request) => {
+      if (request.type === 'pair') {
+        component.setBusy(true);
+        this.deviceCommandService
+          .handlePairDevice(createPairDeviceCommand(createHardwareId(request.hardwareId)))
+          .subscribe({
+            next: (pairing) => {
+              const claimToken = pairing.claimToken ? pairing.claimToken.toUpperCase() : null;
+              component.showClaimStep({ claimToken, hardwareId: request.hardwareId });
+
+              if (autoClaimEnabled && claimToken) {
+                component.setBusy(true);
+                this.deviceCommandService
+                  .handleClaimDevice(createClaimDeviceCommand(claimToken, selectedSpace.id))
+                  .subscribe({
+                    next: () => {
+                      this.snackBar.open(
+                        this.translate.instant('deviceActions.sensorClaimed'),
+                        this.translate.instant('deviceActions.snackbar.close'),
+                        { duration: 3000 }
+                      );
+                      component.completeSuccessfully(claimToken);
+                    },
+                    error: (error) => {
+                      component.setError(
+                        extractApiErrorMessage(
+                          error,
+                          this.translate.instant('deviceActions.error.claimSensor')
+                        )
+                      );
+                    },
+                  });
+              }
+            },
+            error: (error) => {
+              component.setError(
+                extractApiErrorMessage(error, this.translate.instant('deviceActions.error.pairSensor'))
+              );
+            },
+          });
+        return;
+      }
+
+      component.setBusy(true);
+      this.deviceCommandService
+        .handleClaimDevice(createClaimDeviceCommand(request.claimToken, selectedSpace.id))
+        .subscribe({
+          next: () => {
+            this.snackBar.open(
+              this.translate.instant('deviceActions.sensorClaimed'),
+              this.translate.instant('deviceActions.snackbar.close'),
+              { duration: 3000 }
+            );
+            component.completeSuccessfully(request.claimToken);
+          },
+          error: (error) => {
+            component.setError(
+              extractApiErrorMessage(error, this.translate.instant('deviceActions.error.claimSensor'))
+            );
+          },
+        });
+    });
+
     return dialogRef.afterClosed().pipe(
-      switchMap((result: ClaimDeviceDialogResult | undefined) => {
-        if (!result) return of(void 0);
-        const command = createClaimDeviceCommand(result.claimToken, selectedSpace.id);
-        return this.deviceCommandService.handleClaimDevice(command).pipe(
-          tap({
-            next: () => this.snackBar.open(this.translate.instant('deviceActions.sensorClaimed'), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
-            error: (error) =>
-              this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('deviceActions.error.claimSensor')), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
-          }),
-          switchMap(() => of(void 0))
-        );
-      })
+      map((result: PairClaimDeviceDialogResult | undefined) => Boolean(result?.claimed)),
+      finalize(() => requestsSub.unsubscribe())
     );
   }
 
-  runPairDeviceFlow(): Observable<{ claimToken: string | null } | null> {
-    const dialogRef = this.dialog.open(PairDeviceDialogComponent, { width: '420px' });
-    return dialogRef.afterClosed().pipe(
-      switchMap((result: PairDeviceDialogResult | undefined) => {
-        if (!result) return of(null);
-        const command = createPairDeviceCommand(createHardwareId(result.hardwareId));
-        return this.deviceCommandService.handlePairDevice(command).pipe(
-          tap({
-            next: (pairing) => {
-              const claimTokenText = pairing.claimToken ? ` ${this.translate.instant('deviceActions.claimTokenPrefix', { claimToken: pairing.claimToken })}` : '';
-              this.snackBar.open(`${this.translate.instant('deviceActions.sensorPaired')}.${claimTokenText}`, this.translate.instant('deviceActions.snackbar.close'), { duration: 6000 });
-            },
-            error: (error) =>
-              this.snackBar.open(extractApiErrorMessage(error, this.translate.instant('deviceActions.error.pairSensor')), this.translate.instant('deviceActions.snackbar.close'), { duration: 3000 }),
-          }),
-          switchMap((pairing) => of({ claimToken: pairing.claimToken ?? null }))
-        );
-      })
-    );
-  }
 
   runEditSpaceNameFlow(selectedSpace: Space): Observable<string | null> {
     const dialogRef = this.dialog.open(EditNameDialogComponent, {

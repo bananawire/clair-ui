@@ -1,0 +1,96 @@
+<h2 mat-dialog-title>{{ titleKey | translate }}</h2>
+
+<mat-dialog-content>
+  <p class="description">{{ descriptionKey | translate }}</p>
+
+  @if (errorMessage) {
+    <div class="error-banner" role="alert">{{ errorMessage }}</div>
+  }
+
+  @if (step === 'pair') {
+    <form [formGroup]="pairForm" (ngSubmit)="submitPair()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'pairClaimDeviceDialog.hardwareIdLabel' | translate }}</mat-label>
+        <input
+          matInput
+          formControlName="hardwareId"
+          [placeholder]="'pairClaimDeviceDialog.hardwareIdPlaceholder' | translate"
+          autocomplete="off"
+          [disabled]="busy"
+        />
+        @if (pairForm.get('hardwareId')?.hasError('required')) {
+          <mat-error>{{ 'pairClaimDeviceDialog.hardwareIdRequired' | translate }}</mat-error>
+        }
+        @if (pairForm.get('hardwareId')?.hasError('pattern')) {
+          <mat-error>{{ 'pairClaimDeviceDialog.hardwareIdPattern' | translate }}</mat-error>
+        }
+      </mat-form-field>
+    </form>
+  } @else {
+    <div class="claim-token-panel" aria-live="polite">
+      <div class="claim-token-label">{{ 'pairClaimDeviceDialog.claimTokenPersistentLabel' | translate }}</div>
+      <div class="claim-token-value">{{ claimToken ?? ('pairClaimDeviceDialog.claimTokenMissing' | translate) }}</div>
+      @if (pairedHardwareId) {
+        <div class="claim-token-meta">
+          {{ 'pairClaimDeviceDialog.pairedHardwarePrefix' | translate }} {{ pairedHardwareId }}
+        </div>
+      }
+    </div>
+
+    <form [formGroup]="claimForm" (ngSubmit)="submitClaim()">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>{{ 'pairClaimDeviceDialog.tokenLabel' | translate }}</mat-label>
+        <input
+          matInput
+          formControlName="claimToken"
+          [placeholder]="'pairClaimDeviceDialog.tokenPlaceholder' | translate"
+          autocomplete="off"
+          (input)="onClaimTokenInput($event)"
+          [disabled]="busy"
+        />
+        @if (claimForm.get('claimToken')?.hasError('required')) {
+          <mat-error>{{ 'pairClaimDeviceDialog.tokenRequired' | translate }}</mat-error>
+        }
+        @if (claimForm.get('claimToken')?.hasError('pattern')) {
+          <mat-error>{{ 'pairClaimDeviceDialog.tokenPattern' | translate }}</mat-error>
+        }
+      </mat-form-field>
+    </form>
+  }
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancel()" [disabled]="busy">
+    {{ 'pairClaimDeviceDialog.cancel' | translate }}
+  </button>
+
+  @if (step === 'pair') {
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      [disabled]="pairForm.invalid || busy"
+      (click)="submitPair()"
+    >
+      @if (busy) {
+        <mat-spinner diameter="18"></mat-spinner>
+      } @else {
+        {{ 'pairClaimDeviceDialog.pair' | translate }}
+      }
+    </button>
+  } @else {
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      [disabled]="claimForm.invalid || busy"
+      (click)="submitClaim()"
+    >
+      @if (busy) {
+        <mat-spinner diameter="18"></mat-spinner>
+      } @else {
+        {{ 'pairClaimDeviceDialog.claim' | translate }}
+      }
+    </button>
+  }
+</mat-dialog-actions>

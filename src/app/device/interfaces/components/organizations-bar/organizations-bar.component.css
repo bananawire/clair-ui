@@ -7,9 +7,10 @@
 }
 
 .org-panel {
-  width: 280px;
-  min-width: 280px;
+  width: 100%; /* fill the 280px host; avoid double-counting width */
+  min-width: 0;
   height: 100%;
+  min-height: 0;
   box-sizing: border-box;
   gap: 0.75rem;
   padding: 1rem;
@@ -28,7 +29,12 @@
 }
 
 .org-row { justify-content: space-between; gap: 0.75rem; }
-.org-list { flex: 1; overflow: auto; gap: 0.5rem; }
+.org-list {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto; /* internal scroll for long org/space lists */
+  gap: 0.5rem;
+}
 .org-group { gap: 0.4rem; }
 .space-list { gap: 0.5rem; }
 
