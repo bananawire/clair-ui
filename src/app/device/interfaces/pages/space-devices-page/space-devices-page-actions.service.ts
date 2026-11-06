@@ -67,7 +67,9 @@ export class SpaceDevicesPageActionsService {
   runEditDeviceThresholdsFlow(deviceId: string): Observable<boolean> {
     const dialogRef = this.dialog.open(EditDeviceThresholdsDialogComponent, {
       panelClass: 'thresholds-dialog-panel',
-      width: '980px',
+      // Keep overlay width in sync with `.thresholds-modal` (720px) so Material
+      // centers the visible card on the viewport instead of a wider empty shell.
+      width: '720px',
       maxWidth: '96vw',
       maxHeight: '96vh',
       autoFocus: false,
