@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, DestroyRef, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -44,6 +44,7 @@ import { createGetUserPlanQuery } from '../../../../billing/domain/model/queries
 })
 export class SettingsPageComponent implements OnInit {
   private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
   private readonly authCommandService = inject(AUTH_COMMAND_SERVICE) as AuthCommandService;
   private readonly authQueryService = inject(AUTH_QUERY_SERVICE) as AuthQueryService;
   private readonly tokenStorage = inject(TOKEN_STORAGE_GATEWAY);
@@ -65,9 +66,23 @@ export class SettingsPageComponent implements OnInit {
 
   email: string | null = null;
   plan: 'FREEMIUM' | 'PREMIUM' | null = null;
+  highlightedSection: string | null = null;
 
   ngOnInit(): void {
     this.loadProfile();
+    // Search results link to a section with a fragment (/settings#appearance); scroll to it and flash it briefly.
+    this.route.fragment.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((fragment) => {
+      if (!fragment) return;
+      setTimeout(() => {
+        document.getElementById(fragment)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.highlightedSection = fragment;
+        this.cdr.markForCheck();
+        setTimeout(() => {
+          this.highlightedSection = null;
+          this.cdr.markForCheck();
+        }, 1600);
+      });
+    });
   }
 
   setTheme(theme: Theme): void {

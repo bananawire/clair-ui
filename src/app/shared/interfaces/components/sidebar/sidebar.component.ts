@@ -15,6 +15,7 @@ import { BillingQueryServiceImpl } from '../../../../billing/application/interna
 import { createUserId } from '../../../../billing/domain/model/valueobjects/user-id.value-object';
 import { createGetUserPlanQuery } from '../../../../billing/domain/model/queries/get-user-plan.query';
 import { NotificationsBellComponent } from '../notifications-bell/notifications-bell.component';
+import { SidebarSearchComponent } from '../sidebar-search/sidebar-search.component';
 
 interface NavItem {
   label: string;
@@ -33,7 +34,7 @@ type AccessTokenPayload = {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, MatIconModule, MatButtonModule, AirQualityComponent, AlertsActionsComponent, OverviewComponent, ReportsComponent, SpaceDevicesComponent, NotificationsBellComponent, TranslatePipe],
+  imports: [CommonModule, RouterLink, RouterLinkActive, MatIconModule, MatButtonModule, AirQualityComponent, AlertsActionsComponent, OverviewComponent, ReportsComponent, SpaceDevicesComponent, NotificationsBellComponent, SidebarSearchComponent, TranslatePipe],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

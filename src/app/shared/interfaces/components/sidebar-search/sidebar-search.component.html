@@ -1,0 +1,62 @@
+<div class="search-field" [class.open]="isOpen">
+  <mat-icon class="search-icon" aria-hidden="true">search</mat-icon>
+  <input
+    #searchInput
+    type="search"
+    class="search-input"
+    role="combobox"
+    autocomplete="off"
+    spellcheck="false"
+    [attr.placeholder]="'sidebar.searchPlaceholder' | translate"
+    [attr.aria-label]="'sidebarSearch.inputAria' | translate"
+    [attr.aria-expanded]="isOpen"
+    [attr.aria-controls]="listboxId"
+    [attr.aria-activedescendant]="activeDescendant"
+    aria-autocomplete="list"
+    (focus)="onFocus()"
+    (input)="onInput(searchInput.value)"
+    (keydown)="onKeydown($event)"
+  />
+  <button *ngIf="query; else shortcutHint" type="button" class="clear-btn" (click)="clear()"
+    [attr.aria-label]="'sidebarSearch.clearAria' | translate">
+    <mat-icon aria-hidden="true">close</mat-icon>
+  </button>
+  <ng-template #shortcutHint>
+    <kbd class="shortcut" aria-hidden="true">{{ shortcutLabel }}</kbd>
+  </ng-template>
+</div>
+
+<div class="results-panel" *ngIf="isOpen">
+  <ul class="results" role="listbox" [id]="listboxId" [attr.aria-label]="'sidebarSearch.resultsAria' | translate">
+    <ng-container *ngFor="let section of sections">
+      <li class="group-label" role="presentation">{{ 'sidebarSearch.group.' + section.group | translate }}</li>
+      <li
+        *ngFor="let entry of section.items"
+        class="result"
+        role="option"
+        [id]="optionId(entry)"
+        [class.active]="indexOf(entry) === activeIndex"
+        [attr.aria-selected]="indexOf(entry) === activeIndex"
+        (mousedown)="$event.preventDefault()"
+        (mouseenter)="activeIndex = indexOf(entry)"
+        (click)="select(entry)"
+      >
+        <mat-icon class="result-icon" aria-hidden="true">{{ entry.icon }}</mat-icon>
+        <span class="result-text">
+          <span class="result-label">{{ labelOf(entry) }}</span>
+          <span class="result-detail" *ngIf="entry.detail">
+            {{ entry.translateLabel ? (entry.detail | translate) : entry.detail }}
+          </span>
+        </span>
+        <mat-icon class="result-enter" aria-hidden="true">keyboard_return</mat-icon>
+      </li>
+    </ng-container>
+  </ul>
+
+  <p class="results-empty" *ngIf="sections.length === 0" role="status">
+    {{ 'sidebarSearch.noResults' | translate: { query: query } }}
+  </p>
+  <p class="results-loading" *ngIf="loadingEntities" role="status">
+    {{ 'sidebarSearch.loadingSpaces' | translate }}
+  </p>
+</div>

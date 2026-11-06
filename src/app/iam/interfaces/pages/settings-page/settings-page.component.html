@@ -5,7 +5,7 @@
   </header>
 
   <!-- Profile -->
-  <section class="settings-section" aria-labelledby="settings-profile-title">
+  <section id="profile" class="settings-section" [class.highlighted]="highlightedSection === 'profile'" aria-labelledby="settings-profile-title">
     <div class="section-header">
       <span class="section-icon" aria-hidden="true"><mat-icon>person</mat-icon></span>
       <div class="section-text">
@@ -36,7 +36,7 @@
   </section>
 
   <!-- Appearance -->
-  <section class="settings-section" aria-labelledby="settings-appearance-title">
+  <section id="appearance" class="settings-section" [class.highlighted]="highlightedSection === 'appearance'" aria-labelledby="settings-appearance-title">
     <div class="section-header">
       <span class="section-icon" aria-hidden="true"><mat-icon>contrast</mat-icon></span>
       <div class="section-text">
@@ -71,7 +71,7 @@
   </section>
 
   <!-- Language -->
-  <section class="settings-section" aria-labelledby="settings-language-title">
+  <section id="language" class="settings-section" [class.highlighted]="highlightedSection === 'language'" aria-labelledby="settings-language-title">
     <div class="section-header">
       <span class="section-icon" aria-hidden="true"><mat-icon>translate</mat-icon></span>
       <div class="section-text">
@@ -90,7 +90,7 @@
   </section>
 
   <!-- Session -->
-  <section class="settings-section" aria-labelledby="settings-session-title">
+  <section id="session" class="settings-section" [class.highlighted]="highlightedSection === 'session'" aria-labelledby="settings-session-title">
     <div class="section-header">
       <span class="section-icon danger" aria-hidden="true"><mat-icon>logout</mat-icon></span>
       <div class="section-text">

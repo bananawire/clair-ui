@@ -70,5 +70,17 @@
       }
     },
     "enableButton": "Turn on"
+  },
+  "sidebarSearch": {
+    "inputAria": "Search pages, spaces and devices",
+    "clearAria": "Clear search",
+    "resultsAria": "Search results",
+    "group": {
+      "pages": "Pages",
+      "spaces": "Spaces",
+      "devices": "Devices"
+    },
+    "noResults": "Nothing matches \"{{query}}\". Try a page name, a space or a device serial number.",
+    "loadingSpaces": "Loading your spaces and devices…"
   }
 }

@@ -40,6 +40,16 @@
   border-radius: 16px;
   box-shadow: var(--clair-shadow-sm);
   color: var(--clair-text);
+  scroll-margin-top: 24px;
+  transition-property: border-color, box-shadow;
+  transition-duration: 300ms;
+  transition-timing-function: ease-out;
+}
+
+/* Brief ring when a search result jumps to this section */
+.settings-section.highlighted {
+  border-color: var(--clair-success);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.18);
 }
 
 .section-header {
