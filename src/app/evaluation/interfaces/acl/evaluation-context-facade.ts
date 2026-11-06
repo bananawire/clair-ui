@@ -13,6 +13,10 @@ export interface LatestTelemetrySummary {
   readonly temperature: number | null;
   readonly humidity: number | null;
   readonly pm2_5: number | null;
+  readonly rainfallMm: number;
+  readonly waterLevelCm: number;
+  readonly batteryPercent: number | null;
+  readonly solarCharging: boolean;
 }
 
 export interface EvaluationContextFacade {

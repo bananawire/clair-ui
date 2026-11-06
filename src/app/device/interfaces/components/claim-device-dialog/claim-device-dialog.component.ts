@@ -27,16 +27,29 @@ export class ClaimDeviceDialogComponent {
       '',
       [
         Validators.required,
-        Validators.pattern(/(^[A-Z0-9]{4}-[A-Z0-9]{4}$)|(^[A-Za-z0-9_-]{20,}$)/),
+        // Accept mixed case; submit/onClaimTokenInput normalize to uppercase.
+        Validators.pattern(/(^[A-Za-z0-9]{4}-[A-Za-z0-9]{4}$)|(^[A-Za-z0-9_-]{20,}$)/),
       ],
     ],
   });
 
   submit(): void {
     if (this.form.invalid) return;
+    const claimToken = String(this.form.value.claimToken ?? '').trim().toUpperCase();
     this.dialogRef.close({
-      claimToken: this.form.value.claimToken as string,
+      claimToken,
     });
+  }
+
+  onClaimTokenInput(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const upper = input.value.toUpperCase();
+    if (input.value !== upper) {
+      const start = input.selectionStart;
+      const end = input.selectionEnd;
+      this.form.patchValue({ claimToken: upper }, { emitEvent: false });
+      queueMicrotask(() => input.setSelectionRange(start, end));
+    }
   }
 
   cancel(): void {

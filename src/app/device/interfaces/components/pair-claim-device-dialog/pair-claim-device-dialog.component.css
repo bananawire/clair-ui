@@ -1,0 +1,54 @@
+.full-width {
+  width: 100%;
+}
+
+.description {
+  margin: 0 0 16px;
+  color: var(--clair-text-muted);
+  font-size: 14px;
+}
+
+.error-banner {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--clair-danger, #ef4444) 14%, transparent);
+  color: var(--clair-danger, #ef4444);
+  font-size: 13px;
+}
+
+.claim-token-panel {
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
+}
+
+.claim-token-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--clair-text-muted);
+  margin-bottom: 8px;
+}
+
+.claim-token-value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--clair-text);
+  letter-spacing: 1px;
+  word-break: break-all;
+}
+
+.claim-token-meta {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--clair-text-secondary);
+}
+
+mat-dialog-actions button mat-spinner {
+  display: inline-block;
+}

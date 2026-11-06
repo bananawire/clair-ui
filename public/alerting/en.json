@@ -62,9 +62,29 @@
     "low": "LOW"
   },
   "metricType": {
-    "pm25": { "label": "PM2.5", "unit": "µg/m³" },
-    "co2": { "label": "CO2", "unit": "ppm" },
-    "temperature": { "label": "Temperature", "unit": "°C" },
-    "humidity": { "label": "Humidity", "unit": "%" }
+    "pm25": {
+      "label": "PM2.5",
+      "unit": "µg/m³"
+    },
+    "co2": {
+      "label": "CO2",
+      "unit": "ppm"
+    },
+    "temperature": {
+      "label": "Temperature",
+      "unit": "°C"
+    },
+    "humidity": {
+      "label": "Humidity",
+      "unit": "%"
+    },
+    "rainfall": {
+      "label": "Rainfall",
+      "unit": "mm"
+    },
+    "water_level": {
+      "label": "Water level",
+      "unit": "cm"
+    }
   }
 }

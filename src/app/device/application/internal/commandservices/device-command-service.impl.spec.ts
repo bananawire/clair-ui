@@ -121,7 +121,7 @@ describe('DeviceCommandServiceImpl', () => {
       );
 
       expect(gateway.claimDevice).toHaveBeenCalledWith({
-        claimToken: 'claim-abc',
+        claimToken: 'CLAIM-ABC',
         spaceId: 'space-1',
       });
       expect(result.id.value).toBe('device-1');

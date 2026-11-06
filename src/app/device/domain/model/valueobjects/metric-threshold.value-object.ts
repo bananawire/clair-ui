@@ -1,6 +1,16 @@
-export type MetricThreshold = 'PM25' | 'CO2' | 'TEMPERATURE' | 'HUMIDITY';
+export type MetricThreshold = 'PM25' | 'CO2' | 'TEMPERATURE' | 'HUMIDITY' | 'RAINFALL' | 'WATER_LEVEL';
 
-export const METRIC_THRESHOLDS: readonly MetricThreshold[] = ['PM25', 'CO2', 'TEMPERATURE', 'HUMIDITY'] as const;
+export const METRIC_THRESHOLDS: readonly MetricThreshold[] = [
+  'PM25',
+  'CO2',
+  'TEMPERATURE',
+  'HUMIDITY',
+  'RAINFALL',
+  'WATER_LEVEL',
+] as const;
+
+/** Status-only outdoor fields that must never appear as alertable thresholds. */
+export const NON_THRESHOLD_OUTDOOR_STATUS_FIELDS = ['batteryPercent', 'solarCharging'] as const;
 
 export type MetricThresholdDetails = Readonly<{ label: string; unit: string }>;
 
@@ -14,6 +24,9 @@ export const getMetricThresholdDetails = (metric: MetricThreshold): MetricThresh
       return { label: 'TEMP', unit: '°C' };
     case 'HUMIDITY':
       return { label: 'HUMIDITY', unit: '%' };
+    case 'RAINFALL':
+      return { label: 'RAIN', unit: 'mm' };
+    case 'WATER_LEVEL':
+      return { label: 'WATER', unit: 'cm' };
   }
 };
-

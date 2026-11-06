@@ -27,7 +27,7 @@ describe('ClaimDeviceDialogComponent', () => {
   it.each([
     ['ABCD-1234', 'formato XXXX-XXXX'],
     ['ABCD1234EFGH5678IJKL', 'token largo (20+)'],
-    ['token_con-guiones_20chars', 'alfanumérico con - y _ de 20+'],
+    ['TOKEN_CON-GUIONES_20CHARS', 'alfanumérico con - y _ de 20+'],
   ])('acepta el claimToken %s (%s)', (token) => {
     const component = build();
     component.form.patchValue({ claimToken: token });
@@ -36,12 +36,19 @@ describe('ClaimDeviceDialogComponent', () => {
 
     component.submit();
 
-    expect(dialogRef.close).toHaveBeenCalledWith({ claimToken: token });
+    expect(dialogRef.close).toHaveBeenCalledWith({ claimToken: token.toUpperCase() });
+  });
+
+  it('normaliza lowercase a uppercase al enviar', () => {
+    const component = build();
+    component.form.patchValue({ claimToken: 'abcd-1234' });
+    expect(component.form.valid).toBe(true);
+    component.submit();
+    expect(dialogRef.close).toHaveBeenCalledWith({ claimToken: 'ABCD-1234' });
   });
 
   it.each([
     'ABC-1234',
-    'abcd-1234',
     'corto',
     'espacios en el medio token token',
   ])('rechaza el claimToken %s', (token) => {

@@ -28,6 +28,10 @@ export class EvaluationContextFacadeImpl implements EvaluationContextFacade {
           temperature: evaluation.airQuality.temperature,
           humidity: evaluation.airQuality.humidity,
           pm2_5: evaluation.particulateMatter.pm2_5,
+          rainfallMm: evaluation.hydrology.rainfallMm,
+          waterLevelCm: evaluation.hydrology.waterLevelCm,
+          batteryPercent: evaluation.powerStatus.batteryPercent,
+          solarCharging: evaluation.powerStatus.solarCharging,
         };
       }),
       catchError(() => of(null))

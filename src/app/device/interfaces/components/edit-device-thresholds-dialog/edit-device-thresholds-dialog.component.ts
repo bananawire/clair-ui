@@ -66,6 +66,8 @@ export class EditDeviceThresholdsDialogComponent implements OnInit {
       case 'CO2': return 'co2';
       case 'TEMPERATURE': return 'temperature';
       case 'HUMIDITY': return 'humidity';
+      case 'RAINFALL': return 'rainfall';
+      case 'WATER_LEVEL': return 'waterLevel';
     }
   }
 
@@ -86,6 +88,8 @@ export class EditDeviceThresholdsDialogComponent implements OnInit {
     { metric: 'CO2', min: 100, max: 5000, step: 10, defaultValue: 1000 },
     { metric: 'TEMPERATURE', min: 5, max: 60, step: 0.1, defaultValue: 28.7 },
     { metric: 'HUMIDITY', min: 1, max: 100, step: 1, defaultValue: 80 },
+    { metric: 'RAINFALL', min: 0.1, max: 200, step: 0.1, defaultValue: 10 },
+    { metric: 'WATER_LEVEL', min: 1, max: 500, step: 1, defaultValue: 120 },
   ] as const;
 
   form: FormGroup = this.fb.group(

@@ -1,4 +1,4 @@
-import { firstValueFrom, of, throwError } from 'rxjs';
+import { firstValueFrom, of, throwError, Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
@@ -10,7 +10,7 @@ import { DeviceThresholdQueryService } from '../../../domain/services/device-thr
 import { ExternalTelemetryEvaluationService } from '../../../application/internal/outboundservices/acl/external-telemetry-evaluation.service';
 import { createSpaceId } from '../../../domain/model/valueobjects/space-id.value-object';
 import { createDeviceId } from '../../../domain/model/valueobjects/device-id.value-object';
-import { createHardwareId } from '../../../domain/model/valueobjects/hardware-id.value-object';
+import { PairClaimDeviceDialogComponent } from '../../components/pair-claim-device-dialog/pair-claim-device-dialog.component';
 
 const translate = { instant: (key: string) => key } as unknown as TranslateService;
 
@@ -115,61 +115,111 @@ describe('SpaceDevicesPageActionsService', () => {
     });
   });
 
+  describe('runPairClaimDeviceFlow', () => {
+    const space = { id: createSpaceId('space-1') } as never;
+
+    const openWizard = () => {
+      const requests$ = new Subject<{ type: 'pair' | 'claim'; hardwareId?: string; claimToken?: string }>();
+      const component = {
+        requests$,
+        setBusy: vi.fn(),
+        setError: vi.fn(),
+        showClaimStep: vi.fn(),
+        completeSuccessfully: vi.fn((claimToken: string) => {
+          closed$.next({ claimed: true, claimToken, hardwareId: 'CLAIR-0KBG' });
+          closed$.complete();
+        }),
+      };
+      const closed$ = new Subject<unknown>();
+      dialog.open.mockReturnValue({
+        componentInstance: component,
+        afterClosed: () => closed$.asObservable(),
+      });
+      return { component, requests$, closed$ };
+    };
+
+    it('cancelar el diálogo no llama comandos y emite false', async () => {
+      const { closed$ } = openWizard();
+      const pending = firstValueFrom(service.runPairClaimDeviceFlow(space));
+      closed$.next(undefined);
+      closed$.complete();
+
+      await expect(pending).resolves.toBe(false);
+      expect(commandService.handlePairDevice).not.toHaveBeenCalled();
+      expect(commandService.handleClaimDevice).not.toHaveBeenCalled();
+    });
+
+    it('pair + auto-claim con spaceId conocido completa sin snackbar de token fugaz', async () => {
+      const { component, requests$ } = openWizard();
+      commandService.handlePairDevice.mockReturnValue(of({ claimToken: 'ab45-f3b1' }));
+      commandService.handleClaimDevice.mockReturnValue(of({}));
+
+      const pending = firstValueFrom(
+        service.runPairClaimDeviceFlow(space, { startStep: 'pair', autoClaimEnabled: true }),
+      );
+
+      requests$.next({ type: 'pair', hardwareId: 'CLAIR-0KBG' });
+
+      await expect(pending).resolves.toBe(true);
+      expect(component.showClaimStep).toHaveBeenCalledWith({
+        claimToken: 'AB45-F3B1',
+        hardwareId: 'CLAIR-0KBG',
+      });
+      expect(commandService.handleClaimDevice).toHaveBeenCalledWith(
+        expect.objectContaining({ claimToken: 'AB45-F3B1' }),
+      );
+      expect(dialog.open).toHaveBeenCalledWith(
+        PairClaimDeviceDialogComponent,
+        expect.objectContaining({ disableClose: true }),
+      );
+    });
+
+    it('si auto-claim falla, deja el token visible y no cierra como claimed', async () => {
+      const { component, requests$, closed$ } = openWizard();
+      commandService.handlePairDevice.mockReturnValue(of({ claimToken: 'AB45-F3B1' }));
+      commandService.handleClaimDevice.mockReturnValue(throwError(() => ({ message: 'claim failed' })));
+
+      const pending = firstValueFrom(
+        service.runPairClaimDeviceFlow(space, { startStep: 'pair', autoClaimEnabled: true }),
+      );
+
+      requests$.next({ type: 'pair', hardwareId: 'CLAIR-0KBG' });
+      expect(component.setError).toHaveBeenCalled();
+
+      closed$.next(undefined);
+      closed$.complete();
+      await expect(pending).resolves.toBe(false);
+    });
+
+    it('claim manual desde el mismo wizard emite true solo tras claim', async () => {
+      const { requests$ } = openWizard();
+      commandService.handleClaimDevice.mockReturnValue(of({}));
+
+      const pending = firstValueFrom(
+        service.runPairClaimDeviceFlow(space, { startStep: 'claim', autoClaimEnabled: false }),
+      );
+
+      requests$.next({ type: 'claim', claimToken: 'ab45-f3b1' });
+      await expect(pending).resolves.toBe(true);
+      expect(commandService.handleClaimDevice).toHaveBeenCalledWith(
+        expect.objectContaining({ claimToken: 'AB45-F3B1' }),
+      );
+    });
+  });
+
   describe('runClaimDeviceFlow', () => {
-    it('cancelar el diálogo no llama al command service', async () => {
-      dialog.open.mockReturnValue(dialogRef(undefined));
+    it('reutiliza el wizard continuo en paso claim', async () => {
+      const spy = vi.spyOn(service, 'runPairClaimDeviceFlow').mockReturnValue(of(true));
 
       const result = await firstValueFrom(
         service.runClaimDeviceFlow({ id: createSpaceId('space-1') } as never),
       );
 
-      expect(result).toBeUndefined();
-      expect(commandService.handleClaimDevice).not.toHaveBeenCalled();
-    });
-
-    it('confirmar el diálogo llama a handleClaimDevice', async () => {
-      dialog.open.mockReturnValue(dialogRef({ claimToken: 'claim-1' }));
-      commandService.handleClaimDevice.mockReturnValue(of({}));
-
-      await firstValueFrom(
-        service.runClaimDeviceFlow({ id: createSpaceId('space-1') } as never),
+      expect(result).toBe(true);
+      expect(spy).toHaveBeenCalledWith(
+        expect.anything(),
+        expect.objectContaining({ startStep: 'claim', autoClaimEnabled: true }),
       );
-
-      expect(commandService.handleClaimDevice).toHaveBeenCalledWith(
-        expect.objectContaining({ claimToken: 'claim-1' }),
-      );
-      expect(snackBar.open).toHaveBeenCalled();
-    });
-  });
-
-  describe('runPairDeviceFlow', () => {
-    it('cancelar devuelve null', async () => {
-      dialog.open.mockReturnValue(dialogRef(undefined));
-
-      const result = await firstValueFrom(service.runPairDeviceFlow());
-
-      expect(result).toBeNull();
-    });
-
-    it('confirmar devuelve el claimToken del pairing', async () => {
-      dialog.open.mockReturnValue(dialogRef({ hardwareId: 'CLAIR-0KBG' }));
-      commandService.handlePairDevice.mockReturnValue(of({ claimToken: 'abc-123' }));
-
-      const result = await firstValueFrom(service.runPairDeviceFlow());
-
-      expect(result).toEqual({ claimToken: 'abc-123' });
-      expect(commandService.handlePairDevice).toHaveBeenCalledWith(
-        expect.objectContaining({ hardwareId: expect.objectContaining({ value: 'CLAIR-0KBG' }) }),
-      );
-    });
-
-    it('sin claimToken en el pairing, devuelve null', async () => {
-      dialog.open.mockReturnValue(dialogRef({ hardwareId: 'CLAIR-0KBG' }));
-      commandService.handlePairDevice.mockReturnValue(of({ claimToken: null }));
-
-      const result = await firstValueFrom(service.runPairDeviceFlow());
-
-      expect(result).toEqual({ claimToken: null });
     });
   });
 

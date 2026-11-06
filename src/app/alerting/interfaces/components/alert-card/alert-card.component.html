@@ -1,7 +1,7 @@
 <mat-card class="alert-card">
   <div class="card-header">
     <div class="metric-row">
-      <mat-icon class="metric-icon">{{ metricIcon(alert.metric) }}</mat-icon>
+      <span class="material-symbols-outlined metric-icon" aria-hidden="true">{{ metricIcon(alert.metric) }}</span>
       <span class="metric-name">{{ 'metricType.' + alert.metric.toLowerCase() + '.label' | translate }}</span>
       <span class="metric-unit">({{ 'metricType.' + alert.metric.toLowerCase() + '.unit' | translate }})</span>
     </div>

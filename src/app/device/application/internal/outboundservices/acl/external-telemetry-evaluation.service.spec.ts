@@ -24,7 +24,7 @@ describe('ExternalTelemetryEvaluationService', () => {
     expect(result).toBeNull();
   });
 
-  it('mapea el summary a DeviceTelemetrySnapshot', async () => {
+  it('mapea el summary a DeviceTelemetrySnapshot incluyendo outdoor', async () => {
     facade.getLatestTelemetryByDevice.mockReturnValue(
       of({
         connectivityStatus: 'CONNECTED',
@@ -34,6 +34,14 @@ describe('ExternalTelemetryEvaluationService', () => {
         recordedAt: '2026-10-04T09:50:00Z',
         network: 'WiFi',
         locationCountry: 'PE',
+        co2: 400,
+        temperature: 22,
+        humidity: 40,
+        pm2_5: 8,
+        rainfallMm: 1.2,
+        waterLevelCm: 35,
+        batteryPercent: 81,
+        solarCharging: true,
       }),
     );
 
@@ -48,6 +56,10 @@ describe('ExternalTelemetryEvaluationService', () => {
       lastUpdateMinutes: 10,
       network: 'WiFi',
       location: 'PE',
+      rainfallMm: 1.2,
+      waterLevelCm: 35,
+      batteryPercent: 81,
+      solarCharging: true,
     });
   });
 
@@ -61,6 +73,14 @@ describe('ExternalTelemetryEvaluationService', () => {
         recordedAt: '2026-10-04T09:00:00Z',
         network: null,
         locationCountry: null,
+        co2: null,
+        temperature: null,
+        humidity: null,
+        pm2_5: null,
+        rainfallMm: 0,
+        waterLevelCm: 0,
+        batteryPercent: null,
+        solarCharging: false,
       }),
     );
 
@@ -79,6 +99,14 @@ describe('ExternalTelemetryEvaluationService', () => {
         recordedAt: '2026-10-04T11:00:00Z',
         network: null,
         locationCountry: null,
+        co2: null,
+        temperature: null,
+        humidity: null,
+        pm2_5: null,
+        rainfallMm: 0,
+        waterLevelCm: 0,
+        batteryPercent: null,
+        solarCharging: false,
       }),
     );
 
@@ -97,6 +125,14 @@ describe('ExternalTelemetryEvaluationService', () => {
         recordedAt: 'no-es-fecha',
         network: null,
         locationCountry: null,
+        co2: null,
+        temperature: null,
+        humidity: null,
+        pm2_5: null,
+        rainfallMm: 0,
+        waterLevelCm: 0,
+        batteryPercent: null,
+        solarCharging: false,
       }),
     );
 

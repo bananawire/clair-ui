@@ -262,8 +262,17 @@ label {
 }
 
 /* Thresholds dialog (no internal scrollbars) */
+.thresholds-dialog-panel {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 .thresholds-dialog-panel .mat-mdc-dialog-container {
   --mdc-dialog-container-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .thresholds-dialog-panel .mat-mdc-dialog-surface,
@@ -273,4 +282,6 @@ label {
   box-shadow: none !important;
   overflow: hidden !important;
   max-height: 96vh !important;
+  width: auto !important;
+  margin: 0 auto !important;
 }
