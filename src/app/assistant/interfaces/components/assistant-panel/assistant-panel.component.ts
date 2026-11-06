@@ -81,10 +81,9 @@ export class AssistantPanelComponent implements OnChanges, OnDestroy {
   @ViewChild('messageList') private messageList?: ElementRef<HTMLElement>;
 
   readonly suggestionKeys: readonly string[] = [
-    'assistant.suggestions.status',
-    'assistant.suggestions.co2',
-    'assistant.suggestions.alerts',
-    'assistant.suggestions.ventilation',
+    'assistant.suggestions.heat',
+    'assistant.suggestions.dengue',
+    'assistant.suggestions.emergencyKit',
   ];
 
   view: PanelView = 'chat';

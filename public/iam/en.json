@@ -47,6 +47,7 @@
     "loginLink": "Login",
     "snackbar": {
       "success": "Registration successful. Check your email to confirm.",
+      "localSuccess": "Local account created. You can now sign in with your email and password.",
       "close": "Close"
     },
     "error": {

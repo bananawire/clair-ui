@@ -34,7 +34,14 @@ describe('AuthCommandServiceImpl', () => {
       const result = await firstValueFrom(service.handleSignUp(command));
 
       expect(gateway.signUp).toHaveBeenCalledWith({ email: 'usuario@test.com', password: 'Clave1!A' });
-      expect(result).toEqual({ sessionId: 'session-1', message: 'Registration started' });
+      expect(result).toEqual({ sessionId: 'session-1', message: 'Registration started', verificationRequired: true });
+    });
+
+    it('conserva la indicación explícita del backend de registro local sin verificación', async () => {
+      gateway.signUp.mockReturnValue(of({ sessionId: 'local-1', message: 'Created', verificationRequired: false }));
+      const command = createSignUpCommand(createEmail('local@example.test'), createPassword('Local123!'));
+
+      expect((await firstValueFrom(service.handleSignUp(command))).verificationRequired).toBe(false);
     });
   });
 
