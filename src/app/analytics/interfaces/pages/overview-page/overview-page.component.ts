@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { catchError, map, Observable, of, startWith } from 'rxjs';
@@ -14,6 +14,7 @@ import {
   analyticsOverviewSnapshotToOverviewMeasurements,
   OverviewMeasurements,
 } from '../../rest/transform/analytics.transform';
+import { NinoAlertService, NinoAlertResponse } from '../../../../analytics/application/internal/services/nino-alert.service';
 
 @Component({
   selector: 'app-overview-page',
@@ -35,6 +36,18 @@ export class OverviewPageComponent {
     measurements: OverviewMeasurements | null;
   }>;
 
+  private readonly ninoAlertService = inject(NinoAlertService);
+
+  readonly ninoScenario = {
+    humidity: 85,
+    temperature: 30,
+    riskLevel: 'ALTO',
+    riskScore: 82,
+  };
+
+  isGeneratingAlert = false;
+  ninoAlert: NinoAlertResponse | null = null;
+
   constructor(
     @Inject(ANALYTICS_CONTEXT_FACADE)
     private readonly analyticsContextFacade: AnalyticsContextFacade,
@@ -49,5 +62,20 @@ export class OverviewPageComponent {
       startWith({ status: 'loading' as const, measurements: null }),
       catchError(() => of({ status: 'error' as const, measurements: null })),
     );
+  }
+
+  generateNinoAlert(): void {
+    if (this.isGeneratingAlert) return;
+    this.isGeneratingAlert = true;
+
+    this.ninoAlertService.generateAlert(this.ninoScenario).subscribe({
+      next: (response) => {
+        this.ninoAlert = response;
+        this.isGeneratingAlert = false;
+      },
+      error: () => {
+        this.isGeneratingAlert = false;
+      },
+    });
   }
 }

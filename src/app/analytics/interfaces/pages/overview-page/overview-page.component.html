@@ -1,5 +1,69 @@
 <section class="overview-container">
-        <ng-container *ngIf="viewState$ | async as viewState">
+  <!-- Badge y Tarjeta Modo Niño (Escenario Simulado Piura) -->
+  <header class="nino-header-banner">
+    <div class="nino-badge">
+      {{ 'nino.activeBadge' | translate }}
+    </div>
+  </header>
+
+  <article class="nino-risk-card">
+    <div class="nino-card-top">
+      <div class="nino-title-group">
+        <div class="nino-tag-row">
+          <span class="nino-location-tag">Piura</span>
+          <span class="nino-simulation-tag">{{ 'nino.riskCardTitle' | translate }}</span>
+        </div>
+        <div class="nino-risk-metric">
+          <span class="nino-risk-label">{{ 'nino.dengueRiskLabel' | translate }}:</span>
+          <span class="nino-risk-pill danger">{{ 'nino.dengueRiskLevel' | translate }}</span>
+        </div>
+      </div>
+
+      <div class="nino-indicators">
+        <div class="indicator-item">
+          <span class="indicator-label">{{ 'nino.humidityLabel' | translate }}</span>
+          <span class="indicator-value">{{ ninoScenario.humidity }} %</span>
+        </div>
+        <div class="indicator-divider"></div>
+        <div class="indicator-item">
+          <span class="indicator-label">{{ 'nino.temperatureLabel' | translate }}</span>
+          <span class="indicator-value">{{ ninoScenario.temperature }} °C</span>
+        </div>
+      </div>
+    </div>
+
+    <p class="nino-mosquito-warning">
+      <span class="warning-icon">🦟</span>
+      {{ 'nino.mosquitoWarning' | translate }}
+    </p>
+
+    <div class="nino-action-row">
+      <button
+        type="button"
+        class="nino-alert-btn"
+        (click)="generateNinoAlert()"
+        [disabled]="isGeneratingAlert"
+      >
+        <span *ngIf="!isGeneratingAlert" class="btn-icon">⚡</span>
+        <span *ngIf="isGeneratingAlert" class="nino-spinner"></span>
+        <span>{{ (isGeneratingAlert ? 'nino.generatingAlert' : 'nino.generateAlertBtn') | translate }}</span>
+      </button>
+
+      <span class="nino-official-hint">{{ 'nino.officialRecommendation' | translate }}</span>
+    </div>
+
+    <!-- Alerta Generada (DeepSeek o Fallback) -->
+    <div *ngIf="ninoAlert" class="nino-alert-result" [class.fallback-tone]="ninoAlert.source === 'fallback'">
+      <div class="alert-result-header">
+        <span class="alert-source-pill" [class.ai]="ninoAlert.source === 'deepseek'">
+          {{ (ninoAlert.source === 'deepseek' ? 'nino.sourceDeepseek' : 'nino.sourceFallback') | translate }}
+        </span>
+      </div>
+      <p class="alert-message">{{ ninoAlert.message }}</p>
+    </div>
+  </article>
+
+  <ng-container *ngIf="viewState$ | async as viewState">
           <ng-container [ngSwitch]="viewState.status">
             <section *ngSwitchCase="'loading'" class="overview-info-state">
               <p>{{ 'overview.loading' | translate }}</p>

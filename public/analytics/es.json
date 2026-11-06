@@ -216,5 +216,21 @@
     "unhealthy": "No saludable",
     "veryUnhealthy": "Muy no saludable",
     "hazardous": "Peligroso"
+  },
+  "nino": {
+    "activeBadge": "⚠️ Modo Niño Activo",
+    "riskCardTitle": "Escenario Simulado: Piura",
+    "dengueRiskLabel": "Riesgo de dengue",
+    "dengueRiskLevel": "ALTO (82)",
+    "temperatureLabel": "Temperatura",
+    "temperatureValue": "30 °C",
+    "humidityLabel": "Humedad",
+    "humidityValue": "85 %",
+    "mosquitoWarning": "La humedad y el calor están en el rango ideal del zancudo.",
+    "generateAlertBtn": "Generar alerta IA",
+    "generatingAlert": "Generando alerta con IA...",
+    "sourceDeepseek": "Generado por IA (DeepSeek)",
+    "sourceFallback": "Alerta de respaldo oficial",
+    "officialRecommendation": "Siga las alertas oficiales de MINSA y SENAMHI."
   }
 }
