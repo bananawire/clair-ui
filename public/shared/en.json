@@ -5,6 +5,7 @@
   "header": {
     "toggleSidebarAria": "Toggle sidebar",
     "notificationsAria": "Notifications",
+    "assistantAria": "AI Assistant",
     "notificationsTitle": "Notifications",
     "closeNotificationsAria": "Close notifications",
     "emptyNotifications": "No new notifications",
@@ -38,6 +39,7 @@
     "airQuality": "Air quality icon",
     "alertsActions": "Alerts actions icon",
     "reports": "Reports icon",
+    "aiAssistant": "AI assistant icon",
     "spaceDevices": "Space devices icon",
     "clairDevice": "Clair device"
   },
@@ -51,5 +53,34 @@
     "loading": "Loading...",
     "error": "Error",
     "success": "Success"
+  },
+  "notificationsBell": {
+    "buttonAria": "Notifications",
+    "unreadAria": "{{count}} unread",
+    "title": "Notifications",
+    "explanation": "Alerts when a device detects poor air quality.",
+    "permission": {
+      "default": {
+        "title": "Browser notifications are off",
+        "hint": "Turn them on to get alerts even when Clair is closed."
+      },
+      "denied": {
+        "title": "Browser notifications are blocked",
+        "hint": "Allow them for this site from the lock icon next to the address."
+      }
+    },
+    "enableButton": "Turn on"
+  },
+  "sidebarSearch": {
+    "inputAria": "Search pages, spaces and devices",
+    "clearAria": "Clear search",
+    "resultsAria": "Search results",
+    "group": {
+      "pages": "Pages",
+      "spaces": "Spaces",
+      "devices": "Devices"
+    },
+    "noResults": "Nothing matches \"{{query}}\". Try a page name, a space or a device serial number.",
+    "loadingSpaces": "Loading your spaces and devices…"
   }
 }

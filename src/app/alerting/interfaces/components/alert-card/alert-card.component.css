@@ -1,13 +1,13 @@
 .alert-card {
   border-radius: 12px;
   padding: 16px;
-  background: #1c1c1e;
-  border: 1px solid #2c2c2e;
+  background: var(--clair-surface-2);
+  border: 1px solid var(--clair-surface-3);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .alert-card:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--clair-shadow-sm);
   transform: translateY(-2px);
 }
 
@@ -23,11 +23,18 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #e5e7eb;
+  color: var(--clair-text);
 }
 
 .metric-icon {
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .metric-name {
@@ -37,12 +44,12 @@
 
 .metric-unit {
   font-size: 0.8rem;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
 }
 
 .message {
   font-size: 0.9rem;
-  color: #e5e7eb;
+  color: var(--clair-text);
   margin-bottom: 12px;
   line-height: 1.4;
 }
@@ -60,7 +67,7 @@
 
 .value-label {
   font-size: 0.7rem;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -68,7 +75,7 @@
 .value-number {
   font-size: 1rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--clair-text);
 }
 
 .footer {
@@ -77,12 +84,12 @@
   justify-content: space-between;
   margin-top: 8px;
   padding-top: 10px;
-  border-top: 1px solid #2c2c2e;
+  border-top: 1px solid var(--clair-surface-3);
 }
 
 .date {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   display: flex;
   align-items: center;
   gap: 4px;
@@ -90,5 +97,5 @@
 
 .resolved-text {
   font-size: 0.75rem;
-  color: #10b981;
+  color: var(--clair-success);
 }

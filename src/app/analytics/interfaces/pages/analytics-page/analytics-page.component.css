@@ -2,8 +2,8 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: var(--clair-bg);
+  color: var(--clair-text);
 }
 
 .page-body {
@@ -53,8 +53,8 @@
 /* Period Selector Pill */
 .period-selector-pill {
   display: flex;
-  background-color: #141414;
-  border: 1px solid #2a2a2a;
+  background-color: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
   border-radius: 9999px;
   padding: 3px;
 }
@@ -62,7 +62,7 @@
 .period-selector-pill button {
   background: transparent;
   border: none;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   padding: 0.5rem 1.25rem;
   font-size: 0.85rem;
   font-weight: 600;
@@ -73,13 +73,13 @@
 }
 
 .period-selector-pill button:hover {
-  color: #ffffff;
+  color: var(--clair-text);
 }
 
 .period-selector-pill button.active {
-  background-color: #2a2a2a;
-  color: #ffffff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  background-color: var(--clair-border);
+  color: var(--clair-text);
+  box-shadow: var(--clair-shadow-sm);
 }
 
 /* Calendar Button */
@@ -101,22 +101,22 @@
 }
 
 .icon-action-btn {
-  background-color: #141414;
-  border: 1px solid #2a2a2a;
+  background-color: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
   border-radius: 50%;
   width: 40px;
   height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  color: var(--clair-text);
   cursor: pointer;
   transition: all 0.25s ease;
 }
 
 .icon-action-btn:hover {
-  background-color: #2a2a2a;
-  border-color: #3e3e3e;
+  background-color: var(--clair-border);
+  border-color: var(--clair-border-strong);
 }
 
 .icon-action-btn mat-icon {
@@ -142,7 +142,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   text-transform: uppercase;
   font-family: var(--app-font-headline);
 }
@@ -152,7 +152,7 @@
 }
 
 .custom-select-field ::v-deep .mdc-text-field--outlined {
-  background-color: #101010;
+  background-color: var(--clair-surface-1);
   border-radius: 12px;
 }
 
@@ -163,18 +163,18 @@
 .custom-select-field ::v-deep .mdc-notched-outline__leading,
 .custom-select-field ::v-deep .mdc-notched-outline__notch,
 .custom-select-field ::v-deep .mdc-notched-outline__trailing {
-  border-color: #2a2a2a !important;
+  border-color: var(--clair-border) !important;
   border-width: 1px !important;
 }
 
 .custom-select-field.mat-focused ::v-deep .mdc-notched-outline__leading,
 .custom-select-field.mat-focused ::v-deep .mdc-notched-outline__notch,
 .custom-select-field.mat-focused ::v-deep .mdc-notched-outline__trailing {
-  border-color: #10b981 !important;
+  border-color: var(--clair-success) !important;
 }
 
 .custom-select-field ::v-deep .mat-mdc-select-value {
-  color: #ffffff;
+  color: var(--clair-text);
 }
 
 /* Dashboard Grid Layout */
@@ -195,7 +195,7 @@
   align-items: center;
   gap: 0.4rem;
   font-size: 0.8rem;
-  color: #6b7280;
+  color: var(--clair-text-muted);
   margin-top: -0.5rem;
 }
 
@@ -223,16 +223,16 @@
   align-items: center;
   justify-content: center;
   padding: 3rem;
-  background-color: #141414;
-  border: 1px solid #2a2a2a;
+  background-color: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
   border-radius: 16px;
   gap: 1rem;
   text-align: center;
 }
 
-.loading-state mat-icon { color: #10b981; }
-.error-state mat-icon { color: #ef4444; }
-.live-unavailable-state mat-icon { color: #6b7280; }
+.loading-state mat-icon { color: var(--clair-success); }
+.error-state mat-icon { color: var(--clair-danger); }
+.live-unavailable-state mat-icon { color: var(--clair-text-muted); }
 
 .empty-dashboard-placeholder {
   display: flex;
@@ -240,11 +240,11 @@
   align-items: center;
   justify-content: center;
   padding: 4rem 2rem;
-  background-color: #141414;
-  border: 1px solid #2a2a2a;
+  background-color: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
   border-radius: 16px;
   text-align: center;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   gap: 0.5rem;
 }
 
@@ -252,7 +252,7 @@
   font-size: 48px;
   width: 48px;
   height: 48px;
-  color: #4b5563;
+  color: var(--clair-text-muted);
 }
 
 @media (max-width: 1400px) {

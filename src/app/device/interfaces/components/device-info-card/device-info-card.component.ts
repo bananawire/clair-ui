@@ -97,6 +97,44 @@ export class DeviceInfoCardComponent {
     return this.translate.instant('deviceInfoCard.uptime.days', { days, hours: hours % 24 });
   }
 
+  formatRainfall(): string {
+    if (this.telemetry == null) return '--';
+    return this.formatMetricNumber(this.telemetry.rainfallMm);
+  }
+
+  formatWaterLevel(): string {
+    if (this.telemetry == null) return '--';
+    return this.formatMetricNumber(this.telemetry.waterLevelCm);
+  }
+
+  formatBattery(): string {
+    const battery = this.telemetry?.batteryPercent;
+    if (battery == null) return this.translate.instant('deviceInfoCard.batteryUnavailable');
+    return `${this.formatMetricNumber(battery)}%`;
+  }
+
+  formatSolarCharging(): string {
+    if (this.telemetry == null) return '--';
+    return this.telemetry.solarCharging
+      ? this.translate.instant('deviceInfoCard.solarChargingOn')
+      : this.translate.instant('deviceInfoCard.solarChargingOff');
+  }
+
+  batteryIcon(): string {
+    const battery = this.telemetry?.batteryPercent;
+    if (battery == null) return 'battery_unknown';
+    if (battery <= 15) return 'battery_0_bar';
+    if (battery <= 35) return 'battery_2_bar';
+    if (battery <= 60) return 'battery_4_bar';
+    if (battery <= 85) return 'battery_5_bar';
+    return 'battery_full';
+  }
+
+  private formatMetricNumber(value: number): string {
+    if (!Number.isFinite(value)) return '--';
+    return Number.isInteger(value) ? String(value) : value.toFixed(1);
+  }
+
   private isDeviceLikelyAwake(): boolean {
     return this.device.status === "ONLINE";
   }

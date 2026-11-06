@@ -4,7 +4,7 @@
   <form [formGroup]="form" (ngSubmit)="submit()">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>{{ 'claimDeviceDialog.tokenLabel' | translate }}</mat-label>
-        <input matInput formControlName="claimToken" [placeholder]="'claimDeviceDialog.tokenPlaceholder' | translate" autocomplete="off" />
+        <input matInput formControlName="claimToken" [placeholder]="'claimDeviceDialog.tokenPlaceholder' | translate" autocomplete="off" (input)="onClaimTokenInput($event)" />
         <mat-error *ngIf="form.get('claimToken')?.hasError('required')">{{ 'claimDeviceDialog.tokenRequired' | translate }}</mat-error>
         <mat-error *ngIf="form.get('claimToken')?.hasError('pattern')">{{ 'claimDeviceDialog.tokenPattern' | translate }}</mat-error>
       </mat-form-field>

@@ -1,0 +1,11 @@
+<div class="prompts">
+  <button
+    *ngFor="let key of promptKeys"
+    type="button"
+    class="prompt-chip"
+    [disabled]="disabled"
+    (click)="choose(key)"
+  >
+    {{ key | translate }}
+  </button>
+</div>

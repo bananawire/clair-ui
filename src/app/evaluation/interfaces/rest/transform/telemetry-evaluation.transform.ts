@@ -3,8 +3,24 @@ import { createEvaluationDeviceId } from '../../../domain/model/valueobjects/eva
 import { TelemetryEvaluation, TelemetryEvaluationPage } from '../../../domain/services/telemetry-evaluation-query-service';
 import { TelemetryEvaluationPageResource, TelemetryEvaluationResource } from '../resources/telemetry-evaluation.resource';
 import { createSystemUptime } from '../../../domain/model/valueobjects/system-uptime.value-object';
+import { absentHydrology } from '../../../domain/model/valueobjects/hydrology.value-object';
+import { absentPowerStatus } from '../../../domain/model/valueobjects/power-status.value-object';
 
 export const telemetryEvaluationResourceToDomain = (resource: TelemetryEvaluationResource): TelemetryEvaluation => {
+  const hydrology = resource.hydrology
+    ? Object.freeze({
+        rainfallMm: resource.hydrology.rainfallMm ?? 0,
+        waterLevelCm: resource.hydrology.waterLevelCm ?? 0,
+      })
+    : absentHydrology();
+
+  const powerStatus = resource.powerStatus
+    ? Object.freeze({
+        batteryPercent: resource.powerStatus.batteryPercent ?? null,
+        solarCharging: Boolean(resource.powerStatus.solarCharging),
+      })
+    : absentPowerStatus();
+
   return Object.freeze({
     id: createEvaluationId(resource.id),
     deviceId: createEvaluationDeviceId(resource.deviceId),
@@ -20,6 +36,8 @@ export const telemetryEvaluationResourceToDomain = (resource: TelemetryEvaluatio
       pm2_5: resource.particulateMatter.pm2_5,
       pm10: resource.particulateMatter.pm10,
     }),
+    hydrology,
+    powerStatus,
     connectivity: Object.freeze({
       status: resource.connectivity.status,
       network: resource.connectivity.network,

@@ -1,6 +1,6 @@
 .chart-card {
-  background: #141414;
-  border: 1px solid #2a2a2a;
+  background: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
   border-radius: 16px;
   padding: 1.5rem;
   display: flex;
@@ -17,7 +17,7 @@
 .chart-title {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #e5e7eb;
+  color: var(--clair-text);
 }
 
 .chart-body {
@@ -32,7 +32,7 @@
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(to top, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    linear-gradient(to top, rgba(var(--clair-ink-rgb), 0.06) 1px, transparent 1px);
   background-size: 100% 28px;
   pointer-events: none;
 }
@@ -66,10 +66,10 @@
   display: flex;
   justify-content: space-between;
   padding-top: 0.5rem;
-  border-top: 1px solid #2a2a2a;
+  border-top: 1px solid var(--clair-border);
 }
 
 .footer-label {
   font-size: 0.7rem;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
 }

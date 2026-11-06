@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  background-color: #000000;
+  background-color: var(--clair-bg);
   padding: 4rem 1rem;
   position: relative;
 }
@@ -25,7 +25,7 @@
 }
 
 .back-button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(var(--clair-ink-rgb), 0.1);
 }
 
 .logo-header {
@@ -44,14 +44,14 @@
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--clair-text);
   margin: 0 0 0.25rem 0;
 }
 
 .subtitle {
   text-align: center;
   font-size: 1rem;
-  color: #757676;
+  color: var(--clair-text-muted);
   margin: 0;
 }
 

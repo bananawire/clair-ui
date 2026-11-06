@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, inject, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatButtonModule } from '@angular/material/button';
@@ -41,8 +41,11 @@ export class SpaceDevicesPageComponent implements OnInit, OnDestroy {
   private readonly cdr = inject(ChangeDetectorRef);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly document = inject(DOCUMENT);
 
   @ViewChild(OrganizationsPanelComponent) orgPanel!: OrganizationsPanelComponent;
+  @ViewChild('organizationsDrawer') private organizationsDrawer?: ElementRef<HTMLElement>;
+  @ViewChild('organizationsContextButton') private organizationsContextButton?: ElementRef<HTMLButtonElement>;
 
   private readonly subscriptions = new Subscription();
   private telemetryPollingSubscription: Subscription | null = null;
@@ -50,6 +53,7 @@ export class SpaceDevicesPageComponent implements OnInit, OnDestroy {
   private statusPollingSubscription: Subscription | null = null;
   private statusPollingResetTimeoutId: ReturnType<typeof setTimeout> | null = null;
   private trackedStatusDeviceId: string | null = null;
+  private previousBodyOverflow: string | null = null;
 
   isOrganizationsDrawerOpen = false;
   selectedSpace: Space | null = null;
@@ -89,18 +93,54 @@ export class SpaceDevicesPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.unlockBodyScroll();
     this.stopTelemetryPolling();
     this.stopListTelemetryPolling();
     this.stopStatusPolling();
     this.subscriptions.unsubscribe();
   }
 
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (!this.isOrganizationsDrawerOpen) return;
+    this.closeOrganizationsDrawer();
+  }
+
   openOrganizationsDrawer(): void {
     this.isOrganizationsDrawerOpen = true;
+    this.lockBodyScroll();
+    this.cdr.detectChanges();
+    setTimeout(() => this.focusOrganizationsDrawer());
   }
 
   closeOrganizationsDrawer(): void {
+    if (!this.isOrganizationsDrawerOpen) return;
     this.isOrganizationsDrawerOpen = false;
+    this.unlockBodyScroll();
+    this.restoreOrganizationsContextFocus();
+  }
+
+  private lockBodyScroll(): void {
+    if (this.previousBodyOverflow !== null) return;
+    this.previousBodyOverflow = this.document.body.style.overflow;
+    this.document.body.style.overflow = 'hidden';
+  }
+
+  private unlockBodyScroll(): void {
+    if (this.previousBodyOverflow === null) return;
+    this.document.body.style.overflow = this.previousBodyOverflow;
+    this.previousBodyOverflow = null;
+  }
+
+  private focusOrganizationsDrawer(): void {
+    const drawer = this.organizationsDrawer?.nativeElement;
+    if (!drawer) return;
+    const closeButton = drawer.querySelector<HTMLElement>('.drawer-close-button');
+    (closeButton ?? drawer).focus();
+  }
+
+  private restoreOrganizationsContextFocus(): void {
+    this.organizationsContextButton?.nativeElement.focus();
   }
 
   selectSpace(space: Space): void {
@@ -259,20 +299,23 @@ export class SpaceDevicesPageComponent implements OnInit, OnDestroy {
 
   openClaimDeviceDialog(): void {
     if (!this.selectedSpace) return;
+    const space = this.selectedSpace;
     this.subscriptions.add(
-      this.pageActions.runClaimDeviceFlow(this.selectedSpace).subscribe({
-        next: () => {
-          if (this.selectedSpace) this.loadDevices(this.selectedSpace.id);
+      this.pageActions.runPairClaimDeviceFlow(space, { startStep: 'claim', autoClaimEnabled: true }).subscribe({
+        next: (claimed) => {
+          if (claimed) this.loadDevices(space.id);
         },
       })
     );
   }
 
   openPairDeviceDialog(): void {
+    if (!this.selectedSpace) return;
+    const space = this.selectedSpace;
     this.subscriptions.add(
-      this.pageActions.runPairDeviceFlow().subscribe({
-        next: () => {
-          if (this.selectedSpace) this.loadDevices(this.selectedSpace.id);
+      this.pageActions.runPairClaimDeviceFlow(space, { startStep: 'pair', autoClaimEnabled: true }).subscribe({
+        next: (claimed) => {
+          if (claimed) this.loadDevices(space.id);
         },
       })
     );

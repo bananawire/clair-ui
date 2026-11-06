@@ -1,9 +1,6 @@
 <aside class="sidebar-container" [class.collapsed]="!isOpen">
   <!-- Search -->
-  <div *ngIf="isOpen" class="search-wrapper">
-    <mat-icon class="search-icon">search</mat-icon>
-    <input type="text" [attr.placeholder]="'sidebar.searchPlaceholder' | translate" class="search-input" />
-  </div>
+  <app-sidebar-search *ngIf="isOpen" class="search-wrapper"></app-sidebar-search>
 
   <!-- Navigation -->
   <nav class="nav-list">
@@ -29,10 +26,11 @@
 
   <!-- Settings -->
   <div class="settings-wrapper">
-    <a class="nav-item" routerLink="/settings" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+    <a class="nav-item settings-link" routerLink="/settings" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
       (click)="onNavItemClick()">
       <mat-icon>settings</mat-icon>
       <span *ngIf="isOpen">{{ 'sidebar.settings' | translate }}</span>
     </a>
+    <app-notifications-bell class="settings-bell"></app-notifications-bell>
   </div>
 </aside>

@@ -7,52 +7,16 @@
   </div>
 
   <div class="header-right">
-    <div class="notifications-wrapper">
-      <button mat-icon-button class="action-button" [attr.aria-label]="'header.notificationsAria' | translate" (click)="toggleNotifications($event)">
-        <mat-icon>notifications</mat-icon>
-      </button>
-      <span class="badge" *ngIf="unreadCount > 0">{{ unreadCount > 99 ? ('header.unreadCount99plus' | translate) : unreadCount }}</span>
-
-      <!-- Panel de Notificaciones -->
-      <div class="notification-panel" *ngIf="isNotificationPanelOpen" (click)="$event.stopPropagation()">
-        <div class="panel-header">
-          <h3>{{ 'header.notificationsTitle' | translate }}</h3>
-          <button mat-icon-button class="close-panel-btn" (click)="isNotificationPanelOpen = false" [attr.aria-label]="'header.closeNotificationsAria' | translate">
-            <mat-icon>close</mat-icon>
-          </button>
-        </div>
-
-        <div class="panel-content">
-          <div class="loading-container" *ngIf="loading">
-            <mat-spinner diameter="32"></mat-spinner>
-          </div>
-
-          <div class="empty-state" *ngIf="!loading && notifications.length === 0">
-            <mat-icon class="empty-icon">notifications_none</mat-icon>
-            <p class="empty-text">{{ 'header.emptyNotifications' | translate }}</p>
-          </div>
-
-          <div class="notification-list" *ngIf="!loading && notifications.length > 0">
-            <div class="notification-item" *ngFor="let notification of notifications">
-              <div class="item-icon-container" [class.success]="notification.sent" [class.failed]="!notification.sent">
-                <mat-icon>{{ notification.sent ? 'notifications_active' : 'error_outline' }}</mat-icon>
-              </div>
-              <div class="item-body">
-                <h4 class="item-title">{{ notification.title }}</h4>
-                <p class="item-message">{{ notification.message }}</p>
-                <div class="item-footer">
-                  <span class="item-time">{{ getRelativeTime(notification.createdAt) }}</span>
-                  <span class="item-status" *ngIf="!notification.sent">{{ 'header.notificationFailedToSend' | translate }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <button mat-icon-button class="action-button" [attr.aria-label]="'header.userProfileAria' | translate">
-      <mat-icon>person</mat-icon>
+    <button
+      mat-icon-button
+      class="action-button assistant-button"
+      [class.active]="isAssistantOpen"
+      [attr.aria-label]="'header.assistantAria' | translate"
+      [attr.aria-expanded]="isAssistantOpen"
+      [attr.title]="'header.assistantAria' | translate"
+      (click)="onToggleAssistant($event)"
+    >
+      <app-ai-assistant class="assistant-icon"></app-ai-assistant>
     </button>
   </div>
 </header>

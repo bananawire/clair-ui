@@ -1,0 +1,65 @@
+<button
+  type="button"
+  class="bell-button"
+  [class.active]="isOpen"
+  [attr.aria-label]="('notificationsBell.buttonAria' | translate) + (unreadCount > 0 ? ', ' + ('notificationsBell.unreadAria' | translate: { count: unreadCount }) : '')"
+  [attr.title]="'notificationsBell.buttonAria' | translate"
+  [attr.aria-expanded]="isOpen"
+  aria-haspopup="dialog"
+  (click)="toggle($event)"
+>
+  <mat-icon aria-hidden="true">{{ unreadCount > 0 ? 'notifications_active' : 'notifications' }}</mat-icon>
+  <span class="badge" *ngIf="unreadCount > 0" aria-hidden="true">
+    {{ unreadCount > 99 ? ('header.unreadCount99plus' | translate) : unreadCount }}
+  </span>
+</button>
+
+<div class="notification-panel" *ngIf="isOpen" role="dialog" [attr.aria-label]="'notificationsBell.title' | translate">
+  <div class="panel-header">
+    <div class="panel-heading">
+      <h3>{{ 'notificationsBell.title' | translate }}</h3>
+      <p>{{ 'notificationsBell.explanation' | translate }}</p>
+    </div>
+    <button mat-icon-button class="close-panel-btn" (click)="close()" [attr.aria-label]="'header.closeNotificationsAria' | translate">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="permission-banner" *ngIf="permission === 'default' || permission === 'denied'" [attr.data-state]="permission">
+    <mat-icon aria-hidden="true">{{ permission === 'denied' ? 'block' : 'notifications_off' }}</mat-icon>
+    <div class="permission-text">
+      <span class="permission-title">{{ 'notificationsBell.permission.' + permission + '.title' | translate }}</span>
+      <span class="permission-hint">{{ 'notificationsBell.permission.' + permission + '.hint' | translate }}</span>
+    </div>
+    <button *ngIf="permission === 'default'" type="button" class="enable-btn" (click)="enableBrowserNotifications()">
+      {{ 'notificationsBell.enableButton' | translate }}
+    </button>
+  </div>
+
+  <div class="panel-content">
+    <div class="loading-container" *ngIf="loading">
+      <mat-spinner diameter="28"></mat-spinner>
+    </div>
+
+    <div class="empty-state" *ngIf="!loading && notifications.length === 0">
+      <mat-icon class="empty-icon" aria-hidden="true">notifications_none</mat-icon>
+      <p class="empty-text">{{ 'header.emptyNotifications' | translate }}</p>
+    </div>
+
+    <ul class="notification-list" *ngIf="!loading && notifications.length > 0">
+      <li class="notification-item" *ngFor="let notification of notifications">
+        <div class="item-icon-container" [class.success]="notification.sent" [class.failed]="!notification.sent">
+          <mat-icon aria-hidden="true">{{ notification.sent ? 'notifications_active' : 'error_outline' }}</mat-icon>
+        </div>
+        <div class="item-body">
+          <h4 class="item-title">{{ notification.title }}</h4>
+          <p class="item-message">{{ notification.message }}</p>
+          <div class="item-footer">
+            <span class="item-time">{{ getRelativeTime(notification.createdAt) }}</span>
+            <span class="item-status" *ngIf="!notification.sent">{{ 'header.notificationFailedToSend' | translate }}</span>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

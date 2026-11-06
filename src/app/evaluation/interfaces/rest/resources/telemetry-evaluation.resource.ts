@@ -5,6 +5,8 @@ export interface TelemetryEvaluationResource {
   readonly uptime: number;
   readonly airQuality: AirQualityResource;
   readonly particulateMatter: ParticulateMatterResource;
+  readonly hydrology?: HydrologyResource | null;
+  readonly powerStatus?: PowerStatusResource | null;
   readonly connectivity: ConnectivityResource;
   readonly location: LocationResource;
   readonly healthStatus: number;
@@ -23,6 +25,16 @@ export interface ParticulateMatterResource {
   readonly pm1_0: number | null;
   readonly pm2_5: number | null;
   readonly pm10: number | null;
+}
+
+export interface HydrologyResource {
+  readonly rainfallMm: number | null;
+  readonly waterLevelCm: number | null;
+}
+
+export interface PowerStatusResource {
+  readonly batteryPercent: number | null;
+  readonly solarCharging: boolean | null;
 }
 
 export interface ConnectivityResource {

@@ -1,6 +1,6 @@
 .alerts-card {
-  background: #141414;
-  border: 1px solid #2a2a2a;
+  background: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
   border-radius: 16px;
   padding: 1.25rem;
   display: flex;
@@ -25,16 +25,16 @@
 .alerts-header p {
   margin: 0.25rem 0 0;
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--clair-text-muted);
 }
 
 .alerts-action {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  border: 1px solid #2a2a2a;
-  background: #1a1a1a;
-  color: #ffffff;
+  border: 1px solid var(--clair-border);
+  background: var(--clair-surface-2);
+  color: var(--clair-text);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -52,12 +52,12 @@
   grid-template-columns: 10px 1fr auto;
   align-items: center;
   gap: 0.5rem;
-  background: #101010;
-  border: 1px solid #2a2a2a;
+  background: var(--clair-surface-1);
+  border: 1px solid var(--clair-border);
   border-radius: 999px;
   padding: 0.45rem 0.75rem;
   font-size: 0.75rem;
-  color: #e5e7eb;
+  color: var(--clair-text);
 }
 
 .alerts-item-label {
@@ -67,7 +67,7 @@
 }
 
 .alerts-item-time {
-  color: #6b7280;
+  color: var(--clair-text-muted);
 }
 
 .dot {
@@ -78,12 +78,12 @@
 }
 
 .dot.warning {
-  color: #f59e0b;
+  color: var(--clair-warning);
   background: #f59e0b;
 }
 
 .dot.danger {
-  color: #ef4444;
+  color: var(--clair-danger);
   background: #ef4444;
 }
 
@@ -94,6 +94,6 @@
 
 .alerts-empty {
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--clair-text-muted);
 }
 

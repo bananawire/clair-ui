@@ -9,7 +9,7 @@ export const createClaimDeviceCommand = (
   claimToken: string,
   spaceId: SpaceId
 ): ClaimDeviceCommand => {
-  const normalizedClaimToken = claimToken.trim();
+  const normalizedClaimToken = claimToken.trim().toUpperCase();
   if (normalizedClaimToken.length === 0) {
     throw new Error('Claim token must not be empty');
   }

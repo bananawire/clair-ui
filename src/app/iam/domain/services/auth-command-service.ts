@@ -11,7 +11,7 @@ import { AccessToken } from '../model/valueobjects/access-token.value-object';
 import { RefreshToken } from '../model/valueobjects/refresh-token.value-object';
 
 export interface AuthCommandService {
-  handleSignUp(command: SignUpCommand): Observable<{ sessionId: string; message: string }>;
+  handleSignUp(command: SignUpCommand): Observable<{ sessionId: string; message: string; verificationRequired?: boolean }>;
   handleSignIn(command: SignInCommand): Observable<{ accessToken: AccessToken; refreshToken: RefreshToken }>;
   handleRefreshToken(command: RefreshTokenCommand): Observable<{ accessToken: AccessToken; refreshToken: RefreshToken }>;
   handleConfirmRegistration(command: ConfirmRegistrationCommand): Observable<{ userId: UserId; email: string }>;

@@ -1,0 +1,339 @@
+:host {
+  position: relative;
+  display: inline-flex;
+}
+
+/* Matches the sidebar nav items: same height, radius and hover so it reads as part of that row */
+.bell-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 12px;
+  background: none;
+  color: var(--clair-text-secondary);
+  cursor: pointer;
+  transition-property: background-color, color, transform;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+
+.bell-button mat-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+}
+
+.bell-button:hover {
+  background-color: rgba(var(--clair-ink-rgb), 0.06);
+  color: var(--clair-text);
+}
+
+.bell-button.active {
+  background-color: var(--clair-surface-active);
+  color: var(--clair-text);
+}
+
+.bell-button:active {
+  transform: scale(0.94);
+}
+
+.badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 9999px;
+  border: 2px solid var(--clair-surface-1);
+  background-color: #dc2626;
+  color: var(--clair-on-accent);
+  font-size: 9px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  pointer-events: none;
+  box-sizing: content-box;
+}
+
+/* Panel opens beside the sidebar, anchored to the bell's bottom edge */
+.notification-panel {
+  position: absolute;
+  left: calc(100% + 16px);
+  bottom: 0;
+  z-index: 1100;
+  width: 360px;
+  max-height: min(520px, calc(100vh - 120px));
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
+  border-radius: 14px;
+  box-shadow: var(--clair-shadow-lg);
+  color: var(--clair-text);
+  transform-origin: bottom left;
+  animation: panelIn 200ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 16px 8px 12px 16px;
+  border-bottom: 1px solid var(--clair-border);
+}
+
+.panel-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.panel-heading h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--clair-text);
+}
+
+.panel-heading p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--clair-text-secondary);
+}
+
+.close-panel-btn {
+  margin-top: -6px;
+  color: var(--clair-text-secondary) !important;
+}
+
+.permission-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 12px 0;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--clair-surface-3);
+}
+
+.permission-banner > mat-icon {
+  flex-shrink: 0;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  color: var(--clair-text-secondary);
+}
+
+.permission-banner[data-state='denied'] > mat-icon {
+  color: var(--clair-danger);
+}
+
+.permission-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.permission-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.permission-hint {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--clair-text-secondary);
+}
+
+.enable-btn {
+  flex-shrink: 0;
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 9999px;
+  border: 1px solid var(--clair-border-strong);
+  background: var(--clair-surface-2);
+  color: var(--clair-text);
+  font-family: var(--app-font-body);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.enable-btn:hover {
+  background: var(--clair-surface-1);
+}
+
+.panel-content {
+  flex: 1;
+  min-height: 120px;
+  overflow-y: auto;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+}
+
+.empty-icon {
+  margin-bottom: 8px;
+  font-size: 36px;
+  width: 36px;
+  height: 36px;
+  color: var(--clair-text-muted);
+}
+
+.empty-text {
+  margin: 0;
+  font-size: 13px;
+  color: var(--clair-text-secondary);
+}
+
+.notification-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.notification-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  transition: background-color 150ms ease-out;
+}
+
+.notification-item + .notification-item {
+  border-top: 1px solid var(--clair-border);
+}
+
+.notification-item:hover {
+  background-color: rgba(var(--clair-ink-rgb), 0.03);
+}
+
+.item-icon-container {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.item-icon-container mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.item-icon-container.success {
+  background-color: rgba(16, 185, 129, 0.12);
+  color: var(--clair-success);
+}
+
+.item-icon-container.failed {
+  background-color: rgba(239, 68, 68, 0.12);
+  color: var(--clair-danger);
+}
+
+.item-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.item-title {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--clair-text);
+}
+
+.item-message {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--clair-text-secondary);
+  text-wrap: pretty;
+}
+
+.item-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.item-time {
+  font-size: 11px;
+  color: var(--clair-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.item-status {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--clair-danger);
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notification-panel {
+    animation: none;
+  }
+
+  .bell-button:active {
+    transform: none;
+  }
+}
+
+/* Mobile: the sidebar is an overlay, so the panel becomes a full-screen sheet */
+@media (max-width: 768px) {
+  .notification-panel {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    max-height: none;
+    border: none;
+    border-radius: 0;
+    z-index: 9999;
+  }
+
+  .panel-header {
+    padding: 20px 8px 16px 16px;
+  }
+}

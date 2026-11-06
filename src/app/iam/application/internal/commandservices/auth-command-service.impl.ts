@@ -23,10 +23,14 @@ import {
 export class AuthCommandServiceImpl implements AuthCommandService {
   constructor(@Inject(AUTH_GATEWAY) private readonly authGateway: AuthGateway) {}
 
-  handleSignUp(command: SignUpCommand): Observable<{ sessionId: string; message: string }> {
+  handleSignUp(command: SignUpCommand): Observable<{ sessionId: string; message: string; verificationRequired: boolean }> {
     const resource = signUpCommandToResource(command);
     return this.authGateway.signUp(resource).pipe(
-      map((response) => ({ sessionId: response.sessionId, message: response.message }))
+      map((response) => ({
+        sessionId: response.sessionId,
+        message: response.message,
+        verificationRequired: response.verificationRequired ?? true,
+      }))
     );
   }
 

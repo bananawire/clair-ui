@@ -1,15 +1,15 @@
 .thresholds-modal {
-  background: #111111;
-  color: #fff;
-  width: min(960px, 96vw);
+  background: var(--clair-surface-1);
+  color: var(--clair-text);
+  width: min(720px, 96vw);
   max-width: 96vw;
   border-radius: 24px;
   padding: 18px 24px 20px;
-  height: min(860px, 92vh);
+  height: min(720px, 92vh);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  box-shadow: var(--clair-shadow-sm);
 }
 
 .modal-header {
@@ -24,8 +24,8 @@
   height: 40px;
   border-radius: 50%;
   border: none;
-  background: #2a2a2a;
-  color: #fff;
+  background: var(--clair-border);
+  color: var(--clair-text);
   font-size: 0;
   cursor: pointer;
   display: inline-flex;
@@ -36,7 +36,7 @@
 }
 
 .close-button:hover {
-  background: #3a3a3a;
+  background: var(--clair-border);
 }
 
 .close-button svg {
@@ -56,7 +56,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: #111111;
+  background: var(--clair-surface-1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -66,10 +66,12 @@
 
 .columns {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: 16px 20px;
   height: 100%;
   overflow: hidden;
+  align-content: stretch;
   transition: opacity 0.2s ease;
 }
 
@@ -84,7 +86,8 @@
   gap: 10px;
   padding: 6px 0 0;
   min-width: 0;
-  height: 100%;
+  height: auto;
+  min-height: 0;
 }
 
 .metric-name {
@@ -100,7 +103,7 @@
 .metric-divider {
   width: 72%;
   height: 1px;
-  background: rgba(255, 255, 255, 0.22);
+  background: rgba(var(--clair-ink-rgb), 0.22);
 }
 
 .metric-value-row {
@@ -111,7 +114,7 @@
 }
 
 .metric-value {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: 600;
   line-height: 1;
   font-family: var(--app-font-headline);
@@ -134,11 +137,11 @@
 .slider-wrap {
   position: relative;
   width: 56px;
-  flex: 1;
+  flex: 1 1 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 160px;
+  min-height: 120px;
   margin-top: 6px;
   cursor: pointer;
   outline: none;
@@ -153,7 +156,7 @@
   position: absolute;
   width: 6px;
   height: 100%;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(var(--clair-ink-rgb), 0.12);
   border-radius: 999px;
   pointer-events: none;
 }
@@ -209,17 +212,17 @@
 
 .footer-button--secondary {
   background: transparent;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: var(--clair-text);
+  border: 1px solid rgba(var(--clair-ink-rgb), 0.45);
 }
 
 .footer-button--secondary:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(var(--clair-ink-rgb), 0.06);
 }
 
 .footer-button--primary {
-  background: #fff;
-  color: #111111;
+  background: var(--clair-text);
+  color: var(--clair-surface-1);
 }
 
 .footer-button--primary:hover:not(:disabled) {
@@ -240,7 +243,9 @@
 
   .columns {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: none;
     gap: 12px;
+    overflow-y: auto; /* 3 rows may need scroll on short viewports */
   }
 
   .metric-value {

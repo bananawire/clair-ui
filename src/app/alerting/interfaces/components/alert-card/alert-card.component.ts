@@ -5,6 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { Alert } from '../../../domain/services/alert-query-service';
+import { metricTypeIcon } from '../../../domain/model/valueobjects/metric-type.value-object';
 import { AlertStatusBadgeComponent } from '../alert-status-badge/alert-status-badge.component';
 
 @Component({
@@ -27,13 +28,7 @@ export class AlertCardComponent {
   }
 
   metricIcon(metric: Alert['metric']): string {
-    switch (metric) {
-      case 'PM25': return 'cloud';
-      case 'CO2': return 'co2'; // material no tiene co2, fallback later
-      case 'TEMPERATURE': return 'thermostat';
-      case 'HUMIDITY': return 'water_drop';
-      default: return 'sensors';
-    }
+    return metricTypeIcon(metric);
   }
 
   formatDate(iso: string): string {

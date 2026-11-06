@@ -1,0 +1,49 @@
+{
+  "assistant": {
+    "title": "AI Assistant",
+    "subtitle": "Ask about the air in your spaces. The assistant uses your devices, readings, thresholds and alerts.",
+    "usage": {
+      "count": "{{used}} of {{limit}} messages today",
+      "upgrade": "Upgrade plan"
+    },
+    "history": {
+      "title": "Conversations",
+      "new": "New conversation",
+      "empty": "You have no conversations yet."
+    },
+    "empty": {
+      "title": "How can I help?",
+      "body": "I can explain your CO2, PM2.5, temperature and humidity readings and tell you what to do when something is out of range."
+    },
+    "suggestions": {
+      "heat": "What should I do for my grandmother in the heat?",
+      "dengue": "How can I prevent dengue at home?",
+      "emergencyKit": "What should I pack in my emergency kit?"
+    },
+    "composer": {
+      "placeholder": "Type your question…",
+      "hint": "Enter to send · Shift + Enter for a new line",
+      "send": "Send question"
+    },
+    "panel": {
+      "close": "Close assistant"
+    },
+    "typing": "The assistant is typing…",
+    "loadingConversation": "Loading conversation…",
+    "feedback": {
+      "up": "Helpful answer",
+      "down": "Not helpful"
+    },
+    "banner": {
+      "quota": {
+        "title": "You used your {{limit}} messages for today",
+        "body": "Your allowance resets at midnight.",
+        "upgrade": "Go Premium"
+      },
+      "unavailable": "The assistant is not available right now. Please try again in a few minutes.",
+      "error": "Your question could not be sent. Please try again.",
+      "load": "The conversation could not be loaded."
+    },
+    "disclaimer": "The assistant can make mistakes and does not replace a professional health assessment."
+  }
+}

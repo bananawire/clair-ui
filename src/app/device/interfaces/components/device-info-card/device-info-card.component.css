@@ -3,7 +3,7 @@
 }
 
 .device-info-card {
-  background-color: #111111;
+  background-color: var(--clair-surface-1);
   border-radius: 16px;
   border: none;
   box-shadow: none;
@@ -24,7 +24,7 @@
 }
 
 .back-button {
-  color: #ffffff;
+  color: var(--clair-text);
   margin-right: 16px;
 }
 
@@ -39,7 +39,7 @@
   font-size: 24px;
   font-weight: 500;
   margin: 0;
-  color: #ffffff;
+  color: var(--clair-text);
 }
 
 .status-dot {
@@ -73,17 +73,17 @@
 
 .action-button--on {
   background-color: #10b981;
-  color: #ffffff;
+  color: var(--clair-on-accent);
 }
 
 .action-button--off {
-  background-color: #2a2a2a;
-  color: #ffffff;
+  background-color: var(--clair-border);
+  color: var(--clair-text);
 }
 
 .action-button--secondary {
-  background-color: #2a2a2a;
-  color: #ffffff;
+  background-color: var(--clair-border);
+  color: var(--clair-text);
 }
 
 .action-button mat-icon {
@@ -130,7 +130,7 @@
 }
 
 .metric-item {
-  background-color: #1a1a1a;
+  background-color: var(--clair-surface-2);
   border-radius: 12px;
   padding: 20px;
 }
@@ -138,7 +138,7 @@
 .metric-label {
   font-size: 11px;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--clair-text-muted);
   letter-spacing: 0.5px;
   margin-bottom: 12px;
   text-transform: uppercase;
@@ -154,19 +154,83 @@
   font-size: 18px;
   width: 18px;
   height: 18px;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .metric-number {
   font-size: 28px;
   font-weight: 600;
-  color: #ffffff;
+  color: var(--clair-text);
 }
 
 .metric-unit {
   font-size: 12px;
-  color: #9ca3af;
+  color: var(--clair-text-secondary);
   margin-left: 2px;
+}
+
+.metrics-container--two {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.outdoor-section {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--clair-text-muted);
+  margin: 0 0 12px;
+}
+
+.section-title--spaced {
+  margin-top: 18px;
+}
+
+.power-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.power-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--clair-surface-2);
+  border: 1px solid var(--clair-border);
+  color: var(--clair-text);
+  font-size: 13px;
+}
+
+.power-chip--active {
+  border-color: color-mix(in srgb, #f59e0b 55%, var(--clair-border));
+  background: color-mix(in srgb, #f59e0b 12%, var(--clair-surface-2));
+}
+
+.chip-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--clair-text-secondary);
+}
+
+.chip-label {
+  color: var(--clair-text-muted);
+  font-weight: 500;
+}
+
+.chip-value {
+  font-weight: 600;
 }
 
 /* Device Info */
@@ -182,11 +246,11 @@
 }
 
 .info-label {
-  color: #6b7280;
+  color: var(--clair-text-muted);
   font-weight: 500;
 }
 
 .info-value {
-  color: #ffffff;
+  color: var(--clair-text);
   font-weight: 500;
 }

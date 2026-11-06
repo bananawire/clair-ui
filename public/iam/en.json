@@ -47,6 +47,7 @@
     "loginLink": "Login",
     "snackbar": {
       "success": "Registration successful. Check your email to confirm.",
+      "localSuccess": "Local account created. You can now sign in with your email and password.",
       "close": "Close"
     },
     "error": {
@@ -88,14 +89,31 @@
   },
   "settings": {
     "title": "Settings",
-    "subtitle": "Manage your account session.",
+    "subtitle": "Manage your profile, how Clair looks, its language and your session on this device.",
+    "profileCard": {
+      "title": "Profile",
+      "subtitle": "The account you are signed in with and the plan it is on.",
+      "emailLabel": "Email",
+      "planLabel": "Plan",
+      "planFree": "Free",
+      "planPremium": "Premium",
+      "upgradeLink": "See Premium plans"
+    },
+    "appearanceCard": {
+      "title": "Appearance",
+      "subtitle": "Choose the color theme for Clair. Your choice is saved on this browser and applied every time you open the app.",
+      "dark": "Dark",
+      "darkHint": "Black background. Easier on the eyes in dim rooms and at night.",
+      "light": "Light",
+      "lightHint": "Soft gray background. Better in bright rooms and for reading reports."
+    },
     "languageCard": {
       "title": "Language",
       "subtitle": "Choose the language you want to use throughout the application."
     },
     "sessionCard": {
-      "title": "Account Session",
-      "subtitle": "Sign out of your account on this device."
+      "title": "Session",
+      "subtitle": "Sign out of Clair on this device. Your spaces, devices and alerts stay saved in your account."
     },
     "languageLabel": "Language",
     "languageEnglish": "English",
