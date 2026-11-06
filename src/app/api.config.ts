@@ -11,6 +11,7 @@ export const API_CONFIG = {
     devices: '/v1/devices',
     evaluations: '/v1/evaluations',
     analytics: '/v1/analytics',
-    assistant: '/v1/assistant'
+    assistant: '/v1/assistant',
+    alertaNino: '/v1/alerta-nino'
   }
 } as const;
