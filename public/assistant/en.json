@@ -16,10 +16,9 @@
       "body": "I can explain your CO2, PM2.5, temperature and humidity readings and tell you what to do when something is out of range."
     },
     "suggestions": {
-      "status": "How is the air in my spaces right now?",
-      "co2": "What CO2 level is healthy in an office?",
-      "alerts": "Explain my active alerts",
-      "ventilation": "When should I ventilate?"
+      "heat": "What should I do for my grandmother in the heat?",
+      "dengue": "How can I prevent dengue at home?",
+      "emergencyKit": "What should I pack in my emergency kit?"
     },
     "composer": {
       "placeholder": "Type your question…",

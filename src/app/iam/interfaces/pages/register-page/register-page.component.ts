@@ -80,6 +80,11 @@ export class RegisterPageComponent {
       this.authCommandService.handleSignUp(command).pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
         next: (result) => {
           this.loading = false;
+          if (result.verificationRequired === false) {
+            this.snackBar.open(this.translate.instant('register.snackbar.localSuccess'), this.translate.instant('register.snackbar.close'), { duration: 3000 });
+            this.router.navigate(['/login']);
+            return;
+          }
           this.snackBar.open(this.translate.instant('register.snackbar.success'), this.translate.instant('register.snackbar.close'), { duration: 3000 });
           this.router.navigate(['/confirm'], { queryParams: { sessionId: result.sessionId } });
         },

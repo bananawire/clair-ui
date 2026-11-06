@@ -47,6 +47,7 @@
     "loginLink": "Inicia sesión",
     "snackbar": {
       "success": "Registro exitoso. Revisa tu correo electrónico para confirmar.",
+      "localSuccess": "Cuenta local creada. Ya puedes iniciar sesión con tu correo y contraseña.",
       "close": "Cerrar"
     },
     "error": {
