@@ -8,6 +8,6 @@ describe('claimDeviceCommandToResource', () => {
 
     const resource = claimDeviceCommandToResource(command);
 
-    expect(resource).toEqual({ claimToken: 'claim-abc', spaceId: 'space-1' });
+    expect(resource).toEqual({ claimToken: 'CLAIM-ABC', spaceId: 'space-1' });
   });
 });
